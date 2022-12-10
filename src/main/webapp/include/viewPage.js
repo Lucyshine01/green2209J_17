@@ -46,6 +46,10 @@ $(document).ready(function(){
   $("#headerTop").slideDown(700);
   $("#mainView").css("background-color","#000225");
   // carousel
+  let tempTot = $(".carousel-item img").length + ""; // 요소(ELEMENT) 안의 해당객체 갯수 구하기
+  if(tempTot.length == 1) tempTot = "0" + tempTot;
+  $("#numTot").html(" / "+tempTot);
+  $("#numIns").html("01");
   $("#slideImg").on('slide.bs.carousel', function(e){
     let val = e.to;
     $("#numIns").html("0"+(val+1));
@@ -62,7 +66,10 @@ $(document).ready(function(){
       $("#mainView").css("background-color","#37116c");
     }
     else if(val == 4) {
-      $("#mainView").css("background-color","#ddd");
+      $("#mainView").css("background-color","#999");
+    }
+    else if(val == 5) {
+      $("#mainView").css("background-color","#603a3a");
     }
   });
   $('#slideImg').carousel({

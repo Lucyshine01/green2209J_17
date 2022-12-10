@@ -49,6 +49,9 @@ a:hover {
   justify-content: center;
 }
 .header{height: 74px;}
+
+#logo {padding-top: 10px;}
+
 #searchBox {
   position: relative;
 }
@@ -115,16 +118,16 @@ a:hover {
 }
 
 .navIconBox .nav-icon:hover + .help {
-  top: -50px;
+  top: -45px;
   visibility: visible;
   opacity: 1;
   transition: 0.3s;
 }
 .navIconBox .help {
   position: absolute;
-  padding: 8px;
+  padding: 12px;
   border-radius: 3px;
-  box-shadow: 0 0px 2px 1px #ddd;
+  box-shadow: 0 0px 3px 1px #eee;
   background-color: #fff;
   text-align: center;
   top: -20px;
@@ -134,10 +137,10 @@ a:hover {
   pointer-events: none;
   transition: 0.3s;
 }
-#help1 {left:120px}
-#help2 {left:240px}
-#help3 {left:340px}
-#help4 {left:440px}
+#help1 {left:17%}
+#help2 {left:31%}
+#help3 {left:44%}
+#help4 {left:53%}
 
 #mainView {
   padding-top: 60px;

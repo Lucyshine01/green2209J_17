@@ -15,7 +15,7 @@
   <div id="headMain" class="container-fluid-xl" style="background-color:#fff;" >
     <div class="width d-flex">
       <div id="logo" class="d-flex fCol_center header pl-4">
-        <a href="#"><img src="images/viewPage/logo.png"/></a>
+        <a href="#"><img src="images/viewPage/logo3.png" width="120px"/></a>
       </div>
       <div id="searchBox" class="ml-auto d-flex text-center fCol_center header">
         <input type="text" id="search" name="search" placeholder="서비스, 업체를 검색해 보세요" autocomplete='off' spellcheck="false">
@@ -63,11 +63,11 @@
         </div>
         <div class="navIconBox">
           <a href="#" class="nav-link nav-icon d-flex fCol_center">의뢰 목록</a>
-          <span id="help1" class="help">다양한 분야의 <b>전문가에게 의뢰</b>해보세요.</span>
+          <span id="help1" class="help"><b>다양한 분야의 전문가</b>에게 의뢰해보세요.</span>
         </div>
         <div class="navIconBox">
           <a href="#" class="nav-link nav-icon d-flex fCol_center">업체 목록</a>
-          <span id="help2" class="help">인테모아의 <b>다양한 업체</b>를 만나보세요.</span>
+          <span id="help2" class="help"><b>인테모아의 다양한 업체</b>를 만나보세요.</span>
         </div>
         <div class="navIconBox">
           <a href="#" class="nav-link nav-icon d-flex fCol_center">고객센터</a>

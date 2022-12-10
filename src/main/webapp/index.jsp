@@ -13,7 +13,7 @@
   <style></style>
 </head>
 
-<body>
+<body ondragstart="return false" onselectstart="return false">
 	<jsp:include page="/include/header.jsp"></jsp:include>
 
 	<jsp:include page="/include/body.jsp"></jsp:include>
