@@ -8,20 +8,15 @@
   <title>home.jsp</title>
   <jsp:include page="/include/bs4.jsp"></jsp:include>
   
-  <script src="include/header.js"></script>
-  <link href="include/header.css" rel="stylesheet" type="text/css">
-  
-  <script src="include/body.js"></script>
-  <link href="include/body.css" rel="stylesheet" type="text/css">
-  
+  <link href="include/viewPage.css" rel="stylesheet" type="text/css">
   <script></script>
   <style></style>
 </head>
 
 <body>
-<jsp:include page="/include/header.jsp"></jsp:include>
+	<jsp:include page="/include/header.jsp"></jsp:include>
 
-<jsp:include page="/include/body.jsp"></jsp:include>
-
+	<jsp:include page="/include/body.jsp"></jsp:include>
+	<script src="include/viewPage.js"></script>
 </body>
 </html>

@@ -18,7 +18,7 @@
         <a href="#"><img src="images/viewPage/logo.png"/></a>
       </div>
       <div id="searchBox" class="ml-auto d-flex text-center fCol_center header">
-        <input type="text" id="searchWord" name="searchWord" placeholder="서비스, 업체를 검색해 보세요">
+        <input type="text" id="search" name="search" placeholder="서비스, 업체를 검색해 보세요" autocomplete='off' spellcheck="false">
         <i class="fa-solid fa-magnifying-glass"></i>
       </div>
       <div id="loginBox" class="d-flex fCol_center header">

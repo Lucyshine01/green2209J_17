@@ -57,22 +57,24 @@ a:hover {
   right: 10px;
   pointer-events: none;
 }
-#searchBox #searchWord{
+#searchBox #search{
   padding: 10px 18px;
   padding-right: 80px;
   font-size: 0.9em;
   border-radius: 20px;
   border: none;
   outline: 1px solid #ddd;
+  transition: 0.3s;
   /* font-family: 'Noto Sans KR', sans-serif; */
 }
-#searchBox #searchWord:hover {outline: 1px solid #999;}
-#searchBox #searchWord:focus {
+#searchBox #search:hover {outline: 1px solid #999;}
+#searchBox #search:focus {
   outline: 1px solid #999;
   padding-right: 150px;
   transition: 0.3s;
 }
-#searchBox #searchWord::placeholder {color:#ccc;}
+
+#searchBox #search::placeholder {color:#ccc;}
 #loginBox button{
   font-size: 1.12em;
   font-weight: 600;
@@ -130,10 +132,98 @@ a:hover {
   visibility: hidden;
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
   pointer-events: none;
+  transition: 0.3s;
 }
 #help1 {left:120px}
 #help2 {left:240px}
 #help3 {left:340px}
 #help4 {left:440px}
+
+#mainView {
+  padding-top: 60px;
+  padding-bottom: 60px;
+  transition: 0.5s;
+}
+
+#mainView_1 {
+  padding-left: 60px;
+  margin-top: 30px;
+}
+#mainViewTitle {
+  color: #fff;
+  font-family: 'Spoqa Han Sans Neo';
+  font-size: 2.4em;
+  font-weight: 500;
+}
+#mainView_searchBox{position: relative;}
+#mainView_searchBox #search2 {
+  margin: 20px 0;
+  background: none;
+  border: none;
+  border-radius: 4px;
+  outline: 2px solid #fff;
+  padding: 12px 300px 12px 20px;
+  font-family: 'Spoqa Han Sans Neo';
+  font-size: 1.4em;
+  color: #fff;
+}
+#mainView_searchBox i {
+  position: absolute;
+  font-size: 2.2em;
+  top: 30px;
+  right: 20px;
+  color: #fff;
+  cursor: pointer;
+}
+
+#mainView .hasTag {
+  margin-left: 15px;
+  padding: 5px 10px;
+  border-radius: 20px;
+  color: #fff;
+  background-color: rgba( 255, 255, 255, 0.05);
+  opacity: 1;
+  cursor: pointer;
+}
+
+
+#slideImg {
+  position: relative;
+  width: 500px;
+  z-index: 2;
+}
+.carousel-inner img {
+  border-radius: 6px;
+  width: 100%;
+  height: 100%;
+}
+#slideNumbar {
+  position: absolute;
+  background-color: #000;
+  opacity: 0.7;
+  padding: 3px 8px;
+  border-radius: 24px;
+  left: 80%;
+  top: 85%;
+  z-index: 1;
+}
+#slideNumbar span {
+  color: #fff;
+}
+.carousel-btn {
+  position: absolute;
+  height: 35px;
+  width: 35px;
+  top: 42%;
+  background-color: #fff;
+  border-radius: 35px;
+  font-size: 1em;
+  opacity: 0.7;
+  transition: 0.3s;
+}
+.carousel-btn:hover {
+  opacity: 1;
+  transition: 0.3s;
+}
 
 
