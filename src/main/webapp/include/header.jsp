@@ -12,7 +12,7 @@
       </div>
     </div>
   </a>
-  <div id="headMain" class="container-fluid-xl" style="background-color:#fff;" >
+  <div id="headMain" class="container-fluid-xl" style="z-index: 9;background-color:#fff;" >
     <div class="width d-flex">
       <div id="logo" class="d-flex fCol_center header pl-4">
         <a href="#"><img src="images/viewPage/logo3.png" width="120px"/></a>
@@ -20,6 +20,7 @@
       <div id="searchBox" class="ml-auto d-flex text-center fCol_center header">
         <input type="text" id="search" name="search" placeholder="서비스, 업체를 검색해 보세요" autocomplete='off' spellcheck="false">
         <i class="fa-solid fa-magnifying-glass"></i>
+        <i class="fa-solid fa-circle-xmark iconHidden" onclick="removeSearch()"></i>
       </div>
       <div id="loginBox" class="d-flex fCol_center header">
         <div>
@@ -74,7 +75,7 @@
           <span id="help3" class="help">관리자와 <b>1대1 문의/답변</b>이 가능합니다.</span>
         </div>
         <div class="navIconBox">
-          <a href="#" class="nav-link nav-icon d-flex fCol_center">후기</a>
+          <a href="#" class="nav-link nav-icon d-flex fCol_center">게시판</a>
           <span id="help4" class="help">업체 및 인테모아의 <b>사용후기를 작성</b>해보세요.</span>
         </div>
         <div style="width: 200px;"></div>

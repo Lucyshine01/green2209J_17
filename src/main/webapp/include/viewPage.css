@@ -6,6 +6,11 @@ body {
   padding: 0;
   font-family: 'Noto Sans KR';
 }
+hr {
+  margin: 0px;
+  padding: 0px;
+  border: 1px solid #e2e2e2;
+}
 a:hover {
   text-decoration: none;
 }
@@ -26,7 +31,7 @@ a:hover {
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1;
+  /* z-index: 9; */
 }
 #headerTop .width {
   height: 100%;
@@ -34,7 +39,7 @@ a:hover {
 }
 #headerTop #hTL {
   font-size: 1.5em;
-  font-weight: 400;
+  font-weight: 500;
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
 }
 #headerTop #hTR {
@@ -57,23 +62,38 @@ a:hover {
 }
 #searchBox i {
   position: absolute;
+  font-size: 1.2em;
   right: 10px;
-  pointer-events: none;
 }
+#searchBox .fa-circle-xmark {
+  cursor: pointer !important;
+  font-size: 1.5em;
+  color: #ddd;
+}
+#searchBox .fa-circle-xmark:hover {
+  color: #bbb;
+  transition: 0.3s;
+}
+.iconHidden {visibility: hidden;}
+
 #searchBox #search{
   padding: 10px 18px;
-  padding-right: 80px;
+  padding-right: 35px;
   font-size: 0.9em;
   border-radius: 20px;
   border: none;
   outline: 1px solid #ddd;
+  width: 250px;
   transition: 0.3s;
   /* font-family: 'Noto Sans KR', sans-serif; */
 }
-#searchBox #search:hover {outline: 1px solid #999;}
+#searchBox #search:hover {
+  outline: 1px solid #999;
+  transition: 0.3s;
+}
 #searchBox #search:focus {
   outline: 1px solid #999;
-  padding-right: 150px;
+  /* padding-right: 150px; */
   transition: 0.3s;
 }
 
@@ -82,6 +102,7 @@ a:hover {
   font-size: 1.12em;
   font-weight: 600;
 }
+nav {position: relative;}
 #navbardrop {
   padding-left: 10px !important;
   padding-right: 20px !important;
@@ -229,4 +250,68 @@ a:hover {
   transition: 0.3s;
 }
 
+#category {padding-bottom: 50px;}
+
+.category_Icon {
+  /* border: 1px solid #ccc; */
+  border-radius: 30px;
+  padding: 20px;
+  background-color: #fff;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.category_Icon:hover {
+  background-color: #f0f0f0;
+  transition: 0.3s;
+}
+.category_Icon:active {
+  background-color: #ccc;
+  transition: 0.3s;
+}
+.category_Icon span {
+  margin-top: 20px;
+  font-size: 1.5em;
+  font-weight: 600;
+  font-family: 'Spoqa Han Sans Neo';
+  pointer-events: none;
+}
+
+
+#advBox {
+  background-color: #f0f0f0;
+  padding-bottom: 50px;
+}
+#advBox .adv {
+  /* border: 1px solid #999; */
+  width: 360px;
+  margin: 0px 20px;
+  box-shadow: 0px 0px 10px 2px #ddd;
+  border-radius: 12px;
+  background-color: #fff;
+  padding: 40px;
+  padding-right: 80px;
+}
+
+#advBox .adv .advTitle {
+  font-size: 1.3em;
+  font-weight: 700;
+}
+
+#advBox .adv .advSub {
+  font-size: 1.1em;
+  margin-top: 30px;
+}
+
+#helpCenter {
+  padding: 40px 0px;
+}
+#helpCenter .botMenu {
+  font-size: 1em;
+  font-weight: 300;
+  font-family: 'Spoqa Han Sans Neo';
+}
+#helpCenter > div {
+  margin-left: 70px;
+  margin-right: 70px;
+}
 

@@ -13,6 +13,13 @@ else if(randomSearch == 9) $("#search2").val("필름교체");
 else if(randomSearch == 10) $("#search2").val("도면 제작 수정");
 else if(randomSearch == 11) $("#search2").val("3D모델링");
 else if(randomSearch == 12) $("#search2").val("인테리어 컨설팅");
+
+function removeSearch() {
+  $("#search").val("");
+  $("#searchBox .fa-circle-xmark").addClass("iconHidden");
+  $("#searchBox .fa-magnifying-glass").removeClass("iconHidden");
+}
+
 // 요소나온후 미리 읽어와야함
 window.onload = function() {
   let loadingBar = document.getElementById("loading_Bar");
@@ -31,7 +38,7 @@ window.onload = function() {
     }
   }
   else {
-    $("#headerTop").addClass("fixTop");
+    $("#headerMain").addClass("fixTop");
     $("#headMainSpace").css("height",space);
   }
 });
@@ -45,6 +52,25 @@ $(document).ready(function(){
   $("#headerTop").delay(700);
   $("#headerTop").slideDown(700);
   $("#mainView").css("background-color","#000225");
+  $("html, body").animate({ scrollTop: 0 }, 5); 
+  
+  $("#search").on('focusin',function(e){
+    $(this).animate({width:"350px"},10);
+  });
+  $("#search").on('focusout',function(e){
+    $(this).animate({width:"250px"},10);
+  });
+  $("#search").keyup(function(){
+    if($(this).val().length >= 1){
+      $("#searchBox .fa-circle-xmark").removeClass("iconHidden");
+      $("#searchBox .fa-magnifying-glass").addClass("iconHidden");
+    }
+    else {
+      $("#searchBox .fa-circle-xmark").addClass("iconHidden");
+      $("#searchBox .fa-magnifying-glass").removeClass("iconHidden");
+    }
+  });
+  
   // carousel
   let tempTot = $(".carousel-item img").length + ""; // 요소(ELEMENT) 안의 해당객체 갯수 구하기
   if(tempTot.length == 1) tempTot = "0" + tempTot;
@@ -71,11 +97,14 @@ $(document).ready(function(){
     else if(val == 5) {
       $("#mainView").css("background-color","#603a3a");
     }
+    else if(val == 6) {
+      $("#mainView").css("background-color","#7c9585");
+    }
   });
   $('#slideImg').carousel({
     // 슬리아딩 자동 순환 지연 시간
     // false면 자동 순환하지 않는다.
-    interval: 3000,
+    interval: 5000,
     // hover를 설정하면 마우스를 가져대면 자동 순환이 멈춘다.
     pause: "hover",
     // 순환 설정, true면 1 -> 2가면 다시 1로 돌아가서 반복
