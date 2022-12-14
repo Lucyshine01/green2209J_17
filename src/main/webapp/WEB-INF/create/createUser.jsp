@@ -11,6 +11,8 @@
   <link href="include/viewPage.css" rel="stylesheet" type="text/css">
   <script>
 	  'use strict';
+	  let idOverSw = 0;
+	  let userSw = 0;
 	  const date = new Date();
 	  let year = date.getFullYear();
 	  let month = date.getMonth() + 1;
@@ -20,23 +22,38 @@
 	    $("#cBtn1").click(function(){
 	      $(this).addClass("activeBtn");
 	      $("#cBtn2").removeClass("activeBtn");
-	      $("#normal").show();
 	      $("#company").hide();
+	      $("#companyTitle").hide();
+	      $("#normalTitle").show();
+	      userSw = 0;
 	    });
 	    $("#cBtn2").click(function(){
 	      $(this).addClass("activeBtn");
 	      $("#cBtn1").removeClass("activeBtn");
-	      $("#normal").hide();
 	      $("#company").show();
+	      $("#companyTitle").show();
+	      $("#normalTitle").hide();
+	      userSw = 1;
 	    });
 	    $(".form-item").click(function(){
 	      $(this).next().find("input").focus();
 	    });
 	
 	    $("input[type=date]").attr("max",max);
+	    
+	    $("#mid").on("propertychange change paste input",function() {
+	    	idOverSw = 0;
+	    	$("#overCheckBtn").removeAttr("disabled");
+	    	$("#check").hide();
+	    });
+	    
 	  });
 	  
 	  function createUser() {
+		  if(idOverSw = 0) {
+			  alert("아이디 중복체크를 하세요!");
+			  return;
+		  }
 			let mid = document.getElementById("mid").value;
 			let pwd = document.getElementById("pwd").value;
 			let email = document.getElementById("email").value;
@@ -45,23 +62,165 @@
 			
 			let regId = /^([a-zA-Z0-9]){6,20}$/g;   //아이디는 영문소문자,대문자,숫자,밑줄만 사용가능  
 			let regPwd = /^([!@#$%^&+=<>?,\./\*()_-]?[a-zA-Z0-9]){6,20}$/g;  //비밀번호는 영문대,소문자,숫자,키보드에서 입력가능한 특수문자 사용가능 최소6자~최대20자
-			let regNick = /^([가-힣a-zA-Z]{2,20})$/g;  //닉네임은 한글/영문만 가능하도록 길이는 2~20자까지
 			let regEmail = /^([-_.]?[0-9a-zA-Z]){4,20}@+([-_.]?[0-9a-zA-Z]){4,20}.+[a-zA-Z]{2,3}$/i; //이메일 형식에 맞도록 체크(a@b.c)
 			let regTel = /^([0-9]){2,3}-+([0-9]){3,4}-+([0-9]){3,4}$/g;
 			
-			let name = document.getElementById("").value;
-			let cpName = document.getElementById("").value;
-			let cpImg = document.getElementById("").value;
-			let cpIntro = document.getElementById("").value;
-			let cpIntroImg = document.getElementById("").value;
-			let cpAddr = document.getElementById("").value;
-			let cpHomePage = document.getElementById("").value;
-			let cpExp = document.getElementById("").value;
+			if(mid.trim() == ""){
+				alert("아이디를 입력해주세요!");
+	      document.getElementById("mid").focus();
+	      return false;
+			}
+			else if(pwd.trim() == ""){
+				alert("비밀번호를 입력해주세요!");
+	      document.getElementById("pwd").focus();
+	      return false;
+			}
+			else if(email.trim() == ""){
+				alert("이메일을 입력해주세요!");
+	      document.getElementById("email").focus();
+	      return false;
+			}
+			else if(birth.trim() == ""){
+				alert("생일을 등록해주세요!");
+	      document.getElementById("brith").focus();
+	      return false;
+			}
+			else if(tel.trim() == ""){
+				alert("전화번호를 입력해주세요!");
+	      document.getElementById("tel").focus();
+	      return false;
+			}
+			
+			if(!mid.trim().match(regId)){
+				alert("허용되지 않는 아이디입니다!");
+	      document.getElementById("mid").focus();
+	      return false;
+			}
+			else if(!pwd.trim().match(regPwd)){
+				alert("허용되지 않는 비밀번호입니다!");
+	      document.getElementById("pwd").focus();
+	      return false;
+			}
+			else if(!email.trim().match(regEmail)){
+				alert("허용되지 않는 이메일입니다!");
+	      document.getElementById("email").focus();
+	      return false;
+			}
+			else if(!tel.trim().match(regTel)){
+				alert("허용되지 않는 전화번호입니다!");
+	      document.getElementById("tel").focus();
+	      return false;
+			}
+			
+			if(userSw == 0){
+				$("#sw").val("0");
+				createForm.submit();
+				return;
+			}
+			
+			
+			let name = document.getElementById("name").value;
+			let cpName = document.getElementById("cpName").value;
+			let cpIntro = document.getElementById("cpIntro").value;
+			let cpAddr = document.getElementById("cpAddr").value;
+			let cpHomePage = document.getElementById("cpHomePage").value;
+			let cpExp = document.getElementsByName("cpExp");
+			
+			let cpImg = document.getElementById("cpImg").value;
+			let exp = cpImg.substring(cpImg.lastIndexOf('.')).toUpperCase();
+			cpImg = cpImg.substring(0,cpImg.lastIndexOf('.'));
 			
 			let regName = /^([가-힣a-zA-Z]{2,10})$/g;  //성명은 한글/영문만 가능하도록 길이는 2~20자까지
 			let regCPName = /^([가-힣a-zA-Z]{2,50})$/g;
-			let regCPImg = /^([가-힣a-zA-Z]{1,100})$/g;
+			let regCPImg = /^([가-힣a-zA-Z0-9]{1,40})$/g;
 			
+			let strExp = "";
+			for(let i=0; i<cpExp.length; i++){
+				if(cpExp[i].checked){
+					strExp += cpExp[i].value + "/";
+				}
+			}
+			if(strExp.length > 1){
+				strExp = strExp.substring(0, strExp.length-1);
+			}
+			$("#strExp").val(strExp);
+			
+			if(name.trim() == ""){
+				alert("대표명을 입력해주세요!");
+	      document.getElementById("name").focus();
+	      return false;
+			}
+			else if(cpName.trim() == ""){
+				alert("회사명을 입력해주세요!");
+	      document.getElementById("cpName").focus();
+	      return false;
+			}
+			else if(cpImg.trim() == ""){
+				alert("회사로고를 등록해주세요!");
+	      document.getElementById("cpImg").focus();
+	      return false;
+			}
+			else if(cpAddr.trim() == ""){
+				alert("회사 주소를 입력해주세요!");
+	      document.getElementById("cpAddr").focus();
+	      return false;
+			}
+			
+			
+			if(!name.trim().match(regName)){
+				alert("대표명을 확인해주세요!");
+	      document.getElementById("name").focus();
+	      return false;
+			}
+			else if(!cpName.trim().match(regCPName)){
+				alert("회사명을 확인해주세요!");
+	      document.getElementById("cpName").focus();
+	      return false;
+			}
+			else if(!cpImg.substring(cpImg.lastIndexOf('\\')+1).trim().match(regCPImg)){
+				alert("로고 파일명이 잘못되었습니다!");
+	      document.getElementById("cpImg").focus();
+	      return false;
+			}
+			else if(exp != '.PNG' && exp != '.JPG'){
+				alert("로고 파일명 확장자가 잘못 되었습니다.");
+	      document.getElementById("cpImg").focus();
+	      return false;
+			}
+			
+			let imgSize = document.getElementById("cpImg").files[0].size;
+			$("#imgSize").val(imgSize);
+			
+			if(userSw == 1){
+				$("#sw").val("1");
+				createForm.submit();
+			}
+		
+		}
+	  
+	  
+	  function idOverCheck() {
+			let mid = $("#mid").val()
+			$.ajax({
+				type: "post",
+				url : "${ctp}/idOverCheck.us",
+				data: {mid:mid},
+				success: function(res) {
+					if(res=="0"){
+						alert("사용하실수 있는 아이디입니다.");
+						
+						idOverSw = 1;
+						$("#overCheckBtn").attr("disabled","");
+						$("#check").show();
+					}
+					else {
+						alert("중복된 아이디가 있습니다!");
+					}
+				},
+				error: function() {
+					alert("전송 오류");
+				}
+			});
 		}
 	  
   </script>
@@ -72,6 +231,7 @@
       color: #bbb;
       font-size: 1em;
     }
+    #check{display: none;}
     #changeBtnBar {
       padding-top: 80px;
       cursor: pointer !important;
@@ -102,7 +262,7 @@
       border-bottom-right-radius: 10px;
       background-color: #fff;
     }
-    #form #company {display: none;}
+    #form #company, #form #companyTitle {display: none;}
     .form-item {
       font-size: 1.2em;
       border-radius: 20px;
@@ -158,9 +318,15 @@
       </div>
       <div id="form">
         <div id="normal" class="text-center">
-          <div class="mb-2" style="font-weight: 500; font-size: 2.2em">일 반 회 원 가 입</div>
-          <span style="color: #bbb;">회원가입은 만 19세 이상부터 가능합니다.</span>
-          <form name="normalForm" action="" method="post" class="was-validated">
+        	<div id="normalTitle">
+	          <div class="mb-2" style="font-weight: 500; font-size: 2.2em">일 반 회 원 가 입</div>
+	          <span style="color: #bbb;">회원가입은 만 19세 이상부터 가능합니다.</span>
+          </div>
+          <div id="companyTitle">
+	          <div class="mb-2" style="font-weight: 500; font-size: 2.2em">기 업 회 원 가 입</div>
+	          <span style="color: #bbb;">기업 회원은 가입 완료시 관리자의 승인 전까지<br/>일반 회원으로 분류되어집니다.</span>
+          </div>
+          <form name="createForm" method="post" class="was-validated" action="${ctp}/createUserOk.us" enctype="multipart/form-data" >
             <div class="container">
               <div class="row item-row">
                 <div class="col-2"></div>
@@ -171,7 +337,10 @@
                     아이디는 최소 6자 최대 20자입니다.
                   </div>
                 </div>
-                <div class="col-2"></div>
+                <div class="col-2 d-flex" style="padding:0px;">
+                	<div class="d-flex fCol_center"><input type="button" onclick="idOverCheck()" value="중복체크" id="overCheckBtn" style="float: left; width: 80px"/></div>
+                	<div class="d-flex fCol_center ml-2"><i id="check" class="fa-regular fa-circle-check" style="color: #03E646; font-size: 1.3em"></i></div>
+                </div>
               </div>
               <div class="row item-row">
                 <div class="col-2"></div>
@@ -217,6 +386,138 @@
                 </div>
                 <div class="col-2"></div>
               </div>
+              <div id="company">
+	              <div style="margin-top: 50px; font-size: 1.3em;"> 기업 회원용 </div>
+	              <span style="color: #bbb;">부적합한 내용으로 인해 관리자 승인을 받지 못할 경우<br/>1대1 문의를 통해 수정을 요청하실수 있습니다.</span>
+	              <div class="row item-row">
+		              <div class="col-2"></div>
+		              <div class="col-3 d-flex fCol_center form-item">회사명</div>
+		              <div class="col-5 d-flex fCol_center">
+		                <input type="text" name="cpName" id="cpName" class="form-control" required>
+		                <div class="invalid-feedback text-left">
+		                  회사명을 입력해주세요.
+		                </div>
+		              </div>
+		              <div class="col-2"></div>
+		            </div>
+		            <div class="row item-row">
+		              <div class="col-2"></div>
+		              <div class="col-3 d-flex fCol_center form-item">대표 성명</div>
+		              <div class="col-5 d-flex fCol_center">
+		                <input type="text" name="name" id="name" class="form-control" required>
+		                <div class="invalid-feedback text-left">
+		                  대표명을 입력해주세요.
+		                </div>
+		              </div>
+		              <div class="col-2"></div>
+		            </div>
+		            <div class="row item-row">
+		              <div class="col-2"></div>
+		              <div class="col-3 d-flex fCol_center form-item">회사 주소</div>
+		              <div class="col-5 d-flex fCol_center">
+		                <input type="text" name="cpAddr" id="cpAddr" class="form-control" required>
+		                <div class="invalid-feedback text-left">
+		                  주소를 입력해주세요.
+		                </div>
+		              </div>
+		              <div class="col-2"></div>
+		            </div>
+		            <div class="row item-row">
+		              <div class="col-2"></div>
+		              <div class="col-3 d-flex fCol_center form-item">홈페이지</div>
+		              <div class="col-5 d-flex fCol_center">
+		                <input type="text" name="cpHomePage" id="cpHomePage" class="form-control" placeholder="홈페이지가 있으시면 기입해주세요">
+		              </div>
+		              <div class="col-2"></div>
+		            </div>
+		            <div class="row item-row">
+		              <div class="col-2"></div>
+		              <div class="col-2 d-flex fCol_center form-item">전문분야</div>
+		              <div class="col-6">
+		                <div class="text-center categori">인테리어</div>
+		                <div class="d-flex checkFrom justify-content-start mb-2">
+		                  <div class="d-flex">
+		                    <div class="d-flex fCol_center"><input type="checkbox" name="cpExp" value="홈 인테리어" ></div>
+		                    <div class="d-flex fCol_center categori-item">&nbsp;홈 인테리어</div>
+		                  </div>
+		                  <div class="d-flex">
+		                    <div class="d-flex fCol_center"><input type="checkbox" name="cpExp" value="상업 인테리어" ></div>
+		                    <div class="d-flex fCol_center categori-item">&nbsp;상업 인테리어</div>
+		                  </div>
+		                </div>
+		                <div class="d-flex checkFrom justify-content-start">
+		                  <div class="d-flex">
+		                    <div class="d-flex fCol_center"><input type="checkbox" name="cpExp" value="조명 인테리어" ></div>
+		                    <div class="d-flex fCol_center categori-item">&nbsp;조명 인테리어</div>
+		                  </div>
+		                  <div class="d-flex">
+		                    <div class="d-flex fCol_center"><input type="checkbox" name="cpExp" value="욕실/화장실 인테리어" ></div>
+		                    <div class="d-flex fCol_center categori-item">&nbsp;욕실/화장실 인테리어</div>
+		                  </div>
+		                </div>
+		                <div class="text-center categori">시공</div>
+		                <div class="d-flex checkFrom justify-content-start mb-2">
+		                  <div class="d-flex">
+		                    <div class="d-flex fCol_center"><input type="checkbox" name="cpExp" value="타일시공" ></div>
+		                    <div class="d-flex fCol_center categori-item">&nbsp;타일시공</div>
+		                  </div>
+		                  <div class="d-flex">
+		                    <div class="d-flex fCol_center"><input type="checkbox" name="cpExp" value="페인트시공" ></div>
+		                    <div class="d-flex fCol_center categori-item">&nbsp;페인트시공</div>
+		                  </div>
+		                  <div class="d-flex">
+		                    <div class="d-flex fCol_center"><input type="checkbox" name="cpExp" value="싱크대 교체" ></div>
+		                    <div class="d-flex fCol_center categori-item">&nbsp;싱크대 교체</div>
+		                  </div>
+		                </div>
+		                <div class="d-flex checkFrom justify-content-start">
+		                  <div class="d-flex">
+		                    <div class="d-flex fCol_center"><input type="checkbox" name="cpExp" value="도배장판" ></div>
+		                    <div class="d-flex fCol_center categori-item">&nbsp;도배장판시공</div>
+		                  </div>
+		                  <div class="d-flex">
+		                    <div class="d-flex fCol_center"><input type="checkbox" name="cpExp" value="인테리어 필름" ></div>
+		                    <div class="d-flex fCol_center categori-item">&nbsp;인테리어 필름시공</div>
+		                  </div>
+		                </div>
+		                <div class="text-center categori">디자인</div>
+		                <div class="d-flex checkFrom justify-content-start mb-2">
+		                  <div class="d-flex">
+		                    <div class="d-flex fCol_center"><input type="checkbox" name="cpExp" value="도면 제작·수정" ></div>
+		                    <div class="d-flex fCol_center categori-item">&nbsp;도면 제작·수정</div>
+		                  </div>
+		                  <div class="d-flex">
+		                    <div class="d-flex fCol_center"><input type="checkbox" name="cpExp" value="인테리어 컨설팅" ></div>
+		                    <div class="d-flex fCol_center categori-item">&nbsp;인테리어 컨설팅</div>
+		                  </div>
+		                </div>
+		                <div class="d-flex checkFrom justify-content-start">
+		                  <div class="d-flex">
+		                    <div class="d-flex fCol_center"><input type="checkbox" name="cpExp" value="3D 모델링" ></div>
+		                    <div class="d-flex fCol_center categori-item">&nbsp;3D 모델링</div>
+		                  </div>
+		                </div>
+		              </div>
+		              <div class="col-2"></div>
+		            </div>
+		            <div class="row item-row">
+		              <!-- <div class="col-1"></div> -->
+		              <div class="col-1 d-flex fCol_center form-item" style="margin-left: 40px;">회사 소개</div>
+		              <div class="col-10 d-flex fCol_center"><textarea rows="7" name="cpIntro" id="cpIntro" placeholder="소개" class="form-control" wrap="off" style="resize: none;" ></textarea></div>
+		              <!-- <div class="col-1"></div> -->
+		            </div>
+		            <div class="row item-row">
+		              <div class="col-2"></div>
+		              <div class="col-3 d-flex fCol_center form-item">회사명 로고</div>
+		              <div class="col-5 d-flex fCol_center">
+		                <input type="file" name="cpImg" id="cpImg" class="mt-2 mb-3" required>
+		                <div class="invalid-feedback text-left" style="color: #666; top: 40px;">
+		                  [필수]로고 이미지를 넣어주세요.(jpg,png파일만 허용합니다.)
+		                </div>
+		              </div>
+		              <div class="col-2"></div>
+		            </div>
+	            </div>
               <div class="row item-row">
                 <div class="col-3"></div>
                 <div class="col-6 d-flex fCol_center" style="margin-top: 30px;">
@@ -225,206 +526,9 @@
                 <div class="col-3"></div>
               </div>
             </div>
-          </form>
-        </div>
-        <div id="company" class="text-center">
-          <div class="mb-2" style="font-weight: 500; font-size: 2.2em">기 업 회 원 가 입</div>
-          <span style="color: #bbb;">기업 회원은 가입 완료시 관리자의 승인 전까지<br/>일반 회원으로 분류되어집니다.</span>
-          <form name="companyForm" action="" method="post" class="was-validated">
-            <div class="container">
-              <div class="row item-row">
-                <div class="col-2"></div>
-                <div class="col-3 d-flex fCol_center form-item">아이디</div>
-                <div class="col-5 d-flex fCol_center">
-                  <input type="text" name="mid" id="mid" class="form-control" placeholder="아이디를 입력하세요" required>
-                  <div class="invalid-feedback text-left">
-                    아이디는 최소 6자 최대 20자입니다.
-                  </div>
-                </div>
-                <div class="col-2"></div>
-              </div>
-              <div class="row item-row">
-                <div class="col-2"></div>
-                <div class="col-3 d-flex fCol_center form-item">비밀번호</div>
-                <div class="col-5 d-flex fCol_center">
-                  <input type="text" name="pwd" id="pwd" class="form-control" placeholder="비밀번호를 입력하세요" required>
-                  <div class="invalid-feedback text-left">
-                    비밀번호는 영문,숫자를 합쳐 최소 8자 이상입니다.
-                  </div>
-                </div>
-                <div class="col-2"></div>
-              </div>
-              <div class="row item-row">
-                <div class="col-2"></div>
-                <div class="col-3 d-flex fCol_center form-item">이메일</div>
-                <div class="col-5 d-flex fCol_center">
-                  <input type="text" name="email" id="email" class="form-control" placeholder="example@exam.ple" required>
-                  <div class="invalid-feedback text-left">
-                    이메일을 입력하세요.
-                  </div>
-                </div>
-                <div class="col-2"></div>
-              </div>
-              <div class="row item-row">
-                <div class="col-2"></div>
-                <div class="col-3 d-flex fCol_center form-item">생년월일</div>
-                <div class="col-5 d-flex fCol_center">
-                  <input type="date" name="birth" id="birth" class="form-control" required>
-                  <div class="invalid-feedback text-left">
-                    생년월일을 입력해주세요
-                  </div>
-                </div>
-                <div class="col-2"></div>
-              </div>
-              <div class="row item-row">
-                <div class="col-2"></div>
-                <div class="col-3 d-flex fCol_center form-item">Phone</div>
-                <div class="col-5 d-flex fCol_center">
-                  <input type="text" name="tel" id="tel" class="form-control" placeholder="ex (010)-####-###" required>
-                  <div class="invalid-feedback text-left">
-                    전화번호를 입력해주세요.
-                  </div>
-                </div>
-                <div class="col-2"></div>
-              </div>
-              <div style="margin-top: 50px; font-size: 1.3em;"> 기업 회원용 </div>
-              <span style="color: #bbb;">부적합한 내용으로 인해 관리자 승인을 받지 못할 경우<br/>1대1 문의를 통해 수정을 요청하실수 있습니다.</span>
-              <div class="row item-row">
-                <div class="col-2"></div>
-                <div class="col-3 d-flex fCol_center form-item">회사명</div>
-                <div class="col-5 d-flex fCol_center">
-                  <input type="text" name="cpName" id="cpName" class="form-control" required>
-                  <div class="invalid-feedback text-left">
-                    회사명을 입력해주세요.
-                  </div>
-                </div>
-                <div class="col-2"></div>
-              </div>
-              <div class="row item-row">
-                <div class="col-2"></div>
-                <div class="col-3 d-flex fCol_center form-item">대표 성명</div>
-                <div class="col-5 d-flex fCol_center">
-                  <input type="text" name="name" id="name" class="form-control" required>
-                  <div class="invalid-feedback text-left">
-                    대표명을 입력해주세요.
-                  </div>
-                </div>
-                <div class="col-2"></div>
-              </div>
-              <div class="row item-row">
-                <div class="col-2"></div>
-                <div class="col-3 d-flex fCol_center form-item">회사 주소</div>
-                <div class="col-5 d-flex fCol_center">
-                  <input type="text" name="cpAddr" id="cpAddr" class="form-control" required>
-                  <div class="invalid-feedback text-left">
-                    주소를 입력해주세요.
-                  </div>
-                </div>
-                <div class="col-2"></div>
-              </div>
-              <div class="row item-row">
-                <div class="col-2"></div>
-                <div class="col-3 d-flex fCol_center form-item">홈페이지</div>
-                <div class="col-5 d-flex fCol_center">
-                  <input type="text" name="cpHomePage" id="cpHomePage" class="form-control" placeholder="홈페이지가 있으시면 기입해주세요">
-                </div>
-                <div class="col-2"></div>
-              </div>
-              <div class="row item-row">
-                <div class="col-2"></div>
-                <div class="col-2 d-flex fCol_center form-item">전문분야</div>
-                <div class="col-6">
-                  <div class="text-center categori">인테리어</div>
-                  <div class="d-flex checkFrom justify-content-start mb-2">
-                    <div class="d-flex">
-                      <div class="d-flex fCol_center"><input type="checkbox" name="cpExp" value="홈 인테리어" ></div>
-                      <div class="d-flex fCol_center categori-item">&nbsp;홈 인테리어</div>
-                    </div>
-                    <div class="d-flex">
-                      <div class="d-flex fCol_center"><input type="checkbox" name="cpExp" value="상업 인테리어" ></div>
-                      <div class="d-flex fCol_center categori-item">&nbsp;상업 인테리어</div>
-                    </div>
-                  </div>
-                  <div class="d-flex checkFrom justify-content-start">
-	                  <div class="d-flex">
-                      <div class="d-flex fCol_center"><input type="checkbox" name="cpExp" value="조명 인테리어" ></div>
-                      <div class="d-flex fCol_center categori-item">&nbsp;조명 인테리어</div>
-                    </div>
-                    <div class="d-flex">
-                      <div class="d-flex fCol_center"><input type="checkbox" name="cpExp" value="욕실/화장실 인테리어" ></div>
-                      <div class="d-flex fCol_center categori-item">&nbsp;욕실/화장실 인테리어</div>
-                    </div>
-                  </div>
-                  <div class="text-center categori">시공</div>
-                  <div class="d-flex checkFrom justify-content-start mb-2">
-                    <div class="d-flex">
-                      <div class="d-flex fCol_center"><input type="checkbox" name="cpExp" value="타일시공" ></div>
-                      <div class="d-flex fCol_center categori-item">&nbsp;타일시공</div>
-                    </div>
-                    <div class="d-flex">
-                      <div class="d-flex fCol_center"><input type="checkbox" name="cpExp" value="페인트시공" ></div>
-                      <div class="d-flex fCol_center categori-item">&nbsp;페인트시공</div>
-                    </div>
-                    <div class="d-flex">
-                      <div class="d-flex fCol_center"><input type="checkbox" name="cpExp" value="싱크대 교체" ></div>
-                      <div class="d-flex fCol_center categori-item">&nbsp;싱크대 교체</div>
-                    </div>
-                  </div>
-                  <div class="d-flex checkFrom justify-content-start">
-                    <div class="d-flex">
-                      <div class="d-flex fCol_center"><input type="checkbox" name="cpExp" value="도배장판" ></div>
-                      <div class="d-flex fCol_center categori-item">&nbsp;도배장판시공</div>
-                    </div>
-                    <div class="d-flex">
-                      <div class="d-flex fCol_center"><input type="checkbox" name="cpExp" value="인테리어 필름" ></div>
-                      <div class="d-flex fCol_center categori-item">&nbsp;인테리어 필름시공</div>
-                    </div>
-                  </div>
-                  <div class="text-center categori">디자인</div>
-                  <div class="d-flex checkFrom justify-content-start mb-2">
-                    <div class="d-flex">
-                      <div class="d-flex fCol_center"><input type="checkbox" name="cpExp" value="도면 제작·수정" ></div>
-                      <div class="d-flex fCol_center categori-item">&nbsp;도면 제작·수정</div>
-                    </div>
-                    <div class="d-flex">
-                      <div class="d-flex fCol_center"><input type="checkbox" name="cpExp" value="인테리어 컨설팅" ></div>
-                      <div class="d-flex fCol_center categori-item">&nbsp;인테리어 컨설팅</div>
-                    </div>
-                  </div>
-                  <div class="d-flex checkFrom justify-content-start">
-                    <div class="d-flex">
-                      <div class="d-flex fCol_center"><input type="checkbox" name="cpExp" value="3D 모델링" ></div>
-                      <div class="d-flex fCol_center categori-item">&nbsp;3D 모델링</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-2"></div>
-              </div>
-              <div class="row item-row">
-                <!-- <div class="col-1"></div> -->
-                <div class="col-1 d-flex fCol_center form-item" style="margin-left: 40px;">회사 소개</div>
-                <div class="col-10 d-flex fCol_center"><textarea rows="7" name="cpIntro" id="cpIntro" placeholder="소개" class="form-control" wrap="off" style="resize: none;" ></textarea></div>
-                <!-- <div class="col-1"></div> -->
-              </div>
-              <div class="row item-row">
-                <div class="col-2"></div>
-                <div class="col-3 d-flex fCol_center form-item">회사명 로고</div>
-                <div class="col-5 d-flex fCol_center">
-                  <input type="file" name="cpImg" id="cpImg" class="mt-2 mb-3" required>
-                  <div class="invalid-feedback text-left" style="color: #666; top: 40px;">
-                    [필수]로고 이미지를 넣어주세요.(jpg,png파일만 허용합니다.)
-                  </div>
-                </div>
-                <div class="col-2"></div>
-              </div>
-              <div class="row item-row">
-                <div class="col-3"></div>
-                <div class="col-6 d-flex fCol_center" style="margin-top: 30px;">
-                  <input type="button" value="회원가입" class="btn btn-warning">
-                </div>
-                <div class="col-3"></div>
-              </div>
-            </div>
+            <input type="hidden" name="strExp" id="strExp"/>
+            <input type="hidden" name="sw" id="sw" />
+            <input type="hidden" name="imgSize" id="imgSize"/>
           </form>
         </div>
       </div>

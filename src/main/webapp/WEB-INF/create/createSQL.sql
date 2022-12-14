@@ -25,6 +25,8 @@ create table company (
 	cpIntro text,
 	cpIntroImg text,
 	cpExp varchar(100) not null,
+	act char(4) default 'off',
+	imgSize int not null,
 	primary key(cidx),
 	unique key(cpName)
 );

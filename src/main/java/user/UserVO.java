@@ -16,9 +16,12 @@ public class UserVO {
 	private String cpName;
 	private String cpAddr;
 	private String cpImg;
+	private String cpHomePage;
 	private String cpIntro;
+	private String cpIntroImg;
 	private String cpExp;
-	
+	private String act;
+	private int imgSize;
 	
 	public int getUidx() {
 		return uidx;
@@ -98,11 +101,23 @@ public class UserVO {
 	public void setCpImg(String cpImg) {
 		this.cpImg = cpImg;
 	}
+	public String getCpHomePage() {
+		return cpHomePage;
+	}
+	public void setCpHomePage(String cpHomePage) {
+		this.cpHomePage = cpHomePage;
+	}
 	public String getCpIntro() {
 		return cpIntro;
 	}
 	public void setCpIntro(String cpIntro) {
 		this.cpIntro = cpIntro;
+	}
+	public String getCpIntroImg() {
+		return cpIntroImg;
+	}
+	public void setCpIntroImg(String cpIntroImg) {
+		this.cpIntroImg = cpIntroImg;
 	}
 	public String getCpExp() {
 		return cpExp;
@@ -110,13 +125,23 @@ public class UserVO {
 	public void setCpExp(String cpExp) {
 		this.cpExp = cpExp;
 	}
-
+	public String getAct() {
+		return act;
+	}
+	public void setAct(String act) {
+		this.act = act;
+	}
+	public int getImgSize() {
+		return imgSize;
+	}
+	public void setImgSize(int imgSize) {
+		this.imgSize = imgSize;
+	}
 	@Override
 	public String toString() {
 		return "UserVO [uidx=" + uidx + ", cidx=" + cidx + ", mid=" + mid + ", pwd=" + pwd + ", email=" + email + ", birth="
 				+ birth + ", tel=" + tel + ", createDay=" + createDay + ", userLevel=" + userLevel + ", name=" + name
-				+ ", cpName=" + cpName + ", cpAddr=" + cpAddr + ", cpImg=" + cpImg + ", cpIntro=" + cpIntro + ", cpExp=" + cpExp
-				+ "]";
+				+ ", cpName=" + cpName + ", cpAddr=" + cpAddr + ", cpImg=" + cpImg + ", cpHomePage=" + cpHomePage + ", cpIntro="
+				+ cpIntro + ", cpIntroImg=" + cpIntroImg + ", cpExp=" + cpExp + ", act=" + act + ", imgSize=" + imgSize + "]";
 	}
-	
 }

@@ -21,25 +21,39 @@ public class UserController extends HttpServlet {
 		String cmd = uri.substring(uri.lastIndexOf("/"),uri.lastIndexOf("."));
 		HttpSession session = request.getSession();
 		String sMid = session.getAttribute("sMid")==null ? "" : (String)session.getAttribute("sMid");
-		if(!sMid.equals("") && sMid != null) {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/");
-			dispatcher.forward(request, response);
-		}
+		String userLevel = (String)session.getAttribute("sUserLevel");
 		
 		if(cmd.equals("/create")) {
-			viewPage += "/createUser.jsp";
+			if(!sMid.equals("") && sMid != null) {
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/");
+				dispatcher.forward(request, response);
+			}
+			else viewPage += "/createUser.jsp";
+		}
+		else if(cmd.equals("/idOverCheck")){
+			command = new IdOverCheckCommand();
+			command.execute(request, response);
+			return;
 		}
 		else if(cmd.equals("/createCP")) {
-			if(sMid.equals("") || sMid == null) viewPage += "/createUser.jsp";
+			if(sMid.equals("") || sMid == null) {
+				request.setAttribute("msg", "createCPNo1");
+				request.setAttribute("url", request.getContextPath()+"/create.us");
+				viewPage = "/include/message.jsp";
+			}
 			else {
-				String userLevel = (String)session.getAttribute("sUserLevel");
-				if(userLevel.equals("일반")) {
-					viewPage += "/createCP.jsp";
-				}
+				if(userLevel.equals("일반")) viewPage += "/createCP.jsp";
 				else {
-					viewPage = "http://192.168.50.79:9090/green2209J_17/";
+					request.setAttribute("msg", "createCPNo2");
+					request.setAttribute("url", "http://192.168.50.79:9090/green2209J_17/");
+					viewPage = "/include/message.jsp";
 				}
 			}
+		}
+		else if(cmd.equals("/createUserOk")){
+			command = new CreateUserOkCommand();
+			command.execute(request, response);
+			viewPage = "/include/message.jsp";
 		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);

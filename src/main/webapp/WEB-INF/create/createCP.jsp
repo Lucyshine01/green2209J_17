@@ -32,7 +32,7 @@
 	    $(".form-item").click(function(){
 	      $(this).next().find("input").focus();
 	    });
-	
+			
 	    $("input[type=date]").attr("max",max);
 	  });
   </script>
@@ -124,7 +124,7 @@
   <div style="background-color: #fafafa; padding-bottom: 100px;">
     <div class="width">
       <div id="form">
-      	<form name="companyForm" action="" method="post" class="was-validated">
+      	<form name="companyForm" method="post" class="was-validated" action="${ctp}/">
         <div id="company" class="text-center">
         <div style="margin-top: 50px; font-size: 1.3em;"> 기업 회원용 </div>
         <span style="color: #bbb;">부적합한 내용으로 인해 관리자 승인을 받지 못할 경우<br/>1대1 문의를 통해 수정을 요청하실수 있습니다.</span>
