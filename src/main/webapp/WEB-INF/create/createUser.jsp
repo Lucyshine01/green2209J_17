@@ -198,9 +198,20 @@
 		
 		}
 	  
-	  
 	  function idOverCheck() {
-			let mid = $("#mid").val()
+			let mid = $("#mid").val();
+			let regId = /^([a-zA-Z0-9]){6,20}$/g;
+			if(mid.trim() == ""){
+				alert("아이디를 입력해주세요.");
+	      document.getElementById("mid").focus();
+	      return false;
+			}
+			else if(!mid.trim().match(regId)){
+				alert("허용되지 않는 아이디입니다!");
+	      document.getElementById("mid").focus();
+	      return false;
+			}
+			
 			$.ajax({
 				type: "post",
 				url : "${ctp}/idOverCheck.us",
@@ -252,7 +263,7 @@
     #form {
       padding: 30px 0;
       margin: 0 auto;
-      margin-top: 9px;
+      margin-top: 8px;
       /* margin-bottom: 9px; */
       width: 700px;
       box-shadow: 0px 1px 3px 1px #d0d0d0;
@@ -308,7 +319,7 @@
     }
   </style>
 </head>
-<body ondragstart="return false" onselectstart="return false">
+<body style="overflow-x: auto" ondragstart="return false" onselectstart="return false">
 <div id="loading_Bar"></div>
 <jsp:include page="/include/header.jsp"></jsp:include>
   <div style="background-color: #fafafa; padding-bottom: 100px;">
@@ -332,7 +343,7 @@
                 <div class="col-2"></div>
                 <div class="col-3 d-flex fCol_center form-item">아이디</div>
                 <div class="col-5 d-flex fCol_center">
-                  <input type="text" name="mid" id="mid" class="form-control" placeholder="아이디를 입력하세요" required>
+                  <input type="text" id="mid" name="mid" class="form-control" placeholder="아이디를 입력하세요" required>
                   <div class="invalid-feedback text-left">
                     아이디는 최소 6자 최대 20자입니다.
                   </div>

@@ -20,6 +20,16 @@ function removeSearch() {
   $("#searchBox .fa-magnifying-glass").removeClass("iconHidden");
 }
 
+function loginModalOn() {
+	$("#loginModal").show();
+	$("#loginModal").animate({opacity:"1"},200);
+}
+function loginModalClose() {
+	$("#loginModal").hide();
+	$("#loginModal").css("opacity","0");
+}
+
+
 // 요소나온후 미리 읽어와야함
 window.onload = function() {
   let loadingBar = document.getElementById("loading_Bar");
@@ -74,7 +84,10 @@ $(document).ready(function(){
     }
   });
   
-  
+  $(".modalBack").click(function(){
+		$("#loginModal").hide();
+		$("#loginModal").css("opacity","0");
+	});
 
   // carousel
   let tempTot = $(".carousel-item img").length + ""; // 요소(ELEMENT) 안의 해당객체 갯수 구하기

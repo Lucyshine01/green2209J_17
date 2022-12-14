@@ -18,9 +18,8 @@
 	<div id="loading_Bar"></div>
 	<c:if test="${empty sMid}"><jsp:include page="/include/headTop.jsp"></jsp:include></c:if>
 	<jsp:include page="/include/header.jsp"></jsp:include>
-
-	<jsp:include page="/include/body.jsp"></jsp:include>
 	
+	<jsp:include page="/include/body.jsp"></jsp:include>
 	<jsp:include page="/include/footer.jsp"></jsp:include>
 	<script src="include/viewPage.js"></script>
 </body>

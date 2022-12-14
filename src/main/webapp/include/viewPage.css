@@ -18,6 +18,48 @@ a:hover {
   width: 1200px;
   margin: 0 auto;
 }
+.modalBack {
+	width: 4000px;
+	height: 4000px;
+	background-color: #000;
+	z-index: 11;
+	opacity: 0.3;
+	position: absolute;
+	left: 0px;
+	top: -200px;
+}
+.modalMain {
+	position: fixed;
+	left: 50%;
+	top:50%;
+	transform: translate(-50%, -50%);
+	z-index: 12;
+	width: 800px;
+	border-radius: 25px;
+	background-color: #fff;
+	padding: 30px;
+}
+.modalClose {
+	position: absolute;
+	right: 30px;
+	top: 30px;
+	font-size: 2.2em;
+	color: #e74c3c;
+	cursor: pointer;
+}
+.modalClose:hover {
+	color: #c0392b;
+}
+.modalClose:active {
+	color: #a12e22;
+}
+#loginModal {
+	position: relative;
+	display: none;
+	opacity: 0;
+	z-index: 10;
+}
+
 #loading_Bar {
   position: absolute;
   height: 5px;

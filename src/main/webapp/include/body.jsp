@@ -19,7 +19,7 @@
           <span class="hasTag">#후기</span>
         </div>
       </div>
-      <div id="slideImg" style="z-index: 2;" class="carousel slide ml-auto" data-ride="carousel">
+      <div id="slideImg" class="carousel slide ml-auto" data-ride="carousel">
         <!-- (하단 바 스타일) -->
         <div id="slideNumbar" style="z-index: 1;"><span id="numIns"></span><span id="numTot"></span></div>
         <!-- The slideshow -->
