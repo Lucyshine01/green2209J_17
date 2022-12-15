@@ -458,8 +458,8 @@
 		                    <div class="d-flex fCol_center categori-item">&nbsp;조명 인테리어</div>
 		                  </div>
 		                  <div class="d-flex">
-		                    <div class="d-flex fCol_center"><input type="checkbox" name="cpExp" value="욕실/화장실 인테리어" ></div>
-		                    <div class="d-flex fCol_center categori-item">&nbsp;욕실/화장실 인테리어</div>
+		                    <div class="d-flex fCol_center"><input type="checkbox" name="cpExp" value="욕실,화장실 인테리어" ></div>
+		                    <div class="d-flex fCol_center categori-item">&nbsp;욕실,화장실 인테리어</div>
 		                  </div>
 		                </div>
 		                <div class="text-center categori">시공</div>
@@ -519,7 +519,7 @@
 		              <div class="col-5 d-flex fCol_center">
 		                <input type="file" name="cpImg" id="cpImg" class="mt-2 mb-3" required>
 		                <div class="invalid-feedback text-left" style="color: #666; top: 40px;">
-		                  [필수]로고 이미지를 넣어주세요.(jpg,png파일만 허용합니다.)
+		                  [필수]로고 이미지를 넣어주세요.(jpg,png파일만 허용합니다. 최대 10MByte)
 		                </div>
 		              </div>
 		              <div class="col-2"></div>

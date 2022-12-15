@@ -29,6 +29,9 @@ public class LoginCheckCommand implements UserInterface {
 			HttpSession session = request.getSession();
 			session.setAttribute("sMid", vo.getMid());
 			session.setAttribute("sUserLevel", vo.getUserLevel());
+			
+			vo = dao.getCPCheck(mid);
+			if(vo.getAct() != null) session.setAttribute("sAct", vo.getAct());
 		}
 		else response.getWriter().write("0");
 	}

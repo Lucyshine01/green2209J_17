@@ -14,34 +14,49 @@
       <i class="fa-solid fa-circle-xmark iconHidden" onclick="removeSearch()"></i>
     </div>
     <div id="loginBox" class="d-flex fCol_center header">
-      <div>
-      	<c:if test="${sUserLevel == '일반' || empty sMid}">
-      		<button type="button" onclick="location.href='${ctp}/createCP.us'" class="btn w3-hover-light-grey text-dark ml-3 pl-4 pr-4">
-          업체등록
-        	</button>
-      	</c:if>
-      	<c:if test="${sUserLevel == '업체'}">
-      		<button type="button" onclick="location.href='${ctp}/createCP.us'" class="btn w3-hover-light-grey text-dark ml-3 pl-4 pr-4">
-          업체정보
-        	</button>
-      	</c:if>
-        <c:if test="${empty sMid}">
-	        <button type="button" onclick="loginModalOn();" class="btn w3-hover-light-grey text-dark ml-3 pl-4 pr-4">
-	          로그인
-	        </button>
-	        <button type="button" onclick="location.href='${ctp}/create.us'" style="margin-right: 15px" class="btn w3-2017-primrose-yellow w3-hover-amber btn-warning text-dark ml-3 pl-4 pr-4">
-	          회원 가입
-	        </button>
-        </c:if>
-        <c:if test="${!empty sMid}">
-	        <button type="button" onclick="logout();" class="btn w3-hover-light-grey text-dark ml-3 pl-4 pr-4">
+    	<c:if test="${sUserLevel != '관리자'}">
+	      <div>
+	      	<c:if test="${sUserLevel == '일반' || empty sMid}">
+	      		<button type="button" onclick="location.href='${ctp}/createCP.us'" class="btn w3-hover-light-grey text-dark ml-3 pl-4 pr-4">
+	          업체등록
+	        	</button>
+	      	</c:if>
+	      	<c:if test="${sUserLevel == '업체'}">
+	      		<button type="button" onclick="location.href='${ctp}/createCP.us'" class="btn w3-hover-light-grey text-dark ml-3 pl-4 pr-4">
+	          업체정보
+	        	</button>
+	      	</c:if>
+	        <c:if test="${empty sMid}">
+		        <button type="button" onclick="loginModalOn();" class="btn w3-hover-light-grey text-dark ml-3 pl-4 pr-4">
+		          로그인
+		        </button>
+		        <button type="button" onclick="location.href='${ctp}/create.us'" style="margin-right: 15px" class="btn w3-2017-primrose-yellow w3-hover-amber btn-warning text-dark ml-3 pl-4 pr-4">
+		          회원 가입
+		        </button>
+	        </c:if>
+	        <c:if test="${!empty sMid}">
+		        <button type="button" onclick="logout();" class="btn w3-hover-light-grey text-dark ml-3 pl-4 pr-4">
+		          로그아웃
+		        </button>
+		        <button type="button" onclick="location.href='${ctp}/myInfo.us'" style="margin-right: 15px" class="btn w3-2017-primrose-yellow w3-hover-amber btn-warning text-dark ml-3 pl-4 pr-4">
+		          내정보
+		        </button>
+	        </c:if>
+	      </div>
+      </c:if>
+      <c:if test="${sUserLevel == '관리자'}">
+      	<div>
+	      	<button type="button" onclick="location.href='${ctp}/adCPControl.ad'" class="btn w3-hover-light-grey text-dark ml-3 pl-4 pr-4">
+	          업체승인 관리
+	      	</button>
+	      	<button type="button" onclick="logout();" class="btn w3-hover-light-grey text-dark ml-3 pl-4 pr-4">
 	          로그아웃
 	        </button>
-	        <button type="button" onclick="location.href='${ctp}/myInfo.us'" style="margin-right: 15px" class="btn w3-2017-primrose-yellow w3-hover-amber btn-warning text-dark ml-3 pl-4 pr-4">
-	          내정보
+	        <button type="button" onclick="location.href='${ctp}/adMain.ad'" style="margin-right: 15px" class="btn w3-2017-primrose-yellow w3-hover-amber btn-warning text-dark ml-3 pl-4 pr-4">
+	          관리자 화면
 	        </button>
-        </c:if>
-      </div>
+        </div>
+      </c:if>
     </div>
   </div>
   <div class="d-flex width">

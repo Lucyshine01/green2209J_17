@@ -11,30 +11,84 @@
   <link href="include/viewPage.css" rel="stylesheet" type="text/css">
   <script>
 	  'use strict';
-	  const date = new Date();
-	  let year = date.getFullYear();
-	  let month = date.getMonth() + 1;
-	  let day = date.getDate();
-	  let max = "" + (year-19) + "-" + month + "-" + day;
-	  $(function(){
-	    $("#cBtn1").click(function(){
-	      $(this).addClass("activeBtn");
-	      $("#cBtn2").removeClass("activeBtn");
-	      $("#normal").show();
-	      $("#company").hide();
-	    });
-	    $("#cBtn2").click(function(){
-	      $(this).addClass("activeBtn");
-	      $("#cBtn1").removeClass("activeBtn");
-	      $("#normal").hide();
-	      $("#company").show();
-	    });
-	    $(".form-item").click(function(){
-	      $(this).next().find("input").focus();
-	    });
+	  
+	  function cpCreateCheck() {
+		  let name = document.getElementById("name").value;
+			let cpName = document.getElementById("cpName").value;
+			let cpIntro = document.getElementById("cpIntro").value;
+			let cpAddr = document.getElementById("cpAddr").value;
+			let cpHomePage = document.getElementById("cpHomePage").value;
+			let cpExp = document.getElementsByName("cpExp");
 			
-	    $("input[type=date]").attr("max",max);
-	  });
+			let cpImg = document.getElementById("cpImg").value;
+			let exp = cpImg.substring(cpImg.lastIndexOf('.')).toUpperCase();
+			cpImg = cpImg.substring(0,cpImg.lastIndexOf('.'));
+			
+			let regName = /^([가-힣a-zA-Z]{2,10})$/g;  //성명은 한글/영문만 가능하도록 길이는 2~20자까지
+			let regCPName = /^([가-힣a-zA-Z]{2,50})$/g;
+			let regCPImg = /^([가-힣a-zA-Z0-9]{1,40})$/g;
+			
+			let strExp = "";
+			for(let i=0; i<cpExp.length; i++){
+				if(cpExp[i].checked){
+					strExp += cpExp[i].value + "/";
+				}
+			}
+			if(strExp.length > 1){
+				strExp = strExp.substring(0, strExp.length-1);
+			}
+			$("#strExp").val(strExp);
+			
+			if(name.trim() == ""){
+				alert("대표명을 입력해주세요!");
+	      document.getElementById("name").focus();
+	      return false;
+			}
+			else if(cpName.trim() == ""){
+				alert("회사명을 입력해주세요!");
+	      document.getElementById("cpName").focus();
+	      return false;
+			}
+			else if(cpImg.trim() == ""){
+				alert("회사로고를 등록해주세요!");
+	      document.getElementById("cpImg").focus();
+	      return false;
+			}
+			else if(cpAddr.trim() == ""){
+				alert("회사 주소를 입력해주세요!");
+	      document.getElementById("cpAddr").focus();
+	      return false;
+			}
+			
+			
+			if(!name.match(regName)){
+				alert("대표명을 확인해주세요!");
+	      document.getElementById("name").focus();
+	      return false;
+			}
+			else if(!cpName.match(regCPName)){
+				alert("회사명을 확인해주세요!");
+	      document.getElementById("cpName").focus();
+	      return false;
+			}
+			else if(!cpImg.substring(cpImg.lastIndexOf('\\')+1).match(regCPImg)){
+				alert("로고 파일명이 잘못되었습니다!");
+	      document.getElementById("cpImg").focus();
+	      return false;
+			}
+			else if(exp != '.PNG' && exp != '.JPG'){
+				alert("로고 파일명 확장자가 잘못 되었습니다.");
+	      document.getElementById("cpImg").focus();
+	      return false;
+			}
+			
+			let imgSize = document.getElementById("cpImg").files[0].size;
+			$("#imgSize").val(imgSize);
+			
+			companyForm.submit();
+		
+		}
+		
   </script>
   <style>
   	input[type=checkbox] {zoom: 1.3;}
@@ -124,7 +178,7 @@
   <div style="background-color: #fafafa; padding-bottom: 100px;">
     <div class="width">
       <div id="form">
-      	<form name="companyForm" method="post" class="was-validated" action="${ctp}/">
+      	<form name="companyForm" method="post" class="was-validated" action="${ctp}/createCPOk.us" enctype="multipart/form-data">
         <div id="company" class="text-center">
         <div style="margin-top: 50px; font-size: 1.3em;"> 기업 회원용 </div>
         <span style="color: #bbb;">부적합한 내용으로 인해 관리자 승인을 받지 못할 경우<br/>1대1 문의를 통해 수정을 요청하실수 있습니다.</span>
@@ -190,8 +244,8 @@
                 <div class="d-flex fCol_center categori-item">&nbsp;조명 인테리어</div>
               </div>
               <div class="d-flex">
-                <div class="d-flex fCol_center"><input type="checkbox" name="cpExp" value="욕실/화장실 인테리어" ></div>
-                <div class="d-flex fCol_center categori-item">&nbsp;욕실/화장실 인테리어</div>
+                <div class="d-flex fCol_center"><input type="checkbox" name="cpExp" value="욕실,화장실 인테리어" ></div>
+                <div class="d-flex fCol_center categori-item">&nbsp;욕실,화장실 인테리어</div>
               </div>
             </div>
             <div class="text-center categori">시공</div>
@@ -251,7 +305,7 @@
           <div class="col-5 d-flex fCol_center">
             <input type="file" name="cpImg" id="cpImg" class="mt-2 mb-3" required>
             <div class="invalid-feedback text-left" style="color: #666; top: 40px;">
-              [필수]로고 이미지를 넣어주세요.(jpg,png파일만 허용합니다.)
+              [필수]로고 이미지를 넣어주세요.(jpg,png파일만 허용합니다. 최대 10MByte)
             </div>
           </div>
           <div class="col-2"></div>
@@ -259,11 +313,14 @@
         <div class="row item-row">
           <div class="col-3"></div>
           <div class="col-6 d-flex fCol_center" style="margin-top: 30px;">
-              <input type="button" value="회원가입" class="btn btn-warning">
+              <input type="button" onclick="cpCreateCheck()" value="회원가입" class="btn btn-warning">
             </div>
             <div class="col-3"></div>
           </div>
         </div>
+        <input type="hidden" name="strExp" id="strExp"/>
+        <input type="hidden" name="sw" id="sw" />
+        <input type="hidden" name="imgSize" id="imgSize"/>
       </form>
     </div>
   </div>

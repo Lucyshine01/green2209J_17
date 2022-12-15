@@ -10,12 +10,14 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import conn.SecurityUtil;
+import pds.pdsDAO;
+import pds.pdsVO;
 
 public class CreateUserOkCommand implements UserInterface {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String realPath = request.getServletContext().getRealPath("/data/logo");
+		String realPath = request.getServletContext().getRealPath("/") + "data/logo";
 		int maxSize = 1024 * 1024 * 10;	// 최대용량 10MByte
 		String encoding = "UTF-8";
 		MultipartRequest multipartRequest = new MultipartRequest(request, realPath, maxSize, encoding, new DefaultFileRenamePolicy());
@@ -104,6 +106,17 @@ public class CreateUserOkCommand implements UserInterface {
 			res = dao.createCompany(vo);
 			
 			if(res.equals("1")) {
+				pdsVO pdsVo = new pdsVO();
+				pdsDAO pdsDao = new pdsDAO();
+				
+				String fileoriginalName = multipartRequest.getOriginalFileName("cpImg");
+				pdsVo.setfOriName(fileoriginalName);
+				pdsVo.setfSysName(filesystemName);
+				pdsVo.setfSize(imgSize);
+				pdsVo.setMid(mid);
+				
+				pdsDao.fileInput(pdsVo);
+				
 				request.setAttribute("msg", "createCompanyOk");
 				request.setAttribute("url", request.getContextPath()+"/");
 			}

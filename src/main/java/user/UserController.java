@@ -45,7 +45,15 @@ public class UserController extends HttpServlet {
 				viewPage = "/include/message.jsp";
 			}
 			else {
-				if(userLevel.equals("일반")) viewPage += "/createCP.jsp";
+				if(userLevel.equals("일반")) {
+					String act = session.getAttribute("sAct")==null ? "" : (String)session.getAttribute("sAct");
+					if(act.equals("off")) {
+						request.setAttribute("msg", "createCPNo3");
+						request.setAttribute("url", request.getContextPath()+"/");
+						viewPage = "/include/message.jsp";
+					}
+					else viewPage += "/createCP.jsp";
+				}
 				else {
 					request.setAttribute("msg", "createCPNo2");
 					request.setAttribute("url", request.getContextPath()+"/");
@@ -69,6 +77,11 @@ public class UserController extends HttpServlet {
 			viewPage = "/include/message.jsp";
 			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 			dispatcher.forward(request, response);
+		}
+		else if(cmd.equals("/createCPOk")){
+			command = new CompanyFormCommand();
+			command.execute(request, response);
+			viewPage = "/include/message.jsp";
 		}
 		
 		if(viewPage.equals("/WEB-INF/create")) viewPage = "/WEB-INF/user";

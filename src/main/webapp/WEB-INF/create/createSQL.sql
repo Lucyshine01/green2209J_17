@@ -30,12 +30,19 @@ create table company (
 	cpExp varchar(100) not null,
 	act char(4) default 'off',
 	imgSize int not null,
+	mid varchar(20) not null,
 	primary key(cidx),
-	unique key(cpName)
+	unique key(cpName),
+	FOREIGN KEY(mid) REFERENCES user(mid) 
+	ON UPDATE CASCADE
 );
+
+alter table company add column mid varchar(20) not null;
+alter table company add foreign key(mid) REFERENCES user(mid) ON UPDATE CASCADE;
 
 select * from company;
 
+desc company;
 
 
 
