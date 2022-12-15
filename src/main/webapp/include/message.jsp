@@ -20,6 +20,8 @@
   	else if(msg == "createUserNo") msg = "회원가입에 실패했습니다.";
   	else if(msg == "createCompanyOk") msg = "업체가입이 완료되었습니다. 관리자가 승인할시 업체계정으로 승격됩니다.";
   	else if(msg == "createCompanyNo") msg = "업체가입에 실패했습니다. 등록하신 아이디로 로그인해서 다시 업체등록을 진행해주세요.";
+  	else if(msg == "noSession") msg = "비로그인 상태거나 세션이 만료되었습니다. 로그인을 진행해주세요.";
+  	else if(msg == "haveSession") msg = "";
   	
   	if(msg != "") alert(msg);
 		if(url != "") location.href = url;

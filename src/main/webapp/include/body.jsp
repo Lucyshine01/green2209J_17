@@ -103,6 +103,8 @@
       </div>
     </div>
   </div>
-  <a href="#" style="background-color: #202224; display: block;">
-    <div class="width"><img src="${ctp}/images/viewPage/signup_banner.png" width="1200px"></div>
-  </a>
+  <c:if test="${empty sMid}">
+	  <a href="${ctp}/create.us" style="background-color: #202224; display: block;">
+	    <div class="width"><img src="${ctp}/images/viewPage/signup_banner.png" width="1200px"></div>
+	  </a>
+  </c:if>

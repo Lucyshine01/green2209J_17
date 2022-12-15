@@ -23,7 +23,7 @@ public class UserDAO {
 	public String createUser(UserVO vo) {
 		String res = "0";
 		try {
-			sql = "insert into user values(default,?,?,?,?,?,default,default)";
+			sql = "insert into user values(default,?,?,?,?,?,default,default,default)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, vo.getMid());
 			pstmt.setString(2, vo.getPwd());
@@ -81,13 +81,31 @@ public class UserDAO {
 				vo.setTel(rs.getString("tel"));
 				vo.setCreateDay(rs.getString("createDay"));
 				vo.setUserLevel(rs.getString("userLevel"));
+				vo.setPoint(rs.getInt("point"));
 			}
+		} catch (SQLException e) {
+			System.out.println("SQL 오류 : " + e.getMessage());
+		} finally {
+			getConn.rsClose();
+		}
+		return vo;
+	}
+
+	public String setPwdUpdate(String mid, String pwd) {
+		String res = "0";
+		try {
+			sql = "update user set pwd = ? where mid = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, pwd);
+			pstmt.setString(2, mid);
+			pstmt.executeUpdate();
+			res = "1";
 		} catch (SQLException e) {
 			System.out.println("SQL 오류 : " + e.getMessage());
 		} finally {
 			getConn.pstmtClose();
 		}
-		return vo;
+		return res;
 	}
 
 	

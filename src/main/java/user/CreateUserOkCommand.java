@@ -31,6 +31,40 @@ public class CreateUserOkCommand implements UserInterface {
 		String tel = multipartRequest.getParameter("tel")==null ? "" : multipartRequest.getParameter("tel");
 		SecurityUtil security = new SecurityUtil();
 		
+		if(mid.equals("") || pwd.equals("") || email.equals("") || birth.equals("") || tel.equals("")) {
+			request.setAttribute("msg", "createUserNo");
+			request.setAttribute("url", request.getContextPath()+"/create.us");
+			return;
+		}
+		String regId = "^([a-zA-Z0-9]){6,20}$";  
+		String regPwd = "^([!@#$%^&+=<>?,\\./\\*()_-]?[a-zA-Z0-9]){6,20}$";
+		String regEmail = "^([-_.]?[0-9a-zA-Z]){4,20}@+([-_.]?[0-9a-zA-Z]){4,20}.+[a-zA-Z]{2,3}$";
+		String regTel = "^([0-9]){2,3}-+([0-9]){3,4}-+([0-9]){3,4}$";
+		if(!mid.matches(regId)) {
+			System.out.println("아이디 정규식 오류");
+			request.setAttribute("msg", "createUserNo");
+			request.setAttribute("url", request.getContextPath()+"/create.us");
+			return;
+		}
+		else if(!pwd.matches(regPwd)){
+			System.out.println("비밀번호 정규식 오류");
+			request.setAttribute("msg", "createUserNo");
+			request.setAttribute("url", request.getContextPath()+"/create.us");
+			return;
+		}
+		else if(!email.matches(regEmail)){
+			System.out.println("이메일 정규식 오류");
+			request.setAttribute("msg", "createUserNo");
+			request.setAttribute("url", request.getContextPath()+"/create.us");
+			return;
+		}
+		else if(!tel.matches(regTel)){
+			System.out.println("전화번호 정규식 오류");
+			request.setAttribute("msg", "createUserNo");
+			request.setAttribute("url", request.getContextPath()+"/create.us");
+			return;
+		}
+		
 		pwd = security.encryptSHA256(pwd);
 		
 		vo.setMid(mid);
@@ -42,7 +76,7 @@ public class CreateUserOkCommand implements UserInterface {
 		if(sw.equals("0")) {
 			if(res.equals("1")) {
 				request.setAttribute("msg", "createUserOk");
-				request.setAttribute("url", "http://192.168.50.79:9090/green2209J_17/");
+				request.setAttribute("url", request.getContextPath()+"/");
 			}
 			else {
 				request.setAttribute("msg", "createUserNo");
@@ -71,7 +105,7 @@ public class CreateUserOkCommand implements UserInterface {
 			
 			if(res.equals("1")) {
 				request.setAttribute("msg", "createCompanyOk");
-				request.setAttribute("url", "http://192.168.50.79:9090/green2209J_17/");
+				request.setAttribute("url", request.getContextPath()+"/");
 			}
 			else {
 				request.setAttribute("msg", "createCompanyNo");

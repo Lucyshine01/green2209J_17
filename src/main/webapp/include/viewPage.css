@@ -18,6 +18,13 @@ a:hover {
   width: 1200px;
   margin: 0 auto;
 }
+
+#loginModal, #pwdChangeModal{
+	position: relative;
+	display: none;
+	opacity: 0;
+	z-index: 10;
+}
 .modalBack {
 	width: 4000px;
 	height: 4000px;
@@ -53,12 +60,7 @@ a:hover {
 .modalClose:active {
 	color: #a12e22;
 }
-#loginModal {
-	position: relative;
-	display: none;
-	opacity: 0;
-	z-index: 10;
-}
+
 
 #loading_Bar {
   position: absolute;

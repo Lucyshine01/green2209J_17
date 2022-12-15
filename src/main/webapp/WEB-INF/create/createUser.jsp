@@ -91,22 +91,22 @@
 	      return false;
 			}
 			
-			if(!mid.trim().match(regId)){
+			if(!mid.match(regId)){
 				alert("허용되지 않는 아이디입니다!");
 	      document.getElementById("mid").focus();
 	      return false;
 			}
-			else if(!pwd.trim().match(regPwd)){
+			else if(!pwd.match(regPwd)){
 				alert("허용되지 않는 비밀번호입니다!");
 	      document.getElementById("pwd").focus();
 	      return false;
 			}
-			else if(!email.trim().match(regEmail)){
+			else if(!email.match(regEmail)){
 				alert("허용되지 않는 이메일입니다!");
 	      document.getElementById("email").focus();
 	      return false;
 			}
-			else if(!tel.trim().match(regTel)){
+			else if(!tel.match(regTel)){
 				alert("허용되지 않는 전화번호입니다!");
 	      document.getElementById("tel").focus();
 	      return false;
@@ -167,17 +167,17 @@
 			}
 			
 			
-			if(!name.trim().match(regName)){
+			if(!name.match(regName)){
 				alert("대표명을 확인해주세요!");
 	      document.getElementById("name").focus();
 	      return false;
 			}
-			else if(!cpName.trim().match(regCPName)){
+			else if(!cpName.match(regCPName)){
 				alert("회사명을 확인해주세요!");
 	      document.getElementById("cpName").focus();
 	      return false;
 			}
-			else if(!cpImg.substring(cpImg.lastIndexOf('\\')+1).trim().match(regCPImg)){
+			else if(!cpImg.substring(cpImg.lastIndexOf('\\')+1).match(regCPImg)){
 				alert("로고 파일명이 잘못되었습니다!");
 	      document.getElementById("cpImg").focus();
 	      return false;
@@ -197,7 +197,7 @@
 			}
 		
 		}
-	  
+		
 	  function idOverCheck() {
 			let mid = $("#mid").val();
 			let regId = /^([a-zA-Z0-9]){6,20}$/g;
@@ -211,7 +211,6 @@
 	      document.getElementById("mid").focus();
 	      return false;
 			}
-			
 			$.ajax({
 				type: "post",
 				url : "${ctp}/idOverCheck.us",
@@ -219,7 +218,6 @@
 				success: function(res) {
 					if(res=="0"){
 						alert("사용하실수 있는 아이디입니다.");
-						
 						idOverSw = 1;
 						$("#overCheckBtn").attr("disabled","");
 						$("#check").show();
@@ -233,7 +231,6 @@
 				}
 			});
 		}
-	  
   </script>
   <style>
   	input[type=checkbox] {zoom: 1.3;}
@@ -253,7 +250,7 @@
       font-weight: 500;
       padding: 10px 137px;
       border: 1px solid #ddd;
-      border-bottom: none;
+      /* border-bottom: none; */
       background-color: #fff;
     }
     .activeBtn {
@@ -268,7 +265,6 @@
       width: 700px;
       box-shadow: 0px 1px 3px 1px #d0d0d0;
       /* border-radius: 1; */
-      border-top: 1px solid #ffde4d;
       border-bottom-left-radius: 10px;
       border-bottom-right-radius: 10px;
       background-color: #fff;

@@ -9,11 +9,14 @@ create table user (
 	tel varchar(18) not null,
 	createDay datetime default now(),
 	userLevel varchar(8) default '일반',
+	point int default 10000,
 	primary key(uidx),
 	unique key(mid)
 );
 
 select * from user;
+
+ALTER TABLE user ADD COLUMN point int default 10000;
 
 create table company (
 	cidx int not null auto_increment,

@@ -8,7 +8,6 @@
   <meta charset="UTF-8">
   <title>home.jsp</title>
   <jsp:include page="/include/bs4.jsp"></jsp:include>
-  
   <link href="include/viewPage.css" rel="stylesheet" type="text/css">
   <script></script>
   <style></style>

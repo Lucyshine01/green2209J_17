@@ -11,6 +11,7 @@ public class UserVO {
 	private String tel;
 	private String createDay;
 	private String userLevel;
+	private int point;
 	
 	private String name;
 	private String cpName;
@@ -22,7 +23,6 @@ public class UserVO {
 	private String cpExp;
 	private String act;
 	private int imgSize;
-	
 	public int getUidx() {
 		return uidx;
 	}
@@ -76,6 +76,12 @@ public class UserVO {
 	}
 	public void setUserLevel(String userLevel) {
 		this.userLevel = userLevel;
+	}
+	public int getPoint() {
+		return point;
+	}
+	public void setPoint(int point) {
+		this.point = point;
 	}
 	public String getName() {
 		return name;
@@ -137,11 +143,14 @@ public class UserVO {
 	public void setImgSize(int imgSize) {
 		this.imgSize = imgSize;
 	}
+	
 	@Override
 	public String toString() {
 		return "UserVO [uidx=" + uidx + ", cidx=" + cidx + ", mid=" + mid + ", pwd=" + pwd + ", email=" + email + ", birth="
-				+ birth + ", tel=" + tel + ", createDay=" + createDay + ", userLevel=" + userLevel + ", name=" + name
-				+ ", cpName=" + cpName + ", cpAddr=" + cpAddr + ", cpImg=" + cpImg + ", cpHomePage=" + cpHomePage + ", cpIntro="
-				+ cpIntro + ", cpIntroImg=" + cpIntroImg + ", cpExp=" + cpExp + ", act=" + act + ", imgSize=" + imgSize + "]";
+				+ birth + ", tel=" + tel + ", createDay=" + createDay + ", userLevel=" + userLevel + ", point=" + point
+				+ ", name=" + name + ", cpName=" + cpName + ", cpAddr=" + cpAddr + ", cpImg=" + cpImg + ", cpHomePage="
+				+ cpHomePage + ", cpIntro=" + cpIntro + ", cpIntroImg=" + cpIntroImg + ", cpExp=" + cpExp + ", act=" + act
+				+ ", imgSize=" + imgSize + "]";
 	}
+	
 }

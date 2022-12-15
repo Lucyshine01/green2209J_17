@@ -24,16 +24,21 @@ function loginModalOn() {
 	$("#loginModal").show();
 	$("#loginModal").animate({opacity:"1"},200);
 }
-function loginModalClose() {
+function pwdChangeModalOn() {
+	$("#pwdChangeModal").show();
+	$("#pwdChangeModal").animate({opacity:"1"},200);
+}
+function modalClose() {
 	$("#loginModal").hide();
 	$("#loginModal").css("opacity","0");
+	$("#pwdChangeModal").hide();
+	$("#pwdChangeModal").css("opacity","0");
 }
-
 
 // 요소나온후 미리 읽어와야함
 window.onload = function() {
-  let loadingBar = document.getElementById("loading_Bar");
-  if(isNaN(loadingBar))fixSW = 1;
+  let headerTop = document.getElementById("headerTop");
+  if(isNaN(headerTop))fixSW = 1;
   else fixSW = 0;
   
   console.log("fixSw : " + fixSW);
@@ -84,11 +89,11 @@ $(document).ready(function(){
     }
   });
   
-  $(".modalBack").click(function(){
-		$("#loginModal").hide();
-		$("#loginModal").css("opacity","0");
-	});
-
+  $(".modalBack").click(function(){modalClose();});
+	
+	$("#loginMid").on('keydown',function(e){if(e.keyCode == 13)loginCheck();});
+	$("#loginPwd").on('keydown',function(e){if(e.keyCode == 13)loginCheck();});
+	
   // carousel
   let tempTot = $(".carousel-item img").length + ""; // 요소(ELEMENT) 안의 해당객체 갯수 구하기
   if(tempTot.length == 1) tempTot = "0" + tempTot;

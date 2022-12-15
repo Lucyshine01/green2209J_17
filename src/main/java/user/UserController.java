@@ -25,7 +25,10 @@ public class UserController extends HttpServlet {
 		
 		if(cmd.equals("/create")) {
 			if(!sMid.equals("") && sMid != null) {
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/");
+				request.setAttribute("msg", "haveSession");
+				request.setAttribute("url", request.getContextPath()+"/");
+				viewPage = "/include/message.jsp";
+				RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 				dispatcher.forward(request, response);
 			}
 			else viewPage += "/createUser.jsp";
@@ -45,7 +48,7 @@ public class UserController extends HttpServlet {
 				if(userLevel.equals("일반")) viewPage += "/createCP.jsp";
 				else {
 					request.setAttribute("msg", "createCPNo2");
-					request.setAttribute("url", "http://192.168.50.79:9090/green2209J_17/");
+					request.setAttribute("url", request.getContextPath()+"/");
 					viewPage = "/include/message.jsp";
 				}
 			}
@@ -54,6 +57,43 @@ public class UserController extends HttpServlet {
 			command = new CreateUserOkCommand();
 			command.execute(request, response);
 			viewPage = "/include/message.jsp";
+		}
+		else if(cmd.equals("/loginCheck")){
+			command = new LoginCheckCommand();
+			command.execute(request, response);
+			return;
+		}
+		else if(sMid.equals("")) {
+			request.setAttribute("msg", "noSession");
+			request.setAttribute("url", request.getContextPath()+"/");
+			viewPage = "/include/message.jsp";
+			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
+			dispatcher.forward(request, response);
+		}
+		
+		if(viewPage.equals("/WEB-INF/create")) viewPage = "/WEB-INF/user";
+		if(cmd.equals("/logoutCheck")){
+			command = new LogoutCheckCommand();
+			command.execute(request, response);
+			return;
+		}
+		else if(cmd.equals("/myInfo")){
+			command = new MyInfoCommand();
+			command.execute(request, response);
+			viewPage += "/myInfo.jsp";
+		}
+		else if(cmd.equals("/changePwd")){
+			viewPage += "/changePwd.jsp";
+		}
+		else if(cmd.equals("/oldPwdCheck")){
+			command = new OldPwdCheckCommand();
+			command.execute(request, response);
+			return;
+		}
+		else if(cmd.equals("/pwdUpdate")){
+			command = new PwdUpdateCommand();
+			command.execute(request, response);
+			return;
 		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
