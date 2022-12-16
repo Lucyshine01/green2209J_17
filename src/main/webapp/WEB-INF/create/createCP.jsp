@@ -24,10 +24,6 @@
 			let exp = cpImg.substring(cpImg.lastIndexOf('.')).toUpperCase();
 			cpImg = cpImg.substring(0,cpImg.lastIndexOf('.'));
 			
-			let regName = /^([가-힣a-zA-Z]{2,10})$/g;  //성명은 한글/영문만 가능하도록 길이는 2~20자까지
-			let regCPName = /^([가-힣a-zA-Z]{2,50})$/g;
-			let regCPImg = /^([가-힣a-zA-Z0-9]{1,40})$/g;
-			
 			let strExp = "";
 			for(let i=0; i<cpExp.length; i++){
 				if(cpExp[i].checked){
@@ -49,40 +45,24 @@
 	      document.getElementById("cpName").focus();
 	      return false;
 			}
-			else if(cpImg.trim() == ""){
-				alert("회사로고를 등록해주세요!");
-	      document.getElementById("cpImg").focus();
-	      return false;
-			}
 			else if(cpAddr.trim() == ""){
 				alert("회사 주소를 입력해주세요!");
 	      document.getElementById("cpAddr").focus();
 	      return false;
 			}
 			
+			let imgSize = 0;
 			
-			if(!name.match(regName)){
-				alert("대표명을 확인해주세요!");
-	      document.getElementById("name").focus();
-	      return false;
-			}
-			else if(!cpName.match(regCPName)){
-				alert("회사명을 확인해주세요!");
-	      document.getElementById("cpName").focus();
-	      return false;
-			}
-			else if(!cpImg.substring(cpImg.lastIndexOf('\\')+1).match(regCPImg)){
-				alert("로고 파일명이 잘못되었습니다!");
-	      document.getElementById("cpImg").focus();
-	      return false;
-			}
-			else if(exp != '.PNG' && exp != '.JPG'){
-				alert("로고 파일명 확장자가 잘못 되었습니다.");
-	      document.getElementById("cpImg").focus();
-	      return false;
+			if(cpImg == "")imgSize = 0;
+			else if(cpImg != null){
+				if(exp != '.PNG' && exp != '.JPG'){
+					alert("로고 파일명 확장자가 잘못 되었습니다.");
+		      document.getElementById("cpImg").focus();
+		      return false;
+				}
+				imgSize = document.getElementById("cpImg").files[0].size;
 			}
 			
-			let imgSize = document.getElementById("cpImg").files[0].size;
 			$("#imgSize").val(imgSize);
 			
 			companyForm.submit();
@@ -305,7 +285,7 @@
           <div class="col-5 d-flex fCol_center">
             <input type="file" name="cpImg" id="cpImg" class="mt-2 mb-3" required>
             <div class="invalid-feedback text-left" style="color: #666; top: 40px;">
-              [필수]로고 이미지를 넣어주세요.(jpg,png파일만 허용합니다. 최대 10MByte)
+              회사로고 이미지를 넣어주세요.(jpg,png파일만 허용합니다. 최대 10MByte)
             </div>
           </div>
           <div class="col-2"></div>

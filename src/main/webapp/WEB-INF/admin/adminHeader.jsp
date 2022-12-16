@@ -22,7 +22,7 @@
     <div id="loginBox" class="d-flex fCol_center ml-auto header">
     	<div>
         <a href="${ctp}/" target="_top" style="margin-right: 15px; font-size: 1.2em; font-weight: 400;" class="btn w3-2017-primrose-yellow w3-hover-amber btn-warning text-dark ml-3 pl-4 pr-4">
-          메인 홈으로
+          <i class="fa-solid fa-house"></i> 메인 홈으로
         </a>
       </div>
     </div>

@@ -59,7 +59,7 @@ desc company;
 select count(*) as 'CPCnt' from company where cpName like '%벤%';
 
 
-
+select * from user u, company c where u.mid = c.mid and u.mid = 'JMdFuRdM';
 
 
 

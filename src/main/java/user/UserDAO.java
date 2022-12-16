@@ -373,5 +373,18 @@ public class UserDAO {
 		return res;
 	}
 
+	public void setUserLevelUpdate(String mid) {
+		try {
+			sql = "update user set userLevel = '업체' where mid = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mid);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("SQL 오류 : " + e.getMessage());
+		} finally {
+			getConn.pstmtClose();
+		}
+	}
+
 	
 }

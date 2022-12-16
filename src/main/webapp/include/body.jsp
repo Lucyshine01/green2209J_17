@@ -58,7 +58,7 @@
   </div>
   <div class="width" style="margin-top: 70px;">
     <div class="mb-5" style="font-size: 1.9em; margin-left: 80px; pointer-events: none;">
-      카테고리에서 필요한 서비스를 찾아보세요!
+      카테고리에서 필요한 업체를 찾아보세요!
     </div>
     <div id="category" class="d-flex justify-content-around">
       <div class="d-flex fCol_center text-center category_Icon">

@@ -9,22 +9,40 @@
   <title>adLeft.jsp</title>
   <jsp:include page="/include/bs4.jsp"></jsp:include>
   <script></script>
-  <style></style>
+  <style>
+  	a {text-decoration-line:none;}
+  	.menu {
+  		width: 200px;
+  		margin-bottom: 10px;
+  		font-size: 1.2em;
+  		font-weight: 400;
+  		color: #999;
+  	}
+  	.menu:hover {
+  		color: #555;
+  	}
+  </style>
 </head>
 <body>
 <p><br/></p>
 <div class="container">
   <div class="text-center" style="font-size: 1.7em;font-weight: bold;">관리자메뉴</div>
   <hr/>
-  <p class="text-center">
-  	<a href="${ctp}/adminMain.ad" target="_top" class="btn btn-primary btn-lg">관리자 메인</a>
-  </p>
-  <p class="text-center">
-  	<a href="${ctp}/adUserList.ad?pag=1&pageSize=5" target="adContent" class="btn btn-success btn-lg">회원 관리</a>
-  </p>
-  <p class="text-center">
-  	<a href="${ctp}/adCPList.ad?pag=1&pageSize=5" target="adContent" class="btn btn-warning btn-lg">업체 관리</a>
-  </p>
+  <div class="text-center menu ml-auto mr-auto">
+  	<a href="${ctp}/adminMain.ad" target="_top"><i class="fa-solid fa-house"></i> 관리자 메인</a>
+  </div>
+  <div class="text-center menu ml-auto mr-auto">
+  	<a href="${ctp}/adUserList.ad?pag=1&pageSize=5" target="adContent"><i class="fa-solid fa-user"></i> 회원 관리</a>
+  </div>
+  <div class="text-center menu ml-auto mr-auto">
+  	<a href="${ctp}/adCPList.ad?pag=1&pageSize=5" target="adContent"><i class="fa-solid fa-building"></i> 업체 관리</a>
+  </div>
+  <div class="text-center menu ml-auto mr-auto">
+  	<a href="${ctp}/ad.ad?pag=1&pageSize=5" target="adContent"><i class="fa-solid fa-code-pull-request"></i> 의뢰 관리</a>
+  </div>
+  <div class="text-center menu ml-auto mr-auto">
+  	<a href="${ctp}/ad.ad" target="adContent"><i class="fa-solid fa-circle-question"></i> 문의 관리</a>
+  </div>
 </div>
 <p><br/></p>
 </body>

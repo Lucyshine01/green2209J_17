@@ -24,6 +24,7 @@
   	else if(msg == "noSession") msg = "비로그인 상태거나 세션이 만료되었습니다.\n로그인을 진행해주세요.";
   	else if(msg == "haveSession") msg = "";
   	else if(msg == "noAdmin") msg = "허용되지 않은 접근입니다.";
+  	else if(msg == "noCompany") msg = "비정상적인 접근입니다.";
   	
   	if(msg != "") alert(msg);
 		if(url != "") location.href = url;

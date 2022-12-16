@@ -37,6 +37,7 @@ public class CompanyFormCommand implements UserInterface {
 		String strExp = multipartRequest.getParameter("strExp")==null ? "" : multipartRequest.getParameter("strExp");
 		String filesystemName = multipartRequest.getFilesystemName("cpImg");
 		int imgSize = multipartRequest.getParameter("imgSize")==null ? 0 : Integer.parseInt(multipartRequest.getParameter("imgSize"));
+		if(filesystemName == null) filesystemName = "noLogo.png";
 		vo.setName(name);
 		vo.setCpName(cpName);
 		vo.setCpAddr(cpAddr);
@@ -49,16 +50,17 @@ public class CompanyFormCommand implements UserInterface {
 		String res = dao.createCompany(vo);
 		
 		if(res.equals("1")) {
-			pdsVO pdsVo = new pdsVO();
-			pdsDAO pdsDao = new pdsDAO();
-			
-			String fileoriginalName = multipartRequest.getOriginalFileName("cpImg");
-			pdsVo.setfOriName(fileoriginalName);
-			pdsVo.setfSysName(filesystemName);
-			pdsVo.setfSize(imgSize);
-			pdsVo.setMid(mid);
-			
-			pdsDao.fileInput(pdsVo);
+			if(!filesystemName.equals("noLogo.png")) {
+				pdsVO pdsVo = new pdsVO();
+				pdsDAO pdsDao = new pdsDAO();
+				String fileoriginalName = multipartRequest.getOriginalFileName("cpImg");
+				pdsVo.setfOriName(fileoriginalName);
+				pdsVo.setfSysName(filesystemName);
+				pdsVo.setfSize(imgSize);
+				pdsVo.setMid(mid);
+				pdsDao.fileInput(pdsVo);
+			}
+			dao.setUserLevelUpdate(mid);
 			
 			request.setAttribute("msg", "createCompanyOk");
 			request.setAttribute("url", request.getContextPath()+"/");

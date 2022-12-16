@@ -22,7 +22,7 @@
 	        	</button>
 	      	</c:if>
 	      	<c:if test="${sUserLevel == '업체'}">
-	      		<button type="button" onclick="location.href='${ctp}/createCP.us'" class="btn w3-hover-light-grey text-dark ml-3 pl-4 pr-4">
+	      		<button type="button" onclick="location.href='${ctp}/CPInfo.co'" class="btn w3-hover-light-grey text-dark ml-3 pl-4 pr-4">
 	          업체정보
 	        	</button>
 	      	</c:if>

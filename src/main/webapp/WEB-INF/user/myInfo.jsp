@@ -10,7 +10,29 @@
   <title>myInfo.jsp</title>
   <jsp:include page="/include/bs4.jsp"></jsp:include>
   <link href="include/viewPage.css" rel="stylesheet" type="text/css">
-  <script></script>
+  <script>
+  	'use strict';
+  	
+  	function myInfoUpdate() {
+  		let ans = confirm("수정하시겠습니까?"); 
+  		if(!ans) return;
+  		
+  		let email = $("#email").val();
+  		let tel = $("#tel").val();
+  		let birth = $("#birth").val();
+  		
+  		
+		}
+  	
+  	function myInfoReset() {
+			let email = "${vo.email}";
+			let tel = "${vo.tel}";
+			let birth = "${fn:substring(vo.birth,0,10)}";
+			$("#email").val(email);
+			$("#tel").val(tel);
+			$("#birth").val(birth);
+		}
+  </script>
   <style>
   .item {
 		position: relative; 
@@ -29,6 +51,13 @@
     z-index: 2;
     /* width: 30%; */
   }
+  input {
+  	text-align: center;
+  	padding: 3px;
+  	border: 2px solid #e0e0e0;
+  	border-radius: 5px;
+  	outline: none;
+  }
   .item .botLine {
   	position: absolute;
   	top: 38px;
@@ -40,7 +69,7 @@
   .item .item-text{
   	width: 70%;
   	font-size: 1.1em;
-  	font-weight: 400;
+  	font-weight: 300;
   	font-family: 'Spoqa Han Sans Neo';
   	color: #333;
   }
@@ -51,8 +80,12 @@
 	<jsp:include page="/include/headTop.jsp"></jsp:include>
 	<jsp:include page="/include/header.jsp"></jsp:include>
 	<div class="width" style="padding: 30px; padding-top: 40px">
-		<div class="text-center" style="font-size: 2.8em; font-weight: 600; margin-bottom: 30px;">
-			회원 기본정보
+		<div class="text-center" style="font-size: 2.8em; font-weight: 600; margin-bottom: 10px;">
+			내 정보화면
+		</div>
+		<div class="text-center mb-4" style="color: #bbb; font-weight: 300">
+			고객님이 설정하신 계정의 필수 정보들입니다.<br/>
+			변경되거나 잘못 기입하신 내용을 수정하실수 있습니다.
 		</div>
 		<hr class="ml-auto mr-auto" style="margin-bottom: 50px; width: 90%; box-shadow: 0px 1px 1px 1px #aaa;"/>
 		<div class="d-flex">
@@ -67,14 +100,14 @@
 				<div class="d-flex mb-5 item">
 					<div class="form-item">이메일</div>
 					<div class="d-flex fCol_center text-center item-text mr-auto">
-						${vo.email}
+						<div><input type="text" name="email" id="email" value="${vo.email}" required></div>
 					</div>
 					<div class="botLine"></div>
 				</div>
 				<div class="d-flex mb-5 item">
 					<div class="form-item">연락처</div>
 					<div class="d-flex fCol_center text-center item-text mr-auto">
-						${vo.tel}
+						<div><input type="text" name="tel" id="tel" value="${vo.tel}" required></div>
 					</div>
 					<div class="botLine"></div>
 				</div>
@@ -99,7 +132,7 @@
 				<div class="d-flex mb-5 item">
 					<div class="form-item">생년월일</div>
 					<div class="d-flex fCol_center text-center item-text mr-auto">
-						${fn:substring(vo.birth,0,10)}
+						<div class="ml-auto mr-auto" style="width: 190px"><input type="date" name="birth" id="birth"  value="${fn:substring(vo.birth,0,10)}" required></div>
 					</div>
 					<div class="botLine"></div>
 				</div>
@@ -117,6 +150,12 @@
 					</div>
 					<div class="botLine"></div>
 				</div>
+			</div>
+		</div>
+		<div class="d-flex">
+			<div class="ml-auto" style="margin-right: 80px">
+				<input type="button" onclick="myInfoUpdate()" value="수정하기" class="btn btn-success mr-2"/>
+				<input type="button" onclick="myInfoReset()" value="원래대로" class="btn btn-primary"/>
 			</div>
 		</div>
 	</div>

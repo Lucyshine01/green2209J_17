@@ -122,7 +122,7 @@
 					<td>${vo.cpName}</td>
 					<td>${vo.name}</td>
 					<td>${vo.mid}</td>
-					<td>${vo.cpExp}</td>
+					<td style="width: 300px">${vo.cpExp}</td>
 					<td>${fn:substring(vo.createDayCP,0,10)}</td>
 					<td>
 						<select id="act${vo.cidx}">
@@ -131,12 +131,12 @@
 						</select>
 					</td>
 					<td>
-						<input type="button" onclick="CPUpdate(${vo.uidx})" value="수정" class="btn btn-sm btn-warning"/>
-						<input type="button" onclick="CPDelete(${vo.uidx})" value="삭제" class="btn btn-sm btn-danger"/>
+						<input type="button" onclick="CPUpdate(${vo.cidx})" value="수정" class="btn btn-sm btn-warning"/>
+						<input type="button" onclick="CPDelete(${vo.cidx})" value="삭제" class="btn btn-sm btn-danger"/>
 					</td>
 				</tr>
 			</c:forEach>
-			<tr><td colspan="4"></td></tr>
+			<tr><td colspan="8"></td></tr>
 		</table>
 		<div class="text-center">
 		  <ul class="pagination justify-content-center">

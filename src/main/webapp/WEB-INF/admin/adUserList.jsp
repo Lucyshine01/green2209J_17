@@ -114,7 +114,7 @@
 					</td>
 				</tr>
 			</c:forEach>
-			<tr><td colspan="4"></td></tr>
+			<tr><td colspan="9"></td></tr>
 		</table>
 		<div class="text-center">
 		  <ul class="pagination justify-content-center">
