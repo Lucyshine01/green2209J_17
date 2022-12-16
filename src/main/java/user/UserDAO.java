@@ -4,8 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import conn.GetConn;
+import pds.pdsVO;
 
 public class UserDAO {
 	GetConn getConn = GetConn.getInstance();
@@ -44,7 +46,7 @@ public class UserDAO {
 	public String createCompany(UserVO vo) {
 		String res = "0";
 		try {
-			sql = "insert into company values(default,?,?,?,?,?,?,'',?,default,?,?)";
+			sql = "insert into company values(default,?,?,?,?,?,?,'',?,default,?,?,default)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, vo.getName());
 			pstmt.setString(2, vo.getCpName());
@@ -128,6 +130,7 @@ public class UserDAO {
 				vo.setCpExp(rs.getString("cpExp"));
 				vo.setAct(rs.getString("act"));
 				vo.setImgSize(rs.getInt("imgSize"));
+				vo.setCreateDayCP(rs.getString("createDayCP"));
 			}
 		} catch (SQLException e) {
 			System.out.println("SQL 오류 : " + e.getMessage());
@@ -135,6 +138,239 @@ public class UserDAO {
 			getConn.rsClose();
 		}
 		return vo;
+	}
+
+	public ArrayList<UserVO> getUserList(int start, int ea) {
+		ArrayList<UserVO> vos = new ArrayList<>();
+		try {
+			sql = "select * from user where userLevel != '관리자'"
+					+ "order by createDay desc limit ?,?;";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, start);
+			pstmt.setInt(2, ea);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				vo = new UserVO();
+				vo.setUidx(rs.getInt("uidx"));;
+				vo.setMid(rs.getString("mid"));
+				vo.setPwd(rs.getString("pwd"));
+				vo.setEmail(rs.getString("email"));
+				vo.setBirth(rs.getString("birth"));
+				vo.setTel(rs.getString("tel"));
+				vo.setCreateDay(rs.getString("createDay"));
+				vo.setUserLevel(rs.getString("userLevel"));
+				vo.setPoint(rs.getInt("point"));
+				vos.add(vo);
+			}
+		} catch (SQLException e) {
+			System.out.println("SQL 오류 : " + e.getMessage());
+		} finally {
+			getConn.rsClose();
+		}
+		return vos;
+	}
+
+	public ArrayList<UserVO> getCPList(int start, int ea) {
+		ArrayList<UserVO> vos = new ArrayList<>();
+		try {
+			sql = "select * from company order by createDayCP desc limit ?,?;";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, start);
+			pstmt.setInt(2, ea);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				vo = new UserVO();
+				vo.setCidx(rs.getInt("cidx"));;
+				vo.setName(rs.getString("name"));
+				vo.setCpName(rs.getString("cpName"));
+				vo.setCpAddr(rs.getString("cpAddr"));
+				vo.setCpImg(rs.getString("cpImg"));
+				vo.setCpHomePage(rs.getString("cpHomePage"));
+				vo.setCpIntro(rs.getString("cpIntro"));
+				vo.setCpIntroImg(rs.getString("cpIntroImg"));
+				vo.setCpExp(rs.getString("cpExp"));
+				vo.setAct(rs.getString("act"));
+				vo.setImgSize(rs.getInt("imgSize"));
+				vo.setMid(rs.getString("mid"));
+				vo.setCreateDayCP(rs.getString("createDayCP"));
+				vos.add(vo);
+			}
+		} catch (SQLException e) {
+			System.out.println("SQL 오류 : " + e.getMessage());
+		} finally {
+			getConn.rsClose();
+		}
+		return vos;
+	}
+
+	public int getUserCnt() {
+		int totRecCnt = 0;
+		try {
+			sql = "select count(*) as 'UserCnt' from user where userLevel != '관리자'";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			rs.next();
+			totRecCnt = rs.getInt("UserCnt");
+		} catch (SQLException e) {
+			System.out.println("SQL 오류 : " + e.getMessage());
+		} finally {
+			getConn.rsClose();
+		}
+		return totRecCnt;
+	}
+	
+	public int getCPCnt() {
+		int totRecCnt = 0;
+		try {
+			sql = "select count(*) as 'CPCnt' from company";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			rs.next();
+			totRecCnt = rs.getInt("CPCnt");
+		} catch (SQLException e) {
+			System.out.println("SQL 오류 : " + e.getMessage());
+		} finally {
+			getConn.rsClose();
+		}
+		return totRecCnt;
+	}
+	
+	
+	public String setUserDel(int uidx) {
+		String res = "0";
+		try {
+			sql = "delete from user where uidx = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, uidx);
+			pstmt.executeUpdate();
+			res = "1";
+		} catch (SQLException e) {
+			System.out.println("SQL 오류 : " + e.getMessage());
+		} finally {
+			getConn.rsClose();
+		}
+		return res;
+	}
+	
+	
+	public ArrayList<UserVO> getSearchUserList(String searching, String searchItem, int start, int ea) {
+		ArrayList<UserVO> vos = new ArrayList<>();
+		try {
+			sql = "select * from user "
+					+ "where userLevel != '관리자' and "+searchItem+" like ? "
+					+ "order by createDay desc limit ?,?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%"+searching+"%");
+			pstmt.setInt(2, start);
+			pstmt.setInt(3, ea);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				vo = new UserVO();
+				vo.setUidx(rs.getInt("uidx"));;
+				vo.setMid(rs.getString("mid"));
+				vo.setPwd(rs.getString("pwd"));
+				vo.setEmail(rs.getString("email"));
+				vo.setBirth(rs.getString("birth"));
+				vo.setTel(rs.getString("tel"));
+				vo.setCreateDay(rs.getString("createDay"));
+				vo.setUserLevel(rs.getString("userLevel"));
+				vo.setPoint(rs.getInt("point"));
+				vos.add(vo);
+			}
+		} catch (SQLException e) {
+			System.out.println("SQL 오류 : " + e.getMessage());
+		} finally {
+			getConn.rsClose();
+		}
+		return vos;
+	}
+
+	public int getUserSearchCnt(String searching, String searchItem) {
+		int totRecCnt = 0;
+		try {
+			sql = "select count(*) as 'UserCnt' from user where userLevel != '관리자' and "+searchItem+" like ? ";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%"+searching+"%");
+			rs = pstmt.executeQuery();
+			rs.next();
+			totRecCnt = rs.getInt("UserCnt");
+		} catch (SQLException e) {
+			System.out.println("SQL 오류 : " + e.getMessage());
+		} finally {
+			getConn.rsClose();
+		}
+		return totRecCnt;
+	}
+
+	public int getCPSearchCnt(String searching, String searchItem) {
+		int totRecCnt = 0;
+		try {
+			sql = "select count(*) as 'CPCnt' from company where "+searchItem+" like ? ";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%"+searching+"%");
+			rs = pstmt.executeQuery();
+			rs.next();
+			totRecCnt = rs.getInt("CPCnt");
+		} catch (SQLException e) {
+			System.out.println("SQL 오류 : " + e.getMessage());
+		} finally {
+			getConn.rsClose();
+		}
+		return totRecCnt;
+	}
+
+	public ArrayList<UserVO> getSearchCPList(String searching, String searchItem, int start, int ea) {
+		ArrayList<UserVO> vos = new ArrayList<>();
+		try {
+			sql = "select * from company "
+					+ "where "+searchItem+" like ? "
+					+ "order by createDayCP desc limit ?,?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%"+searching+"%");
+			pstmt.setInt(2, start);
+			pstmt.setInt(3, ea);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				vo = new UserVO();
+				vo.setCidx(rs.getInt("cidx"));;
+				vo.setName(rs.getString("name"));
+				vo.setCpName(rs.getString("cpName"));
+				vo.setCpAddr(rs.getString("cpAddr"));
+				vo.setCpImg(rs.getString("cpImg"));
+				vo.setCpHomePage(rs.getString("cpHomePage"));
+				vo.setCpIntro(rs.getString("cpIntro"));
+				vo.setCpIntroImg(rs.getString("cpIntroImg"));
+				vo.setCpExp(rs.getString("cpExp"));
+				vo.setAct(rs.getString("act"));
+				vo.setImgSize(rs.getInt("imgSize"));
+				vo.setMid(rs.getString("mid"));
+				vo.setCreateDayCP(rs.getString("createDayCP"));
+				vos.add(vo);
+			}
+		} catch (SQLException e) {
+			System.out.println("SQL 오류 : " + e.getMessage());
+		} finally {
+			getConn.rsClose();
+		}
+		return vos;
+	}
+	
+	
+	public String setCPOn(int cidx, String act) {
+		String res = "0";
+		try {
+			sql = "update company set act = ? where cidx = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, act);
+			pstmt.setInt(2, cidx);
+			pstmt.executeUpdate();
+			res = "1";
+		} catch (SQLException e) {
+			System.out.println("SQL 오류 : " + e.getMessage());
+		} finally {
+			getConn.pstmtClose();
+		}
+		return res;
 	}
 
 	

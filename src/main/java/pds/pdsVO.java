@@ -7,6 +7,7 @@ public class pdsVO {
 	private int fSize;
 	
 	private String mid;
+	private String inDate;
 	
 	
 	public int getpIdx() {
@@ -39,13 +40,17 @@ public class pdsVO {
 	public void setMid(String mid) {
 		this.mid = mid;
 	}
+	public String getInDate() {
+		return inDate;
+	}
+	public void setInDate(String inDate) {
+		this.inDate = inDate;
+	}
 	
 	@Override
 	public String toString() {
 		return "pdsVO [pIdx=" + pIdx + ", fOriName=" + fOriName + ", fSysName=" + fSysName + ", fSize=" + fSize + ", mid="
-				+ mid + "]";
+				+ mid + ", inDate=" + inDate + "]";
 	}
-	
-	
 	
 }

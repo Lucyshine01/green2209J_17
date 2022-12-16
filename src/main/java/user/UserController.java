@@ -21,7 +21,7 @@ public class UserController extends HttpServlet {
 		String cmd = uri.substring(uri.lastIndexOf("/"),uri.lastIndexOf("."));
 		HttpSession session = request.getSession();
 		String sMid = session.getAttribute("sMid")==null ? "" : (String)session.getAttribute("sMid");
-		String userLevel = (String)session.getAttribute("sUserLevel");
+		String userLevel = session.getAttribute("sUserLevel")==null ? "" : (String)session.getAttribute("sUserLevel");
 		
 		if(cmd.equals("/create")) {
 			if(!sMid.equals("") && sMid != null) {

@@ -1,119 +1,34 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="ctp" value="${pageContext.request.contextPath}"/>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>adminHeader.jsp</title>
+  <jsp:include page="/include/bs4.jsp"></jsp:include>
+  <link href="include/viewPage.css" rel="stylesheet" type="text/css">
+  <script></script>
+  <style></style>
+</head>
+<body>
 <div id="headMain" class="container-fluid-xl" style="z-index: 9;background-color:#fff;" >
-  <div class="width d-flex">
+  <div class="width d-flex" style="margin-left: 50px">
     <div id="logo" class="d-flex fCol_center header pl-4">
     <!-- http://192.168.50.79:9090/green2209J_17/ -->
-      <a href="${ctp}/"><img src="${ctp}/images/viewPage/logo3.png" width="120px"/></a>
+      <a href="${ctp}/" target="_top"><img src="${ctp}/images/viewPage/logo3.png" width="120px"/></a>
     </div>
-    <div></div>
-    <div id="searchBox" class="ml-auto d-flex text-center fCol_center header">
-      <input type="text" id="search" name="search" placeholder="서비스, 업체를 검색해 보세요" autocomplete='off' spellcheck="false">
-      <i class="fa-solid fa-magnifying-glass"></i>
-      <i class="fa-solid fa-circle-xmark iconHidden" onclick="removeSearch()"></i>
-    </div>
-    <div id="loginBox" class="d-flex fCol_center header">
-    	<c:if test="${sUserLevel != '관리자'}">
-	      <div>
-	      	<c:if test="${sUserLevel == '일반' || empty sMid}">
-	      		<button type="button" onclick="location.href='${ctp}/createCP.us'" class="btn w3-hover-light-grey text-dark ml-3 pl-4 pr-4">
-	          업체등록
-	        	</button>
-	      	</c:if>
-	      	<c:if test="${sUserLevel == '업체'}">
-	      		<button type="button" onclick="location.href='${ctp}/createCP.us'" class="btn w3-hover-light-grey text-dark ml-3 pl-4 pr-4">
-	          업체정보
-	        	</button>
-	      	</c:if>
-	        <c:if test="${empty sMid}">
-		        <button type="button" onclick="loginModalOn();" class="btn w3-hover-light-grey text-dark ml-3 pl-4 pr-4">
-		          로그인
-		        </button>
-		        <button type="button" onclick="location.href='${ctp}/create.us'" style="margin-right: 15px" class="btn w3-2017-primrose-yellow w3-hover-amber btn-warning text-dark ml-3 pl-4 pr-4">
-		          회원 가입
-		        </button>
-	        </c:if>
-	        <c:if test="${!empty sMid}">
-		        <button type="button" onclick="logout();" class="btn w3-hover-light-grey text-dark ml-3 pl-4 pr-4">
-		          로그아웃
-		        </button>
-		        <button type="button" onclick="location.href='${ctp}/myInfo.us'" style="margin-right: 15px" class="btn w3-2017-primrose-yellow w3-hover-amber btn-warning text-dark ml-3 pl-4 pr-4">
-		          내정보
-		        </button>
-	        </c:if>
-	      </div>
-      </c:if>
-      <c:if test="${sUserLevel == '관리자'}">
-      	<div>
-	      	<button type="button" onclick="logout();" class="btn w3-hover-light-grey text-dark ml-3 pl-4 pr-4">
-	          로그아웃
-	        </button>
-	        <button type="button" onclick="location.href='${ctp}/adminMain.ad'" style="margin-right: 15px" class="btn w3-2017-primrose-yellow w3-hover-amber btn-warning text-dark ml-3 pl-4 pr-4">
-	          관리자 화면
-	        </button>
-        </div>
-      </c:if>
-    </div>
-  </div>
-  <div class="d-flex width">
-    <nav class="navbar">
-      <div class="navbar-nav navIconBox">
-        <div class="nav-item dropdown">
-          <span class="nav-link dropdown-toggle nav-icon" id="navbardrop" data-toggle="dropdown">
-            <i class="fa-solid fa-bars"></i>&nbsp;&nbsp;<b>전체카테고리</b>
-          </span>
-          <div class="dropdown-menu" style="position: absolute;">
-            <span class="dropdown-item none-item" href="#">인테리어</span>
-            <a class="dropdown-item" href="#">홈 인테리어</a>
-            <a class="dropdown-item" href="#">상업공간 인테리어</a>
-            <a class="dropdown-item" href="#">조명 인테리어</a>
-            <a class="dropdown-item" href="#">욕실/화장실 리모델링</a>
-            <span class="dropdown-item none-item" href="#">시공</span>
-            <a class="dropdown-item" href="#">타일시공</a>
-            <a class="dropdown-item" href="#">페인트시공</a>
-            <a class="dropdown-item" href="#">싱크대 교체</a>
-            <a class="dropdown-item" href="#">도배장판 시공</a>
-            <a class="dropdown-item" href="#">인테리어 필름 시공</a>
-            <span class="dropdown-item none-item" href="#">디자인</span>
-            <a class="dropdown-item" href="#">도면 제작·수정</a>
-            <a class="dropdown-item" href="#">인테리어 컨설팅</a>
-            <a class="dropdown-item" href="#">3D 모델링</a>
-          </div>
-        </div>
+    <div id="loginBox" class="d-flex fCol_center ml-auto header">
+    	<div>
+        <a href="${ctp}/" target="_top" style="margin-right: 15px; font-size: 1.2em; font-weight: 400;" class="btn w3-2017-primrose-yellow w3-hover-amber btn-warning text-dark ml-3 pl-4 pr-4">
+          메인 홈으로
+        </a>
       </div>
-      <div class="navIconBox">
-        <a href="#" class="nav-link nav-icon d-flex fCol_center">의뢰 목록</a>
-        <span id="help1" class="help"><b>다양한 분야의 전문가</b>에게 의뢰해보세요.</span>
-      </div>
-      <div class="navIconBox">
-        <a href="#" class="nav-link nav-icon d-flex fCol_center">업체 목록</a>
-        <span id="help2" class="help"><b>인테모아의 다양한 업체</b>를 만나보세요.</span>
-      </div>
-      <div class="navIconBox">
-        <a href="#" class="nav-link nav-icon d-flex fCol_center">고객센터</a>
-        <span id="help3" class="help">관리자와 <b>1대1 문의/답변</b>이 가능합니다.</span>
-      </div>
-      <div class="navIconBox">
-        <a href="#" class="nav-link nav-icon d-flex fCol_center">게시판</a>
-        <span id="help4" class="help">업체 및 인테모아의 <b>사용후기를 작성</b>해보세요.</span>
-      </div>
-      <div style="width: 150px;"></div>
-    </nav>
-    <div class="ml-auto d-flex">
-    <div class="d-flex fCol_center" style="padding-right: 15px">
-      <a href="#" class="nav-link nav-icon d-flex fCol_center" style="font-size: 1em;">
-        <span>원하는 서비스를 못 찾겠다면, <b>직접 의뢰</b>를 해보세요! ></span>
-      </a>
-    </div>
     </div>
   </div>
   <hr/>
 </div>
-
-<!-- fix시 공백채우기 -->
-<div id="headMainSpace"></div>
-<!-- fix시 공백채우기 -->
 
 <!-- 로그인 모달 -->
 <div id="loginModal">
@@ -183,7 +98,7 @@
 		</div>
 	</div>
 </div>
-
+<script src="include/viewPage.js"></script>
 <script>
 	function pwdChangeCheck() {
 		let sMid = "${sMid}";
@@ -278,3 +193,5 @@
 		});
 	}
 </script>
+</body>
+</html>

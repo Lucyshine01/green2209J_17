@@ -23,6 +23,7 @@ public class UserVO {
 	private String cpExp;
 	private String act;
 	private int imgSize;
+	private String createDayCP;
 	public int getUidx() {
 		return uidx;
 	}
@@ -143,6 +144,12 @@ public class UserVO {
 	public void setImgSize(int imgSize) {
 		this.imgSize = imgSize;
 	}
+	public String getCreateDayCP() {
+		return createDayCP;
+	}
+	public void setCreateDayCP(String createDayCP) {
+		this.createDayCP = createDayCP;
+	}
 	
 	@Override
 	public String toString() {
@@ -150,7 +157,7 @@ public class UserVO {
 				+ birth + ", tel=" + tel + ", createDay=" + createDay + ", userLevel=" + userLevel + ", point=" + point
 				+ ", name=" + name + ", cpName=" + cpName + ", cpAddr=" + cpAddr + ", cpImg=" + cpImg + ", cpHomePage="
 				+ cpHomePage + ", cpIntro=" + cpIntro + ", cpIntroImg=" + cpIntroImg + ", cpExp=" + cpExp + ", act=" + act
-				+ ", imgSize=" + imgSize + "]";
+				+ ", imgSize=" + imgSize + ", createDayCP=" + createDayCP + "]";
 	}
 	
 }
