@@ -21,7 +21,52 @@
   		let tel = $("#tel").val();
   		let birth = $("#birth").val();
   		
+  		let regEmail = /^([-_.]?[0-9a-zA-Z]){4,20}@+([-_.]?[0-9a-zA-Z]){4,20}.+[a-zA-Z]{2,3}$/i;
+			let regTel = /^([0-9]){2,3}-+([0-9]){3,4}-+([0-9]){3,4}$/g;
   		
+			if(email.trim() == ""){
+				alert("이메일을 입력해주세요!");
+	      document.getElementById("email").focus();
+	      return false;
+			}
+			else if(birth.trim() == ""){
+				alert("생일을 등록해주세요!");
+	      document.getElementById("brith").focus();
+	      return false;
+			}
+			else if(tel.trim() == ""){
+				alert("전화번호를 입력해주세요!");
+	      document.getElementById("tel").focus();
+	      return false;
+			}
+			
+			if(!email.match(regEmail)){
+				alert("허용되지 않는 이메일입니다!");
+	      document.getElementById("email").focus();
+	      return false;
+			}
+			else if(!tel.match(regTel)){
+				alert("허용되지 않는 전화번호입니다!");
+	      document.getElementById("tel").focus();
+	      return false;
+			}
+			
+  		let query = {
+  				uidx : '${vo.uidx}',
+  				email: email,
+  				tel  : tel,
+  				birth: birth
+  		}
+  		
+  		$.ajax({
+  			type: "post",
+  			url : "${ctp}/infoUpdate.us",
+  			data: query,
+  			success: function(res) {
+					if(res == '1') location.reload();
+					else alert("수정에 실패했습니다.");
+				}
+  		});
 		}
   	
   	function myInfoReset() {
@@ -51,13 +96,6 @@
     z-index: 2;
     /* width: 30%; */
   }
-  input {
-  	text-align: center;
-  	padding: 3px;
-  	border: 2px solid #e0e0e0;
-  	border-radius: 5px;
-  	outline: none;
-  }
   .item .botLine {
   	position: absolute;
   	top: 38px;
@@ -72,6 +110,13 @@
   	font-weight: 300;
   	font-family: 'Spoqa Han Sans Neo';
   	color: #333;
+  }
+  .item .item-text input {
+  	text-align: center;
+  	padding: 3px;
+  	border: 2px solid #e0e0e0;
+  	border-radius: 5px;
+  	outline: none;
   }
   </style>
 </head>
@@ -154,8 +199,8 @@
 		</div>
 		<div class="d-flex">
 			<div class="ml-auto" style="margin-right: 80px">
-				<input type="button" onclick="myInfoUpdate()" value="수정하기" class="btn btn-success mr-2"/>
-				<input type="button" onclick="myInfoReset()" value="원래대로" class="btn btn-primary"/>
+				<input type="button" onclick="myInfoUpdate()" value="수정하기" class="btn btn-danger mr-2"/>
+				<input type="button" onclick="myInfoReset()" value="원래대로" class="btn btn-success"/>
 			</div>
 		</div>
 	</div>

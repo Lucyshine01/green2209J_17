@@ -108,6 +108,11 @@ public class UserController extends HttpServlet {
 			command.execute(request, response);
 			return;
 		}
+		else if(cmd.equals("/infoUpdate")){
+			command = new InfoUpdateCommand();
+			command.execute(request, response);
+			return;
+		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);

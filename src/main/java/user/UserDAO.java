@@ -385,6 +385,25 @@ public class UserDAO {
 			getConn.pstmtClose();
 		}
 	}
+	
+	public String setUserInfoUpdate(UserVO vo) {
+		String res = "0";
+		try {
+			sql = "update user set email=?, tel=?, birth=? where uidx = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, vo.getEmail());
+			pstmt.setString(2, vo.getTel());
+			pstmt.setString(3, vo.getBirth());
+			pstmt.setInt(4, vo.getUidx());
+			pstmt.executeUpdate();
+			res = "1";
+		} catch (SQLException e) {
+			System.out.println("SQL 오류 : " + e.getMessage());
+		} finally {
+			getConn.pstmtClose();
+		}
+		return res;
+	}
 
 	
 }
