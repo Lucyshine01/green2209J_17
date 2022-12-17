@@ -18,7 +18,14 @@ a:hover {
   width: 1200px;
   margin: 0 auto;
 }
-
+.titleContent {
+		font-size: 2.8em;
+		font-weight: 600;
+}
+.subtitleContent {
+		color: #bbb;
+		font-weight: 300;
+}
 #loginModal, #pwdChangeModal{
 	position: relative;
 	display: none;
@@ -359,3 +366,82 @@ nav {position: relative;}
   margin-left: 70px;
   margin-right: 70px;
 }
+.side-Menu {
+	font-family: 'Spoqa Han Sans Neo';
+	margin: 75px 50px;
+}
+
+.side-Menu .first-class {
+	font-size: 1.2em;
+	font-weight: 500;
+	margin: 10px 0px 5px 0px;
+}
+.side-Menu .second-class {
+	line-height: 28px;
+	font-size: 0.9em;
+	font-weight: 300;
+	color: #999;
+	margin: 3px 0px 3px 3px;
+	cursor: pointer;
+}
+.side-Menu .second-class:hover {
+	font-size: 15px;
+	font-weight: 400;
+	color: #555;
+}
+.main-content {
+	font-family: 'Spoqa Han Sans Neo';
+	margin: 30px 0px;
+}
+.main-content .topTitle {
+	font-size: 2em;
+	font-weight: 500;
+	font-family: 'Spoqa Han Sans Neo';
+	margin-top: 10px;
+	margin-bottom: 20px;
+}
+
+.main-content .topCategori {
+	color: #999;
+}
+.main-content .topCategori a {text-decoration: none;}
+.main-content .topCategori a:hover {color: #999;}
+
+.cpItemBox,.cpItemText {cursor: pointer;}
+.cpItemBox:hover {overflow: hidden;}
+.cpItemBox:hover > img{
+	transform: scale(1.1);
+	transition: 0.3s;
+}
+
+.fileName{
+  width: 100px;
+  height: 100px;
+  font-size: 0.9em;
+  font-weight: 300;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-shadow: 0px 0px 2px 2px #ddd;
+}
+.fIcon {
+  color: #ccc;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-shadow: 0px 0px 2px 2px #ddd;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 2.5em;
+}
+.filebox {
+  width: 0;
+  height: 0;
+  padding: 0;
+  overflow: hidden;
+  outline: none;
+  border: none;
+} 
+

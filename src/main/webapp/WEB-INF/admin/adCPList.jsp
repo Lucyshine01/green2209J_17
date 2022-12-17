@@ -24,31 +24,31 @@
 			location.href = '${ctp}/adUserList.ad?pag=${pag}&pageSize='+pageSize;
 		}
   	
-  	function CPUpdate(idx) {
+  	function CPUpdate(idx,mid) {
   		let ans = confirm("수정 하시겠습니까?");
 			if(!ans) return;
 			
 			let act = $("#act"+idx).val()
 			
   		$.ajax({
-			type: "post",
-			url : "${ctp}/adCPUpdate.ad",
-			data: {cidx:idx,act:act},
-			success: function(res) {
-				if(res == '1') location.reload();
-				else alert("수정실패");
-			}
-		});
+				type: "post",
+				url : "${ctp}/adCPUpdate.ad",
+				data: {cidx:idx,act:act,mid:mid},
+				success: function(res) {
+					if(res == '1') location.reload();
+					else alert("수정실패");
+				}
+			});
 		}
   	
-		function CPDelete(idx) {
+		function CPDelete(idx,mid) {
 			let ans = confirm("정말 삭제하시겠습니까?");
 			if(!ans) return;
 			
 			$.ajax({
 				type: "post",
-				url : "${ctp}/adUserDel.ad",
-				data: {uidx:idx},
+				url : "${ctp}/adCPDel.ad",
+				data: {cidx:idx,mid:mid},
 				success: function(res) {
 					if(res == '1') location.reload();
 					else alert("삭제실패");
@@ -131,8 +131,8 @@
 						</select>
 					</td>
 					<td>
-						<input type="button" onclick="CPUpdate(${vo.cidx})" value="수정" class="btn btn-sm btn-warning"/>
-						<input type="button" onclick="CPDelete(${vo.cidx})" value="삭제" class="btn btn-sm btn-danger"/>
+						<input type="button" onclick="CPUpdate(${vo.cidx},'${vo.mid}')" value="수정" class="btn btn-sm btn-warning"/>
+						<input type="button" onclick="CPDelete(${vo.cidx},'${vo.mid}')" value="삭제" class="btn btn-sm btn-danger"/>
 					</td>
 				</tr>
 			</c:forEach>

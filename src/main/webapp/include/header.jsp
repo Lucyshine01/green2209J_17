@@ -87,7 +87,7 @@
         <span id="help1" class="help"><b>다양한 분야의 전문가</b>에게 의뢰해보세요.</span>
       </div>
       <div class="navIconBox">
-        <a href="#" class="nav-link nav-icon d-flex fCol_center">업체 목록</a>
+        <a href="${ctp}/CPList.co" class="nav-link nav-icon d-flex fCol_center">업체 목록</a>
         <span id="help2" class="help"><b>인테모아의 다양한 업체</b>를 만나보세요.</span>
       </div>
       <div class="navIconBox">

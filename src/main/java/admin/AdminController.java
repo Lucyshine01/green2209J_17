@@ -74,6 +74,11 @@ public class AdminController extends HttpServlet {
 			command.execute(request, response);
 			return;
 		}
+		else if(cmd.equals("/adCPDel")){
+			command = new AdCPDelCommand();
+			command.execute(request, response);
+			return;
+		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);

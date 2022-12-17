@@ -372,10 +372,23 @@ public class UserDAO {
 		}
 		return res;
 	}
-
+	
 	public void setUserLevelUpdate(String mid) {
 		try {
 			sql = "update user set userLevel = '업체' where mid = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mid);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("SQL 오류 : " + e.getMessage());
+		} finally {
+			getConn.pstmtClose();
+		}
+	}
+	
+	public void setUserLevelDownUpdate(String mid) {
+		try {
+			sql = "update user set userLevel = '일반' where mid = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, mid);
 			pstmt.executeUpdate();
@@ -401,6 +414,22 @@ public class UserDAO {
 			System.out.println("SQL 오류 : " + e.getMessage());
 		} finally {
 			getConn.pstmtClose();
+		}
+		return res;
+	}
+	
+	public String setCPDel(int cidx) {
+		String res = "0";
+		try {
+			sql = "delete from company where cidx = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, cidx);
+			pstmt.executeUpdate();
+			res = "1";
+		} catch (SQLException e) {
+			System.out.println("SQL 오류 : " + e.getMessage());
+		} finally {
+			getConn.rsClose();
 		}
 		return res;
 	}

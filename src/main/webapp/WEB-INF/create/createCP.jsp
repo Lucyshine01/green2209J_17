@@ -160,8 +160,8 @@
       <div id="form">
       	<form name="companyForm" method="post" class="was-validated" action="${ctp}/createCPOk.us" enctype="multipart/form-data">
         <div id="company" class="text-center">
-        <div style="font-size: 2.8em; font-weight: 600; margin-top: 30px; margin-bottom: 20px"> 기업 회원용 </div>
-        <span style="color: #bbb; font-weight: 300">부적합한 내용으로 인해 관리자 승인을 받지 못할 경우<br/>1대1 문의를 통해 수정을 요청하실수 있습니다.</span>
+        <div class="titleContent" style="margin-top: 30px; margin-bottom: 20px"> 기업 회원용 </div>
+        <span class="subtitleContent">부적합한 내용으로 인해 관리자 승인을 받지 못할 경우<br/>1대1 문의를 통해 수정을 요청하실수 있습니다.</span>
         <div class="row item-row">
           <div class="col-2"></div>
           <div class="col-3 d-flex fCol_center form-item">회사명</div>
@@ -276,7 +276,7 @@
         <div class="row item-row">
           <!-- <div class="col-1"></div> -->
           <div class="col-1 d-flex fCol_center form-item" style="margin-left: 40px;">회사 소개</div>
-          <div class="col-10 d-flex fCol_center"><textarea rows="7" name="cpIntro" id="cpIntro" placeholder="소개" class="form-control" wrap="off" style="resize: none;" ></textarea></div>
+          <div class="col-10 d-flex fCol_center"><textarea rows="7" name="cpIntro" id="cpIntro" placeholder="소개"  ></textarea></div>
           <!-- <div class="col-1"></div> -->
         </div>
         <div class="row item-row">

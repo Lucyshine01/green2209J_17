@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:set var="ctp" value="${pageContext.request.contextPath}"/>
 <div style="height: 30px; background-color: #f0f0f0;"></div>
 <hr/>
 <div style="background-color: #f0f0f0;">
@@ -13,9 +15,9 @@
     </div>
     <div class="d-flex fCol_center botMenu">
       <div style="font-size: 1.2em; font-weight: 600;">인테모아</div>
-      <div class="mt-4"><a href="#">사이트 메인</a></div>
+      <div class="mt-4"><a href="${ctp}/">사이트 메인</a></div>
       <div class="mt-2"><a href="#">의뢰 목록</a></div>
-      <div class="mt-2"><a href="#">업체 목록</a></div>
+      <div class="mt-2"><a href="${ctp}/CPList.co">업체 목록</a></div>
       <div class="mt-2"><a href="#">고객센터</a></div>
       <div class="mt-2"><a href="#">게시판</a></div>
     </div>

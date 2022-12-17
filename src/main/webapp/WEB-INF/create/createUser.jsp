@@ -307,12 +307,12 @@
       <div id="form">
         <div id="normal" class="text-center">
         	<div id="normalTitle">
-	          <div class="mb-2" style="font-size: 2.8em; font-weight: 600;">일 반 회 원 가 입</div>
-	          <span style="color: #bbb; font-weight: 300">회원가입은 만 19세 이상부터 가능합니다.</span>
+	          <div class="mb-2 titleContent">일 반 회 원 가 입</div>
+	          <span class="subtitleContent">회원가입은 만 19세 이상부터 가능합니다.</span>
           </div>
           <div id="companyTitle">
-	          <div class="mb-2" style="font-size: 2.8em; font-weight: 600;">기 업 회 원 가 입</div>
-	          <span style="color: #bbb; font-weight: 300">기업 회원은 가입 완료시 관리자의 승인 전까지<br/>일반 회원으로 분류되어집니다.</span>
+	          <div class="mb-2 titleContent">기 업 회 원 가 입</div>
+	          <span class="subtitleContent">기업 회원은 가입 완료시 관리자의 승인 전까지<br/>일반 회원으로 분류되어집니다.</span>
           </div>
           <form name="createForm" method="post" class="was-validated" action="${ctp}/createUserOk.us" enctype="multipart/form-data" >
             <div class="container">
@@ -375,8 +375,8 @@
                 <div class="col-2"></div>
               </div>
               <div id="company">
-	              <div style="font-size: 2.8em; font-weight: 600; margin-top: 50px; margin-bottom: 20px"> 기업 회원용 </div>
-	              <span style="color: #bbb; font-weight: 300">부적합한 내용으로 인해 관리자 승인을 받지 못할 경우<br/>1대1 문의를 통해 수정을 요청하실수 있습니다.</span>
+	              <div class="titleContent" style="margin-top: 50px; margin-bottom: 20px"> 기업 회원용 </div>
+	              <span class="subtitleContent">부적합한 내용으로 인해 관리자 승인을 받지 못할 경우<br/>1대1 문의를 통해 수정을 요청하실수 있습니다.</span>
 	              <div class="row item-row">
 		              <div class="col-2"></div>
 		              <div class="col-3 d-flex fCol_center form-item">회사명</div>

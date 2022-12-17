@@ -36,6 +36,7 @@ public class CompanyFormCommand implements UserInterface {
 		String cpIntro = multipartRequest.getParameter("cpIntro")==null ? "" : multipartRequest.getParameter("cpIntro");
 		String strExp = multipartRequest.getParameter("strExp")==null ? "" : multipartRequest.getParameter("strExp");
 		String filesystemName = multipartRequest.getFilesystemName("cpImg");
+		cpIntro = cpIntro.replaceAll("\n", "<br/>");
 		int imgSize = multipartRequest.getParameter("imgSize")==null ? 0 : Integer.parseInt(multipartRequest.getParameter("imgSize"));
 		if(filesystemName == null) filesystemName = "noLogo.png";
 		vo.setName(name);
@@ -60,8 +61,7 @@ public class CompanyFormCommand implements UserInterface {
 				pdsVo.setMid(mid);
 				pdsDao.fileInput(pdsVo);
 			}
-			dao.setUserLevelUpdate(mid);
-			
+			session.setAttribute("sAct", "off");
 			request.setAttribute("msg", "createCompanyOk");
 			request.setAttribute("url", request.getContextPath()+"/");
 		}

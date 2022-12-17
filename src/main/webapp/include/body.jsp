@@ -61,15 +61,15 @@
       카테고리에서 필요한 업체를 찾아보세요!
     </div>
     <div id="category" class="d-flex justify-content-around">
-      <div class="d-flex fCol_center text-center category_Icon">
+      <div class="d-flex fCol_center text-center category_Icon" onclick="location.href='${ctp}/CPList.co?categori=인테리어'">
         <img src="${ctp}/images/viewPage/인테리어Icon.png" width="200px">
         <span>인테리어</span>
       </div>
-      <div class="d-flex fCol_center text-center category_Icon">
+      <div class="d-flex fCol_center text-center category_Icon" onclick="location.href='${ctp}/CPList.co?categori=시공'">
         <img src="${ctp}/images/viewPage/시공Icon.png" width="200px">
         <span>시공</span>
       </div>
-      <div class="d-flex fCol_center text-center category_Icon">
+      <div class="d-flex fCol_center text-center category_Icon" onclick="location.href='${ctp}/CPList.co?categori=디자인'">
         <img src="${ctp}/images/viewPage/디자인Icon.png" width="200px">
         <span>디자인</span>
       </div>

@@ -22,23 +22,40 @@ public class ContentController extends HttpServlet {
 		String uri = request.getRequestURI();
 		String cmd = uri.substring(uri.lastIndexOf("/"),uri.lastIndexOf("."));
 		HttpSession session = request.getSession();
+		String sMid = session.getAttribute("sMid")==null ? "" : (String)session.getAttribute("sMid");
 		String userLevel = session.getAttribute("sUserLevel")==null ? "" : (String)session.getAttribute("sUserLevel");
 		
-		if(cmd.equals("/비로그인 접근시")) {
-			
+		// 비로그인 접근 가능
+		if(cmd.equals("/CPList")) {
+			command = new CPListCommand();
+			command.execute(request, response);
+			viewPage += "/CPList.jsp";
 		}
-		
-		if(!userLevel.equals("업체")) {
+		else if(sMid.equals("")) {
+			request.setAttribute("msg", "noSession");
+			request.setAttribute("url", request.getContextPath()+"/");
+			viewPage = "/include/message.jsp";
+			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
+			dispatcher.forward(request, response);
+		}
+		else if(!userLevel.equals("업체")) {
 			request.setAttribute("msg", "noCompany");
 			request.setAttribute("url", request.getContextPath()+"/");
 			viewPage = "/include/message.jsp";
+			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
+			dispatcher.forward(request, response);
 		}
-		
-		if(cmd.equals("/CPInfo")) {
+		else if(cmd.equals("/CPInfo")) {
 			command = new CPInfoCommand();
 			command.execute(request, response);
 			viewPage += "/CPInfo.jsp";
 		}
+		else if(cmd.equals("/plusImgForm")) {
+			command = new PlusImgFormCommand();
+			command.execute(request, response);
+			viewPage += "/CPInfo.jsp";
+		}
+		
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);

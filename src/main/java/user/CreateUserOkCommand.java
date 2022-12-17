@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
@@ -94,6 +95,7 @@ public class CreateUserOkCommand implements UserInterface {
 			String cpIntro = multipartRequest.getParameter("cpIntro")==null ? "" : multipartRequest.getParameter("cpIntro");
 			String strExp = multipartRequest.getParameter("strExp")==null ? "" : multipartRequest.getParameter("strExp");
 			String filesystemName = multipartRequest.getFilesystemName("cpImg");
+			cpIntro = cpIntro.replaceAll("\n", "<br/>");
 			int imgSize = multipartRequest.getParameter("imgSize")==null ? 0 : Integer.parseInt(multipartRequest.getParameter("imgSize"));
 			vo.setName(name);
 			vo.setCpName(cpName);
@@ -106,17 +108,18 @@ public class CreateUserOkCommand implements UserInterface {
 			res = dao.createCompany(vo);
 			
 			if(res.equals("1")) {
-				pdsVO pdsVo = new pdsVO();
-				pdsDAO pdsDao = new pdsDAO();
-				
-				String fileoriginalName = multipartRequest.getOriginalFileName("cpImg");
-				pdsVo.setfOriName(fileoriginalName);
-				pdsVo.setfSysName(filesystemName);
-				pdsVo.setfSize(imgSize);
-				pdsVo.setMid(mid);
-				
-				pdsDao.fileInput(pdsVo);
-				
+				if(!filesystemName.equals("noLogo.png")) {
+					pdsVO pdsVo = new pdsVO();
+					pdsDAO pdsDao = new pdsDAO();
+					String fileoriginalName = multipartRequest.getOriginalFileName("cpImg");
+					pdsVo.setfOriName(fileoriginalName);
+					pdsVo.setfSysName(filesystemName);
+					pdsVo.setfSize(imgSize);
+					pdsVo.setMid(mid);
+					pdsDao.fileInput(pdsVo);
+				}
+				HttpSession session = request.getSession();
+				session.setAttribute("sAct", "off");
 				request.setAttribute("msg", "createCompanyOk");
 				request.setAttribute("url", request.getContextPath()+"/");
 			}

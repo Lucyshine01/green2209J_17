@@ -61,11 +61,16 @@ select count(*) as 'CPCnt' from company where cpName like '%벤%';
 
 select * from user u, company c where u.mid = c.mid and u.mid = 'JMdFuRdM';
 
+select * from company;
+select * from user u, company c where u.mid = c.mid order by createDayCP desc limit 0,5;
 
+select * from user u, company c 
+where u.mid = c.mid and cpExp like '%상업 인테리어%' 
+order by createDayCP desc;
 
-
-
-
+select * from user u, company c 
+where u.mid = c.mid and (cpExp like '%타일시공%' or cpExp like '%도배장판%') 
+order by createDayCP desc;
 
 
 

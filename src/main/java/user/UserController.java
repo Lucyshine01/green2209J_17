@@ -47,7 +47,7 @@ public class UserController extends HttpServlet {
 			else {
 				if(userLevel.equals("일반")) {
 					String act = session.getAttribute("sAct")==null ? "" : (String)session.getAttribute("sAct");
-					if(act.equals("off")) {
+					if(!act.equals("")) {
 						request.setAttribute("msg", "createCPNo3");
 						request.setAttribute("url", request.getContextPath()+"/");
 						viewPage = "/include/message.jsp";
