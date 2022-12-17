@@ -50,10 +50,10 @@ public class ContentController extends HttpServlet {
 			command.execute(request, response);
 			viewPage += "/CPInfo.jsp";
 		}
-		else if(cmd.equals("/plusImgForm")) {
+		else if(cmd.equals("/inputCPImg")) {
 			command = new PlusImgFormCommand();
 			command.execute(request, response);
-			viewPage += "/CPInfo.jsp";
+			viewPage = "/include/message.jsp";
 		}
 		
 		

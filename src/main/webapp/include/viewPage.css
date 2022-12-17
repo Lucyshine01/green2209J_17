@@ -409,6 +409,7 @@ nav {position: relative;}
 
 .cpItemBox,.cpItemText {cursor: pointer;}
 .cpItemBox:hover {overflow: hidden;}
+.cpItemBox img {transform: scale(1.0);transition: 0.3s;}
 .cpItemBox:hover > img{
 	transform: scale(1.1);
 	transition: 0.3s;

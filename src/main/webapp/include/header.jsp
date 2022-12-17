@@ -64,21 +64,21 @@
             <i class="fa-solid fa-bars"></i>&nbsp;&nbsp;<b>전체카테고리</b>
           </span>
           <div class="dropdown-menu" style="position: absolute;">
-            <span class="dropdown-item none-item" href="#">인테리어</span>
-            <a class="dropdown-item" href="#">홈 인테리어</a>
-            <a class="dropdown-item" href="#">상업공간 인테리어</a>
-            <a class="dropdown-item" href="#">조명 인테리어</a>
-            <a class="dropdown-item" href="#">욕실/화장실 리모델링</a>
-            <span class="dropdown-item none-item" href="#">시공</span>
-            <a class="dropdown-item" href="#">타일시공</a>
-            <a class="dropdown-item" href="#">페인트시공</a>
-            <a class="dropdown-item" href="#">싱크대 교체</a>
-            <a class="dropdown-item" href="#">도배장판 시공</a>
-            <a class="dropdown-item" href="#">인테리어 필름 시공</a>
-            <span class="dropdown-item none-item" href="#">디자인</span>
-            <a class="dropdown-item" href="#">도면 제작·수정</a>
-            <a class="dropdown-item" href="#">인테리어 컨설팅</a>
-            <a class="dropdown-item" href="#">3D 모델링</a>
+            <span class="dropdown-item none-item">인테리어</span>
+            <a class="dropdown-item" href="${ctp}/CPList.co?categori=인테리어&detail=1">홈 인테리어</a>
+            <a class="dropdown-item" href="${ctp}/CPList.co?categori=인테리어&detail=2">상업공간 인테리어</a>
+            <a class="dropdown-item" href="${ctp}/CPList.co?categori=인테리어&detail=3">조명 인테리어</a>
+            <a class="dropdown-item" href="${ctp}/CPList.co?categori=인테리어&detail=4">욕실/화장실 리모델링</a>
+            <span class="dropdown-item none-item">시공</span>
+            <a class="dropdown-item" href="${ctp}/CPList.co?categori=시공&detail=5">타일시공</a>
+            <a class="dropdown-item" href="${ctp}/CPList.co?categori=시공&detail=6">페인트시공</a>
+            <a class="dropdown-item" href="${ctp}/CPList.co?categori=시공&detail=7">싱크대 교체</a>
+            <a class="dropdown-item" href="${ctp}/CPList.co?categori=시공&detail=8">도배장판 시공</a>
+            <a class="dropdown-item" href="${ctp}/CPList.co?categori=시공&detail=9">인테리어 필름 시공</a>
+            <span class="dropdown-item none-item">디자인</span>
+            <a class="dropdown-item" href="${ctp}/CPList.co?categori=디자인&detail=10">도면 제작·수정</a>
+            <a class="dropdown-item" href="${ctp}/CPList.co?categori=디자인&detail=11">인테리어 컨설팅</a>
+            <a class="dropdown-item" href="${ctp}/CPList.co?categori=디자인&detail=12">3D 모델링</a>
           </div>
         </div>
       </div>

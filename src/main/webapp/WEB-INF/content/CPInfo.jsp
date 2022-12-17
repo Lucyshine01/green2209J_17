@@ -11,6 +11,8 @@
   <link href="include/viewPage.css" rel="stylesheet" type="text/css">
   <script>
 	  'use strict';
+	  let maxSize= 1024 * 1024 * 10;
+	  let cnt = 0;
 	  function inputFile(me) {
 	    $(me).next(".filebox").click();
 	  }
@@ -22,9 +24,17 @@
 	      alert("PNG,JPG파일만 허용합니다!");
 	      return;
 	    }
+	    alert($(me)[0].files[0].size);
+	    let fileSize = $(me)[0].files[0].size;
+	    if(maxSize < fileSize) {
+	    	alert("이미지는 10MB 이하만 업로드 가능합니다!");
+	    	return;
+	    }
 	    $(me).prev(".fIcon").hide();
-	    $("#fileBoxs").append('<div class="fileName mr-3 mt-2">'+val+'</div>');
-	    let next = '<i class="fIcon fa-solid fa-plus mt-2" onclick="inputFile(this)"></i></div><input type="file" name="files" id="files" class="filebox" onchange="onChangefile(this)">'
+	    $("#fileBoxs").append('<div class="fileName mr-3 mt-2" style="overflow : hidden;">'+val+'</div>');
+	    let next = '<input type="hidden" name="fileSize'+cnt+'" value="'+fileSize+'"/>';
+	    cnt = cnt + 1;
+	    next += '<i class="fIcon fa-solid fa-plus mt-2" onclick="inputFile(this)"></i></div><input type="file" name="files'+cnt+'" id="files'+cnt+'" class="filebox" onchange="onChangefile(this)">'
 	    $("#fileBoxs").append(next);
 	  }
 	  function inputImg() {
@@ -147,10 +157,10 @@
 						    </c:forEach>
 						  </ul>
 						  <!-- The slideshow -->
-						  <div class="carousel-inner">
+						  <div class="carousel-inner" style="height: 500px;">
 						  	<c:forEach var="img" items="${imgs}" varStatus="st">
-									<div class="carousel-item <c:if test="${st.index == 0}">active</c:if>">
-										<img src="${ctp}/data/picture/${img}" alt="${st.count}.img"/> 
+									<div class="carousel-item <c:if test="${st.index == 0}">active</c:if>" >
+										<img src="${ctp}/data/picture/${img}" width="600px" /> 
 									</div>
 								</c:forEach>
 						  </div>
@@ -169,7 +179,7 @@
 					<div>
 				    <div id="fileBoxs" class="d-flex" style="flex-wrap: wrap">
 				      <i class="fIcon fa-solid fa-plus mt-2" onclick="inputFile(this)"></i>
-				      <input class="filebox" type="file" name="files" id="files" onchange="onChangefile(this)">
+				      <input class="filebox" type="file" name="files0" id="files0" onchange="onChangefile(this)">
 				    </div>
 				  </div>
 			  </form>

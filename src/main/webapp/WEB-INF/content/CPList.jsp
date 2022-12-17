@@ -34,20 +34,20 @@
 					</div>
 					<div style="border-bottom: 2px solid #fc3; margin-bottom: 20px"></div>
 	        <div class="first-class">인테리어</div>
-	        <div class="second-class" onclick="location.href='${ctp}/CPList.co?pag=1&pageSize=${pageSize}&categori=인테리어&detail=1'">홈 인테리어</div>
-	        <div class="second-class" onclick="location.href='${ctp}/CPList.co?pag=1&pageSize=${pageSize}&categori=인테리어&detail=2'">상업공간 인테리어</div>
-	        <div class="second-class" onclick="location.href='${ctp}/CPList.co?pag=1&pageSize=${pageSize}&categori=인테리어&detail=3'">조명 인테리어</div>
-	        <div class="second-class" onclick="location.href='${ctp}/CPList.co?pag=1&pageSize=${pageSize}&categori=인테리어&detail=4'">욕실/화장실 리모델링</div>
+	        <div class="second-class" onclick="location.href='${ctp}/CPList.co?categori=인테리어&detail=1'">홈 인테리어</div>
+	        <div class="second-class" onclick="location.href='${ctp}/CPList.co?categori=인테리어&detail=2'">상업공간 인테리어</div>
+	        <div class="second-class" onclick="location.href='${ctp}/CPList.co?categori=인테리어&detail=3'">조명 인테리어</div>
+	        <div class="second-class" onclick="location.href='${ctp}/CPList.co?categori=인테리어&detail=4'">욕실/화장실 리모델링</div>
 	        <div class="first-class">시공</div>
-	        <div class="second-class" onclick="location.href='${ctp}/CPList.co?pag=1&pageSize=${pageSize}&categori=시공&detail=5'">타일시공</div>
-	        <div class="second-class" onclick="location.href='${ctp}/CPList.co?pag=1&pageSize=${pageSize}&categori=시공&detail=6'">페인트시공</div>
-	        <div class="second-class" onclick="location.href='${ctp}/CPList.co?pag=1&pageSize=${pageSize}&categori=시공&detail=7'">싱크대 교체</div>
-	        <div class="second-class" onclick="location.href='${ctp}/CPList.co?pag=1&pageSize=${pageSize}&categori=시공&detail=8'">도배장판 시공</div>
-	        <div class="second-class" onclick="location.href='${ctp}/CPList.co?pag=1&pageSize=${pageSize}&categori=시공&detail=9'">인테리어 필름 시공</div>
+	        <div class="second-class" onclick="location.href='${ctp}/CPList.co?categori=시공&detail=5'">타일시공</div>
+	        <div class="second-class" onclick="location.href='${ctp}/CPList.co?categori=시공&detail=6'">페인트시공</div>
+	        <div class="second-class" onclick="location.href='${ctp}/CPList.co?categori=시공&detail=7'">싱크대 교체</div>
+	        <div class="second-class" onclick="location.href='${ctp}/CPList.co?categori=시공&detail=8'">도배장판 시공</div>
+	        <div class="second-class" onclick="location.href='${ctp}/CPList.co?categori=시공&detail=9'">인테리어 필름 시공</div>
 	        <div class="first-class">디자인</div>
-	        <div class="second-class" onclick="location.href='${ctp}/CPList.co?pag=1&pageSize=${pageSize}&categori=디자인&detail=10'">도면 제작·수정</div>
-	        <div class="second-class" onclick="location.href='${ctp}/CPList.co?pag=1&pageSize=${pageSize}&categori=디자인&detail=11'">인테리어 컨설팅</div>
-	        <div class="second-class" onclick="location.href='${ctp}/CPList.co?pag=1&pageSize=${pageSize}&categori=디자인&detail=12'">3D 모델링</div>
+	        <div class="second-class" onclick="location.href='${ctp}/CPList.co?categori=디자인&detail=10'">도면 제작·수정</div>
+	        <div class="second-class" onclick="location.href='${ctp}/CPList.co?categori=디자인&detail=11'">인테리어 컨설팅</div>
+	        <div class="second-class" onclick="location.href='${ctp}/CPList.co?categori=디자인&detail=12'">3D 모델링</div>
 	       </div>
 			</div>
 			<div class="col-9">

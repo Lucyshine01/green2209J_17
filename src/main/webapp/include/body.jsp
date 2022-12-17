@@ -25,25 +25,25 @@
         <!-- The slideshow -->
         <div class="carousel-inner">
           <div class="carousel-item active">
-            <a href="#"><img src="${ctp}/images/viewPage/test1.png"/></a>
+            <img src="${ctp}/images/viewPage/test1.png"/>
           </div>
           <div class="carousel-item">
-            <a href="#"><img src="${ctp}/images/viewPage/test2.png"/></a>
+            <img src="${ctp}/images/viewPage/test2.png"/>
           </div>
           <div class="carousel-item">
-            <a href="#"><img src="${ctp}/images/viewPage/test3.png"/></a>
+            <img src="${ctp}/images/viewPage/test3.png"/>
           </div>
           <div class="carousel-item">
-            <a href="#"><img src="${ctp}/images/viewPage/test4.png"/></a>
+            <img src="${ctp}/images/viewPage/test4.png"/>
           </div>
           <div class="carousel-item">
-            <a href="#"><img src="${ctp}/images/viewPage/test5.png"/></a>
+            <img src="${ctp}/images/viewPage/test5.png"/>
           </div>
           <div class="carousel-item">
-            <a href="#"><img src="${ctp}/images/viewPage/test6.png"/></a>
+            <img src="${ctp}/images/viewPage/test6.png"/>
           </div>
           <div class="carousel-item">
-            <a href="#"><img src="${ctp}/images/viewPage/test7.png"/></a>
+            <img src="${ctp}/images/viewPage/test7.png"/>
           </div>
         </div>
         <!-- Left and right controls -->

@@ -25,6 +25,7 @@
   	else if(msg == "haveSession") msg = "";
   	else if(msg == "noAdmin") msg = "허용되지 않은 접근입니다.";
   	else if(msg == "noCompany") msg = "비정상적인 접근입니다.";
+  	else if(msg == "inputImg") msg = "";
   	
   	if(msg != "") alert(msg);
 		if(url != "") location.href = url;

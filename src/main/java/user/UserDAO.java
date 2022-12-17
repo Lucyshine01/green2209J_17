@@ -433,6 +433,20 @@ public class UserDAO {
 		}
 		return res;
 	}
+	
+	public void setCPIntroImg(String cpIntroImg, String mid) {
+		try {
+			sql = "update company set cpIntroImg = ? where mid = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, cpIntroImg);
+			pstmt.setString(2, mid);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("SQL 오류 : " + e.getMessage());
+		} finally {
+			getConn.pstmtClose();
+		}
+	}
 
 	
 }
