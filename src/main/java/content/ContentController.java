@@ -41,6 +41,7 @@ public class ContentController extends HttpServlet {
 			viewPage = "/include/message.jsp";
 			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 			dispatcher.forward(request, response);
+			return;
 		}
 		// 로그인후 접근 가능
 		else if(cmd.equals("/CPContentView")) {
@@ -60,6 +61,7 @@ public class ContentController extends HttpServlet {
 			viewPage = "/include/message.jsp";
 			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 			dispatcher.forward(request, response);
+			return;
 		}
 		else if(cmd.equals("/CPInfo")) {
 			command = new CPInfoCommand();

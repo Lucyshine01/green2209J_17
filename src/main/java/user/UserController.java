@@ -30,6 +30,7 @@ public class UserController extends HttpServlet {
 				viewPage = "/include/message.jsp";
 				RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 				dispatcher.forward(request, response);
+				return;
 			}
 			else viewPage += "/createUser.jsp";
 		}
@@ -77,6 +78,7 @@ public class UserController extends HttpServlet {
 			viewPage = "/include/message.jsp";
 			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 			dispatcher.forward(request, response);
+			return;
 		}
 		else if(cmd.equals("/createCPOk")){
 			command = new CompanyFormCommand();
