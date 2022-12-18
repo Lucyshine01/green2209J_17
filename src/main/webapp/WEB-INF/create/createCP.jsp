@@ -276,7 +276,7 @@
         <div class="row item-row">
           <!-- <div class="col-1"></div> -->
           <div class="col-1 d-flex fCol_center form-item" style="margin-left: 40px;">회사 소개</div>
-          <div class="col-10 d-flex fCol_center"><textarea rows="7" name="cpIntro" id="cpIntro" placeholder="소개"  ></textarea></div>
+          <div class="col-10 d-flex fCol_center"><textarea rows="7" name="cpIntro" id="cpIntro" placeholder="소개" class="form-control" style="resize: none;" ></textarea></div>
           <!-- <div class="col-1"></div> -->
         </div>
         <div class="row item-row">

@@ -38,6 +38,9 @@
   	<a href="${ctp}/adCPList.ad?pag=1&pageSize=5" target="adContent"><i class="fa-solid fa-building"></i> 업체 관리</a>
   </div>
   <div class="text-center menu ml-auto mr-auto">
+  	<a href="${ctp}/adReplyList.ad?pag=1&pageSize=5" target="adContent"><i class="fa-solid fa-comment-dots"></i> 댓글 관리</a>
+  </div>
+  <div class="text-center menu ml-auto mr-auto">
   	<a href="${ctp}/ad.ad?pag=1&pageSize=5" target="adContent"><i class="fa-solid fa-code-pull-request"></i> 의뢰 관리</a>
   </div>
   <div class="text-center menu ml-auto mr-auto">

@@ -33,6 +33,8 @@ function modalClose() {
 	$("#loginModal").css("opacity","0");
 	$("#pwdChangeModal").hide();
 	$("#pwdChangeModal").css("opacity","0");
+	$("#helpInputModal").hide();
+	$("#helpInputModal").css("opacity","0");
 }
 
 // 요소나온후 미리 읽어와야함

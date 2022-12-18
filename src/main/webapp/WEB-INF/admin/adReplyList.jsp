@@ -19,40 +19,23 @@
   	
   	if(totPage != 0){
 	  	if(pag > totPage || pag <= 0) {
-	  		if(searching != '') location.href = '${ctp}/adCPSearch.ad?pag='+totPage+'&pageSize='+pageSize+'&searching=${searching}&searchItem=${searchItem}';
-	  		else location.href = '${ctp}/adCPList.ad?pag='+totPage+'&pageSize='+pageSize;
+	  		if(searching != '') location.href = '${ctp}/adReplySearch.ad?pag='+totPage+'&pageSize='+pageSize+'&searching=${searching}&searchItem=${searchItem}';
+	  		else location.href = '${ctp}/adReplyList.ad?pag='+totPage+'&pageSize='+pageSize;
 	  	}
   	}
   	function pageSizeChange() {
 			let pageSize = $("#pageSize").val();
-			location.href = '${ctp}/adUserList.ad?pag=${pag}&pageSize='+pageSize;
+			location.href = '${ctp}/adReplyList.ad?pag=${pag}&pageSize='+pageSize;
 		}
   	
-  	function CPUpdate(idx,mid) {
-  		let ans = confirm("수정 하시겠습니까?");
-			if(!ans) return;
-			
-			let act = $("#act"+idx).val()
-			
-  		$.ajax({
-				type: "post",
-				url : "${ctp}/adCPUpdate.ad",
-				data: {cidx:idx,act:act,mid:mid},
-				success: function(res) {
-					if(res == '1') location.reload();
-					else alert("수정실패");
-				}
-			});
-		}
-  	
-		function CPDelete(idx,mid) {
+		function replyDelete(idx) {
 			let ans = confirm("정말 삭제하시겠습니까?");
 			if(!ans) return;
 			
 			$.ajax({
 				type: "post",
-				url : "${ctp}/adCPDel.ad",
-				data: {cidx:idx,mid:mid},
+				url : "${ctp}/adReplyDel.ad",
+				data: {ridx:idx},
 				success: function(res) {
 					if(res == '1') location.reload();
 					else alert("삭제실패");
@@ -60,16 +43,17 @@
 			});
 		}
 		
-  	function searchCP() {
+  	function searchReply() {
 			let searchItem = $("#searchItem").val();
 			let searching = $("#searching").val();
 			if(searching.trim() == '') return;
-			location.href = "${ctp}/adCPSearch.ad?searching="+searching+"&searchItem="+searchItem+"&pag=${pag}&pageSize=${pageSize}";
+			
+			location.href = "${ctp}/adReplySearch.ad?searching="+searching+"&searchItem="+searchItem+"&pag=${pag}&pageSize=${pageSize}";
 		}
   	
   	$(function() {
 			$("#searching").on('keydown', function(e){
-				if(e.keyCode == 13) searchCP();
+				if(e.keyCode == 13) searchReply();
 			});
 		});
   </script>
@@ -86,15 +70,13 @@
 	<div class=" container mt-3">
 		<div class="ml-3 mb-3" style="float: left">
 			<select id="searchItem" name="searchItem">
-				<option ${searchItem=='cpName' ? 'selected' : '' } value="cpName">회사명</option>
-				<option ${searchItem=='name' ? 'selected' : '' } value="name">대표명</option>
-				<option ${searchItem=='cpAddr' ? 'selected' : '' } value="cpAddr">주소</option>
-				<option ${searchItem=='cpIntro' ? 'selected' : '' } value="cpIntro">소개</option>
-				<option ${searchItem=='cpExp' ? 'selected' : '' } value="cpExp">분야</option>
 				<option ${searchItem=='mid' ? 'selected' : '' } value="mid">아이디</option>
+				<option ${searchItem=='content' ? 'selected' : '' } value="content">내용</option>
+				<option ${searchItem=='boardIdx' ? 'selected' : '' } value="boardIdx">게시판번호</option>
+				<option ${searchItem=='ridx' ? 'selected' : '' } value="ridx">댓글번호</option>
 			</select>
 			<input type="text" name="searching" id="searching" value="${searching}" />
-			<input type="button" onclick="searchCP()" value="검색" class="btn btn-sm btn-secondary" />
+			<input type="button" onclick="searchReply()" value="검색" class="btn btn-sm btn-secondary" />
 		</div>
 		<div class="mr-3 mb-3" style="float: right">
 			글 표시 수 
@@ -107,44 +89,36 @@
 		</div>
 		<table class="table table-hover text-center">
 			<thead class="thead-dark"><tr><th colspan="9" class="title">유저 현황</th></tr></thead>
-			<tr><th colspan="4">총 업체 수</th><td colspan="5">${CPTot}개</td></tr>
+			<tr><th colspan="3">총 댓글 수</th><td colspan="4">${replyTot}개</td></tr>
 			<thead class="thead-dark"><tr><th colspan="9" class="title">회원 목록</th></tr></thead>
 			<tr>
 				<td>번호</td>
-				<td>회사명</td>
-				<td>대표명</td>
-				<td>아이디</td>
-				<td>분야</td>
-				<td>등록일</td>
-				<td>활성화 상태</td>
-				<td>수정/삭제</td>
+				<td>게시판 번호</td>
+				<td>작성자</td>
+				<td>내용</td>
+				<td>평점</td>
+				<td>작성일</td>
+				<td>삭제</td>
 			</tr>
 			<c:forEach var="vo" items="${vos}" varStatus="st">
 				<tr>
-					<td>${vo.cidx}</td>
-					<td>${vo.cpName}</td>
-					<td>${vo.name}</td>
+					<td>${vo.ridx}</td>
+					<td>${vo.boardIdx}</td>
 					<td>${vo.mid}</td>
-					<td style="width: 300px">${vo.cpExp}</td>
-					<td>${fn:substring(vo.createDayCP,0,10)}</td>
+					<td>${vo.content}</td>
+					<td>${vo.rating == 0.0 ? '없음' : vo.rating}</td>
+					<td>${fn:substring(vo.writeDay,0,10)}</td>
 					<td>
-						<select id="act${vo.cidx}">
-							<option ${vo.act == 'on' ? 'selected' : ''} value="on">활성</option>
-							<option ${vo.act == 'off' ? 'selected' : ''} value="off">비활성</option>
-						</select>
-					</td>
-					<td>
-						<input type="button" onclick="CPUpdate(${vo.cidx},'${vo.mid}')" value="수정" class="btn btn-sm btn-warning"/>
-						<input type="button" onclick="CPDelete(${vo.cidx},'${vo.mid}')" value="삭제" class="btn btn-sm btn-danger"/>
+						<input type="button" onclick="replyDelete(${vo.ridx})" value="삭제" class="btn btn-sm btn-danger"/>
 					</td>
 				</tr>
 			</c:forEach>
-			<tr><td colspan="8"></td></tr>
+			<tr><td colspan="7"></td></tr>
 		</table>
 		<div class="text-center">
 		  <ul class="pagination justify-content-center">
-		  	<c:if test="${empty searching}"><c:set var="adList" value="${ctp}/adCPList.ad?pageSize=${pageSize}" /> </c:if>
-		  	<c:if test="${!empty searching}"><c:set var="adList" value="${ctp}/adCPSearch.ad?pageSize=${pageSize}&searching=${searching}&searchItem=${searchItem}"/></c:if>
+		  	<c:if test="${empty searching}"><c:set var="adList" value="${ctp}/adReplyList.ad?pageSize=${pageSize}" /> </c:if>
+		  	<c:if test="${!empty searching}"><c:set var="adList" value="${ctp}/adReplySearch.ad?pageSize=${pageSize}&searching=${searching}&searchItem=${searchItem}"/></c:if>
 		    <c:if test="${pag > 1}">
 		      <li class="page-item"><a class="page-link text-secondary" href="${adList}&pag=1">
 		      	<i class="fa-solid fa-backward-fast"></i>

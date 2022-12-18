@@ -82,16 +82,16 @@
           </div>
         </div>
       </div>
-      <div class="navIconBox">
+      <!-- <div class="navIconBox">
         <a href="#" class="nav-link nav-icon d-flex fCol_center">의뢰 목록</a>
         <span id="help1" class="help"><b>다양한 분야의 전문가</b>에게 의뢰해보세요.</span>
-      </div>
+      </div> -->
       <div class="navIconBox">
         <a href="${ctp}/CPList.co" class="nav-link nav-icon d-flex fCol_center">업체 목록</a>
         <span id="help2" class="help"><b>인테모아의 다양한 업체</b>를 만나보세요.</span>
       </div>
       <div class="navIconBox">
-        <a href="#" class="nav-link nav-icon d-flex fCol_center">고객센터</a>
+        <a href="${ctp}/help.he" class="nav-link nav-icon d-flex fCol_center">고객센터</a>
         <span id="help3" class="help">관리자와 <b>1대1 문의/답변</b>이 가능합니다.</span>
       </div>
       <div class="navIconBox">
@@ -100,13 +100,13 @@
       </div>
       <div style="width: 150px;"></div>
     </nav>
-    <div class="ml-auto d-flex">
-    <div class="d-flex fCol_center" style="padding-right: 15px">
-      <a href="#" class="nav-link nav-icon d-flex fCol_center" style="font-size: 1em;">
-        <span>원하는 서비스를 못 찾겠다면, <b>직접 의뢰</b>를 해보세요! ></span>
-      </a>
-    </div>
-    </div>
+    <!-- <div class="ml-auto d-flex">
+		  <div class="d-flex fCol_center" style="padding-right: 15px">
+		    <a href="#" class="nav-link nav-icon d-flex fCol_center" style="font-size: 1em;">
+		      <span>원하는 서비스를 못 찾겠다면, <b>직접 의뢰</b>를 해보세요! ></span>
+		    </a>
+		  </div>
+    </div> -->
   </div>
   <hr/>
 </div>

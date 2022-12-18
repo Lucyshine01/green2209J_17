@@ -26,7 +26,7 @@ a:hover {
 		color: #bbb;
 		font-weight: 300;
 }
-#loginModal, #pwdChangeModal{
+#loginModal, #pwdChangeModal, #helpInputModal{
 	position: relative;
 	display: none;
 	opacity: 0;
@@ -105,6 +105,12 @@ a:hover {
   /*중앙정렬*/
   justify-content: center;
 }
+.fRow_center{
+  /*위에서 아래로 수직 배치*/
+  flex-direction: row;
+  /*중앙정렬*/
+  justify-content: center;
+}
 .header{height: 74px;}
 
 #logo {padding-top: 10px;}
@@ -150,6 +156,10 @@ a:hover {
 }
 
 #searchBox #search::placeholder {color:#ccc;}
+textarea::placeholder {
+	font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+  font-size: 1em;
+}
 #loginBox button{
   font-size: 1.12em;
   font-weight: 600;
@@ -211,9 +221,12 @@ nav {position: relative;}
   transition: 0.3s;
 }
 #help1 {left:130px}
-#help2 {left:250px}
+#help2 {left:140px}
+#help3 {left:250px}
+#help4 {left:340px}
+/* #help2 {left:250px}
 #help3 {left:360px}
-#help4 {left:450px}
+#help4 {left:450px} */
 
 #mainView {
   padding-top: 60px;
@@ -446,3 +459,8 @@ nav {position: relative;}
   border: none;
 } 
 
+.reply {
+	font-size: 0.95em;
+	font-weight: 400;
+	font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+}

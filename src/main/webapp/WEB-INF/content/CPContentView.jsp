@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <jsp:useBean id="random" class="java.util.Random" scope="page"></jsp:useBean>
+<jsp:useBean id="date" class="java.util.Date" scope="page"></jsp:useBean>
 <c:set var="ctp" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html>
@@ -13,37 +14,44 @@
   <link href="include/viewPage.css" rel="stylesheet" type="text/css">
   <script>
 	  'use strict';
-	  let maxSize= 1024 * 1024 * 10;
-	  let cnt = 0;
-	  function inputFile(me) {
-	    $(me).next(".filebox").click();
-	  }
-	  function onChangefile(me) {
-	    let val = $(me).val();
-	    val = val.substring(val.lastIndexOf('\\')+1);
-	    let exp = val.substring(val.lastIndexOf('.')+1).toUpperCase();
-	    if(exp != 'PNG' && exp != "JPG") {
-	      alert("PNG,JPG파일만 허용합니다!");
-	      return;
-	    }
-	    alert($(me)[0].files[0].size);
-	    let fileSize = $(me)[0].files[0].size;
-	    if(maxSize < fileSize) {
-	    	alert("이미지는 10MB 이하만 업로드 가능합니다!");
-	    	return;
-	    }
-	    $(me).prev(".fIcon").hide();
-	    $("#fileBoxs").append('<div class="fileName mr-3 mt-2" style="overflow : hidden;">'+val+'</div>');
-	    let next = '<input type="hidden" name="fileSize'+cnt+'" value="'+fileSize+'"/>';
-	    cnt = cnt + 1;
-	    next += '<i class="fIcon fa-solid fa-plus mt-2" onclick="inputFile(this)"></i></div><input type="file" name="files'+cnt+'" id="files'+cnt+'" class="filebox" onchange="onChangefile(this)">'
-	    $("#fileBoxs").append(next);
-	  }
-	  function inputImg() {
-			let ans = confirm("이미지를 추가하시겠습니까?");
-			if(!ans) return;
+	  function submitReply() {
+		  let mid = "${sMid}";
+		  let boardIdx = "${vo.cidx}";
+			let rating = $("#rating").val();
+			let content = $("#content").val();
 			
-			plusImgForm.submit();
+			boardIdx = "c" + boardIdx;
+			
+			let query = {
+					mid: mid,
+					boardIdx: boardIdx,
+					rating: rating,
+					content: content
+			}
+			
+			$.ajax({
+				type: "post",
+				url : "${ctp}/submitReply.co",
+				data: query,
+				success: function(res) {
+					if(res == "1") location.reload();
+					else alert("댓글 등록에 실패했습니다.");
+				},
+				error: function() {
+					alert("전송 오류");
+				}
+			});
+			
+		}
+	  function starChange(val) {
+		  let img = $("#star").attr("src");
+		  if(img == "${ctp}/data/star/"+val+".jpg") {
+			  $("#star").attr("src","${ctp}/data/star/0.0.jpg");
+				$("#rating").val("0.0");
+				return;
+		  }
+			$("#star").attr("src","${ctp}/data/star/"+val+".jpg");
+			$("#rating").val(val);
 		}
   </script>
   <style>
@@ -65,6 +73,13 @@
   		font-weight: 400;
   		color: #333;
   	}
+  	.star {
+  		height:28px;
+  		width:11px;
+  		position: absolute;
+  		top: 0px; 
+  		cursor: pointer;
+  	}
   </style>
 </head>
 <body ondragstart="return false" onselectstart="return false">
@@ -75,12 +90,12 @@
 		<div class="d-flex"><div class="ml-3 mb-3 titleContent">회사 정보</div></div>
 		<div class="d-flex">
 			<div class="ml-2 mb-4 subtitleContent">
-				고객님께서 등록하신 인테모아 업체 정보입니다.<br/>
-				변경된 정보 혹은 잘못된 정보가 있으실 경우 문의를 통해 정보를 변경하실 수 있습니다.<p></p>
+				인테모아 업체 정보입니다.<br/>
+				원하시는 업체를 찾아보세요.<p></p>
 			</div>
 		</div>
 		<div class="d-flex ml-3 mb-3">
-			<img src="${ctp}/data/logo/${vo.cpImg}" width="200px" height="auto"/>
+			<img src="${ctp}/data/logo/${vo.cpImg}" width="200px" height="auto" />
 			<div class="m-2 d-flex fCol_center cont" style="font-size: 1.3em; font-weight: 500;">${vo.cpName}</div>
 		</div>
 		<div style="border-bottom: 2px solid #d0d0d0;"></div>
@@ -142,7 +157,8 @@
 			</div>
 		</div>
 		<div class="mt-3" style="border-bottom: 2px solid #d0d0d0;"></div>
-		<div class="d-flex" style="padding: 30px 50px 0px 50px;">
+		<div class="d-flex fRow_center"
+			style="padding: 30px 50px 30px 0px;">
 			<div>
 				<c:if test="${empty vo.cpIntroImg}">
 					<div class="d-felx fCol_center text-center" style="width: 600px; line-height: 400px; font-size: 1.8em;">
@@ -170,32 +186,31 @@
 		          <i style="color: #000;" class="fa-solid fa-chevron-right"></i>
 		        </a>
 		      </div>
+					<%-- <div id="demo" class="carousel slide ml-auto mr-auto" data-ride="carousel" style="width: 600px">
+						  <!-- Indicators -->
+						  <ul class="carousel-indicators">
+						  	<c:forEach var="img" items="${imgs}" varStatus="st">
+						    	<li data-target="#demo" data-slide-to="${st.index}"></li>
+						    </c:forEach>
+						  </ul>
+						  <!-- The slideshow -->
+						  <div class="carousel-inner" style="height: 500px;">
+						  	<c:forEach var="img" items="${imgs}" varStatus="st">
+									<div class="carousel-item <c:if test="${st.index == 0}">active</c:if>" >
+										<img src="${ctp}/data/picture/${img}" width="600px" /> 
+									</div>
+								</c:forEach>
+						  </div>
+						  <!-- Left and right controls -->
+						  <a class="carousel-control-prev" href="#demo" data-slide="prev">
+						    <span class="carousel-control-prev-icon"></span>
+						  </a>
+						  <a class="carousel-control-next" href="#demo" data-slide="next">
+						    <span class="carousel-control-next-icon"></span>
+						  </a>
+					</div> --%>
 				</c:if>
 			</div>
-			<div class="mt-3 mb-5 ml-auto text-center" style="width: 40%">
-				<form name="plusImgForm" method="post" action="${ctp}/inputCPImg.co" enctype="multipart/form-data">
-					<div>
-				    <div id="fileBoxs" class="d-flex" style="flex-wrap: wrap">
-				      <i class="fIcon fa-solid fa-plus mt-2" onclick="inputFile(this)"></i>
-				      <input class="filebox" type="file" name="files0" id="files0" onchange="onChangefile(this)">
-				    </div>
-				  </div>
-			  </form>
-			</div>
-		</div>
-		<div class="d-flex">
-			<c:if test="${!empty vo.cpIntroImg}">
-				<select id="imgDel" name="imgDel" class="form-control ml-auto m-3" style="width: 20%">
-					<c:forEach var="img" items="${imgs}" varStatus="st">
-						<option value="${img}">${st.count}. ${img}</option>
-					</c:forEach>
-				</select>
-				<input type="button" value="선택 이미지삭제" class="btn btn-danger m-3"/>
-				<input type="button" value="이미지 추가" onclick="inputImg();" class="btn btn-success m-3"/>
-			</c:if>
-			<c:if test="${empty vo.cpIntroImg}">
-				<input type="button" value="이미지 추가" onclick="inputImg();" class="btn btn-success ml-auto m-3"/>
-			</c:if>
 		</div>
 		<div>
 			<div class="reply ml-auto mr-auto mb-3" style="width: 800px; font-size: 1.4em; font-weight: 400;">
@@ -206,7 +221,7 @@
 			</div>
 			<hr/>
 			<table class="ml-auto mr-auto">
-				<c:if test="${replyTot == 0}"><tr><td class="p-5 reply" style="font-size: 1.05em">작성된 댓글이 없습니다.</td></tr></c:if>
+				<c:if test="${replyTot == 0}"><tr><td class="p-5 reply text-center" style="font-size: 1.05em;">작성된 댓글이 없습니다.</td></tr></c:if>
 				<c:if test="${replyTot != 0}">
 					<c:forEach var="replyVO" items="${replyVOS}" >
 						<tr><td><div class="d-flex" style="padding: 20px 50px 20px 50px; width: 900px; border-bottom: 1px solid #ddd;">
@@ -233,6 +248,38 @@
 						</div></td></tr>
 					</c:forEach>
 				</c:if>
+				<tr><td><div class="d-flex" style="padding: 20px 50px 20px 50px; width: 900px;">
+					<div class="d-flex fCol_center">
+						<div class="m-2" style="border-radius: 70%; overflow: hidden;">
+							<img src="${ctp}/data/profile/userIcon-${random.nextInt(4)}.jpg" width="60px"/>
+						</div>
+					</div>
+					<div class="reply d-flex fCol_center" style="width: 100%;">
+						<div class="d-flex">
+							<div class="ml-3 p-2" style="font-size: 1.05em; font-weight: 300;">작성자 : ${sMid}</div>
+							<div class="ml-4 p-1 d-flex fCol_center">
+								<div style="position: relative;">
+									<img id="star" src="${ctp}/data/star/0.0.jpg" width="112px"/>
+									<c:forEach begin="0" end="9" varStatus="st">
+										<div class="star" onclick="starChange('${st.count * 0.5}')" style="left: ${(st.index * 11) + 1}px;"></div>
+									</c:forEach>
+									<input type="hidden" name="rating" id="rating" value="0.0"/>
+								</div>
+							</div>
+							<div class="ml-auto p-2" style="font-size: 1.05em; font-weight: 300;">
+								작성일자 : <fmt:formatDate value="${date}" pattern="MM-dd HH:mm"/>
+							</div>
+						</div>
+						<div class="d-flex">
+							<div class="ml-3 p-2" style="width: 88%">
+								<textarea rows="2" name="content" id="content"  placeholder="무분별한 욕설 및 분란조장 댓글은 임의로 삭제될수 있습니다." class="form-control" style="resize: none;"></textarea>
+							</div>
+							<div class="d-flex fCol_center text-center" style="width: 9%;">
+								<input type="button" onclick="submitReply();" value="작성" class="btn btn-secondary btn-sm" style="padding: 19px;" />
+							</div>
+						</div>
+					</div>
+				</div></td></tr>
 			</table>
 			<div class="mb-3"></div>
 		</div>

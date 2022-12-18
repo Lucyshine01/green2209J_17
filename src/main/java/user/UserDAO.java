@@ -429,7 +429,7 @@ public class UserDAO {
 		} catch (SQLException e) {
 			System.out.println("SQL 오류 : " + e.getMessage());
 		} finally {
-			getConn.rsClose();
+			getConn.pstmtClose();
 		}
 		return res;
 	}

@@ -6,18 +6,16 @@ import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import reply.replyDAO;
 import reply.replyVO;
 import user.UserVO;
 
-public class CPInfoCommand implements ContentInterface {
+public class CPContentViewCommand implements ContentInterface {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		String mid = session.getAttribute("sMid")==null ? "" : (String)session.getAttribute("sMid");
+		String mid = request.getParameter("mid")==null ? "" : request.getParameter("mid");
 		ContentDAO dao = new ContentDAO();
 		
 		UserVO vo = dao.getCpInfo(mid);
@@ -42,6 +40,6 @@ public class CPInfoCommand implements ContentInterface {
 			avgRating = avgRating / cnt;
 		}
 		request.setAttribute("avgRating", avgRating);
-		
 	}
+
 }

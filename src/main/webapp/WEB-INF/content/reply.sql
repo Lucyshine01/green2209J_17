@@ -16,10 +16,10 @@ desc reply;
 
 select * from reply;
 
+select * from reply where boardIdx = 'c10' order by writeDay desc;
 
 
-
-
+insert into reply values(default,?,?,?,default,?)
 
 
 

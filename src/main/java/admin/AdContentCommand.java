@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import pds.pdsDAO;
 import pds.pdsVO;
+import reply.replyDAO;
+import reply.replyVO;
 import user.UserDAO;
 import user.UserVO;
 
@@ -18,6 +20,7 @@ public class AdContentCommand implements AdminInterface {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		pdsDAO pdsDAO = new pdsDAO();
 		UserDAO userDAO = new UserDAO();
+		replyDAO replyDAO = new replyDAO();
 		
 		ArrayList<pdsVO> pdsVOS = pdsDAO.getFileInfo();
 		int totFSize = 0;
@@ -33,6 +36,10 @@ public class AdContentCommand implements AdminInterface {
 		ArrayList<UserVO> companyVOS = userDAO.getCPList(0,5);
 		request.setAttribute("companyTot", companyVOS.size());
 		request.setAttribute("companyVOS", companyVOS);
+		
+		ArrayList<replyVO> replyVOS = replyDAO.getReplyList(0, 5);
+		request.setAttribute("replyTot", replyVOS.size());
+		request.setAttribute("replyVOS", replyVOS);
 		
 	}
 

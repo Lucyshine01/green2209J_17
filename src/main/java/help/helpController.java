@@ -1,4 +1,4 @@
-package content;
+package help;
 
 import java.io.IOException;
 
@@ -10,30 +10,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import content.CPContentViewCommand;
 import user.MyInfoCommand;
 
-@WebServlet("*.co")
-public class ContentController extends HttpServlet {
+@WebServlet("*.he")
+public class helpController extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ContentInterface command = null;
+		HelpInterface command = null;
 		
-		String viewPage = "/WEB-INF/content";
+		String viewPage = "/WEB-INF/help";
 		String uri = request.getRequestURI();
 		String cmd = uri.substring(uri.lastIndexOf("/"),uri.lastIndexOf("."));
 		HttpSession session = request.getSession();
 		String sMid = session.getAttribute("sMid")==null ? "" : (String)session.getAttribute("sMid");
 		String userLevel = session.getAttribute("sUserLevel")==null ? "" : (String)session.getAttribute("sUserLevel");
 		
-		// 비로그인 접근 가능
-		if(cmd.equals("/CPList")) {
-			command = new CPListCommand();
-			command.execute(request, response);
-			viewPage += "/CPList.jsp";
-		}
-		else if(sMid.equals("")) {
+		if(sMid.equals("")) {
 			request.setAttribute("msg", "noLogin");
-			
 			// 이전페이지 주소확인 (사파리 작동x)
 			if(request.getHeader("referer") != null)
 				request.setAttribute("url", request.getHeader("referer"));
@@ -42,36 +36,11 @@ public class ContentController extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 			dispatcher.forward(request, response);
 		}
-		// 로그인후 접근 가능
-		else if(cmd.equals("/CPContentView")) {
-			command = new CPContentViewCommand();
+		else if(cmd.equals("/help")) {
+			command = new HelpCommand();
 			command.execute(request, response);
-			viewPage += "/CPContentView.jsp";
+			viewPage += "/help.jsp";
 		}
-		else if(cmd.equals("/submitReply")) {
-			command = new SubmitReplyCommand();
-			command.execute(request, response);
-			return;
-		}
-		// 업체전용
-		else if(!userLevel.equals("업체")) {
-			request.setAttribute("msg", "noCompany");
-			request.setAttribute("url", request.getContextPath()+"/");
-			viewPage = "/include/message.jsp";
-			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
-			dispatcher.forward(request, response);
-		}
-		else if(cmd.equals("/CPInfo")) {
-			command = new CPInfoCommand();
-			command.execute(request, response);
-			viewPage += "/CPInfo.jsp";
-		}
-		else if(cmd.equals("/inputCPImg")) {
-			command = new PlusImgFormCommand();
-			command.execute(request, response);
-			viewPage = "/include/message.jsp";
-		}
-		
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);

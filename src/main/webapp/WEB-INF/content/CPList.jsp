@@ -69,7 +69,7 @@
 				</div>
 				<div class="d-flex" style="flex-wrap: wrap">
 					<c:forEach var="vo" items="${vos}">
-						<div onclick="location.href='#'" class="d-flex" style="width: 33%; height: 300px; flex-direction: column;">
+						<div onclick="location.href='${ctp}/CPContentView.co?mid=${vo.mid}'" class="d-flex" style="width: 33%; height: 300px; flex-direction: column;">
 							<div class="d-flex justify-content-center cpItemBox" style="height: 200px">
 								<img src="${ctp}/data/logo/${vo.cpImg}" width="80%" height="auto" style="object-fit: contain">
 							</div>

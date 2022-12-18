@@ -63,15 +63,32 @@
 		<table class="table table-hover text-center">
 			<thead class="thead-dark"><tr><th colspan="4" class="title" >이미지 파일 현황</th></tr></thead>
 			<tr><th colspan="2">파일 수</th><td colspan="2">${totFile}개</td></tr>
-			<tr><th colspan="2">용량</th><td colspan="2"><fmt:formatNumber value="${totFSize/1024}" pattern=".00"/>Mbyte</td></tr>
+			<tr><th colspan="2">용량</th><td colspan="2"><fmt:formatNumber value="${totFSize/1024/1024}" pattern="0.00"/>Mbyte</td></tr>
 			<thead class="thead-dark"><tr><th colspan="4" class="title">최근 업로드된 파일</th></tr></thead>
 			<tr><td>파일명</td><td>업로더</td><td>파일크기</td><td>수정일</td></tr>
 			<c:forEach var="vo" items="${pdsVOS}" end="4" >
 				<tr>
 					<td>${vo.fSysName}</td>
 					<td>${vo.mid}</td>
-					<td><fmt:formatNumber value="${vo.fSize/1024}" pattern=".00"/>Mbyte</td>
+					<td><fmt:formatNumber value="${(vo.fSize/1024)/1024}" pattern="0.00"/>Mbyte</td>
 					<td>${fn:substring(vo.inDate,0,10)}</td>
+				</tr>
+			</c:forEach>
+			<tr><td colspan="4"></td></tr>
+		</table>
+	</div>
+	<div class="mb-4">
+		<table class="table table-hover text-center">
+			<thead class="thead-dark"><tr><th colspan="4" class="title" >이미지 파일 현황</th></tr></thead>
+			<tr><th>댓글 수</th><td colspan="2">${replyTot}개</td></tr>
+			<thead class="thead-dark"><tr><th colspan="4" class="title">최근 업로드된 파일</th></tr></thead>
+			<tr><td>작성자</td><td>내용</td><td>평점</td><td>작성일</td></tr>
+			<c:forEach var="vo" items="${replyVOS}" end="4" >
+				<tr>
+					<td>${vo.mid}</td>
+					<td>${vo.content}</td>
+					<td>${vo.rating == 0.0 ? '없음' : vo.rating}</td>
+					<td>${fn:substring(vo.writeDay,0,10)}</td>
 				</tr>
 			</c:forEach>
 			<tr><td colspan="4"></td></tr>

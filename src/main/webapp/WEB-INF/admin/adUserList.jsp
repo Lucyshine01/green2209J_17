@@ -15,8 +15,13 @@
   	let pag = ${pag};
   	let totPage = ${totPage};
   	let pageSize = ${pageSize};
-  	if(pag > totPage) {
-  		location.href = '${ctp}/adUserList.ad?pag='+totPage+'&pageSize='+pageSize;
+  	let searching = "${searching}";
+  	
+  	if(totPage != 0){
+	  	if(pag > totPage || pag <= 0) {
+	  		if(searching != '') location.href = '${ctp}/adUserSearch.ad?pag='+totPage+'&pageSize='+pageSize+'&searching=${searching}&searchItem=${searchItem}';
+	  		else location.href = '${ctp}/adUserList.ad?pag='+totPage+'&pageSize='+pageSize;
+	  	}
   	}
   	
   	function pageSizeChange() {

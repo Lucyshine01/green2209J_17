@@ -10,13 +10,13 @@
       <div class="mt-4" style="font-family: 'Spoqa Han Sans Neo';">10:30~18:00 (점심시간 13:00~14:00)</div>
       <div class="mt-2" style="font-family: 'Spoqa Han Sans Neo';">주말,공휴일 휴무</div>
       <div class="mt-4">
-        <input type="button" value="1:1문의" class="btn btn-outline-secondary w3-hover-grey">
+        <input type="button" onclick="location.href='${ctp}/help.he'" value="1:1문의" class="btn btn-outline-secondary w3-hover-grey">
       </div>
     </div>
     <div class="d-flex fCol_center botMenu">
       <div style="font-size: 1.2em; font-weight: 600;">인테모아</div>
       <div class="mt-4"><a href="${ctp}/">사이트 메인</a></div>
-      <div class="mt-2"><a href="#">의뢰 목록</a></div>
+      <!-- <div class="mt-2"><a href="#">의뢰 목록</a></div> -->
       <div class="mt-2"><a href="${ctp}/CPList.co">업체 목록</a></div>
       <div class="mt-2"><a href="#">고객센터</a></div>
       <div class="mt-2"><a href="#">게시판</a></div>

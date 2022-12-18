@@ -22,6 +22,7 @@
   	else if(msg == "createCompanyOk") msg = "업체가입이 완료되었습니다.\n관리자가 승인할시 업체계정으로 승격됩니다.";
   	else if(msg == "createCompanyNo") msg = "업체가입에 실패했습니다.\n등록하신 아이디로 로그인해서 다시 업체등록을 진행해주세요.";
   	else if(msg == "noSession") msg = "비로그인 상태거나 세션이 만료되었습니다.\n로그인을 진행해주세요.";
+  	else if(msg == "noLogin") msg = "회원 전용 서비스입니다.\n로그인 후 이용해주세요.";
   	else if(msg == "haveSession") msg = "";
   	else if(msg == "noAdmin") msg = "허용되지 않은 접근입니다.";
   	else if(msg == "noCompany") msg = "비정상적인 접근입니다.";
