@@ -9,7 +9,7 @@
     </div>
     <div></div>
     <div id="searchBox" class="ml-auto d-flex text-center fCol_center header">
-      <input type="text" id="search" name="search" placeholder="서비스, 업체를 검색해 보세요" autocomplete='off' spellcheck="false">
+      <input type="text" id="search" name="search" placeholder="원하는 업체를 검색해 보세요" autocomplete='off' spellcheck="false">
       <i class="fa-solid fa-magnifying-glass"></i>
       <i class="fa-solid fa-circle-xmark iconHidden" onclick="removeSearch()"></i>
     </div>
