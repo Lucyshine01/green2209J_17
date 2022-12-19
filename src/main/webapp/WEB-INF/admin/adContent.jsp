@@ -11,31 +11,14 @@
   <title>adContent.jsp</title>
   <jsp:include page="/include/bs4.jsp"></jsp:include>
   <script>
-  	setInterval(exclamationBig,1200);
-  	function exclamationBig() {
-			$(".exclamation").animate({zoom:"108%"},650);
-			exclamationSmall();
-		}
-  	function exclamationSmall() {
-			$(".exclamation").animate({zoom:"100%"},550);
-		}
   </script>
   <style>
   	.container {margin-left: 50px;}
   	.top {
-  		position: relative;
   		font-family: 'Spoqa Han Sans Neo', 'sans-serif';
   		font-size: 1.7em;
   		font-weight: bold;
   	}
-		.top .centerTop {
-			width: 100px;
-			height: 50px;
-			text-align: center;
-		}
-		.exclamation {
-			transform:translate(-50%,0);
-		}
   	.title {
   		font-size: 1.4em;
   		font-weight: 500;
@@ -47,13 +30,11 @@
 <div class="container">
 	<div class="text-center top pt-3 pb-3" style="border-top: 2px solid #ccc">답변 대기중인 문의 수</div>
 	<div class="mb-4 d-flex justify-content-around pb-3" style="border-bottom: 2px solid #ccc;">
-		<div class="top " style="font-size: 3.5em; width: 45%;">
-			<div>
-				<c:if test="${helpCnt > 0}"><i class="fa-solid fa-circle-exclamation centerTop exclamation" style="color: #CC0000"></i></c:if>
-				<c:if test="${helpCnt == 0}"><i class="fa-regular fa-circle-check centerTop" style="color: #00dd33"></i></c:if>
-			</div>
+		<div class="top text-center" style="font-size: 3.5em; width: 45%; line-height: 2em; position: relative;">
+			<c:if test="${helpCnt > 0}"><i class="fa-solid fa-circle-exclamation" style="color: #CC0000"></i></c:if>
+			<c:if test="${helpCnt == 0}"><i class="fa-regular fa-circle-check" style="color: #00dd33"></i></c:if>
 		</div>
-		<div class="top d-flex fCol_center" style="font-size: 2em; width: 45%;"><div class="centerTop ml-auto mr-auto">${helpCnt}건</div></div>
+		<div class="top text-center" style="font-size: 2em; width: 45%; line-height: 3.5em;">${helpCnt}건</div>
 	</div>
 	<div class="mb-4">
 		<table class="table table-hover text-center">
