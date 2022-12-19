@@ -134,7 +134,7 @@ a:hover {
 }
 .iconHidden {visibility: hidden;}
 
-#searchBox #search{
+#searchBox #search1{
   padding: 10px 18px;
   padding-right: 35px;
   font-size: 0.9em;
@@ -145,17 +145,17 @@ a:hover {
   transition: 0.3s;
   /* font-family: 'Noto Sans KR', sans-serif; */
 }
-#searchBox #search:hover {
+#searchBox #search1:hover {
   outline: 1px solid #999;
   transition: 0.3s;
 }
-#searchBox #search:focus {
+#searchBox #search1:focus {
   outline: 1px solid #999;
   /* padding-right: 150px; */
   transition: 0.3s;
 }
 
-#searchBox #search::placeholder {color:#ccc;}
+#searchBox #search1::placeholder {color:#ccc;}
 textarea::placeholder {
 	font-family: 'Spoqa Han Sans Neo', 'sans-serif';
   font-size: 1em;
@@ -411,7 +411,7 @@ nav {position: relative;}
 	font-weight: 500;
 	font-family: 'Spoqa Han Sans Neo';
 	margin-top: 10px;
-	margin-bottom: 20px;
+	margin-bottom: 5px;
 }
 
 .main-content .topCategori {
@@ -464,3 +464,5 @@ nav {position: relative;}
 	font-weight: 400;
 	font-family: 'Spoqa Han Sans Neo', 'sans-serif';
 }
+
+

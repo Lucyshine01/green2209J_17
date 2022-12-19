@@ -94,6 +94,21 @@ public class AdminController extends HttpServlet {
 			command.execute(request, response);
 			viewPage += "/adReplyList.jsp";
 		}
+		else if(cmd.equals("/adHelpList")){
+			command = new AdhelpListCommand();
+			command.execute(request, response);
+			viewPage += "/adHelpList.jsp";
+		}
+		else if(cmd.equals("/adHelpSearch")){
+			command = new AdhelpSearchCommand();
+			command.execute(request, response);
+			viewPage += "/adHelpList.jsp";
+		}
+		else if(cmd.equals("/adHelpAnswer")){
+			command = new AdhelpAnswerCommand();
+			command.execute(request, response);
+			return;
+		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);

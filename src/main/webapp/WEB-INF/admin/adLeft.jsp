@@ -40,11 +40,11 @@
   <div class="text-center menu ml-auto mr-auto">
   	<a href="${ctp}/adReplyList.ad?pag=1&pageSize=5" target="adContent"><i class="fa-solid fa-comment-dots"></i> 댓글 관리</a>
   </div>
-  <div class="text-center menu ml-auto mr-auto">
+  <%-- <div class="text-center menu ml-auto mr-auto">
   	<a href="${ctp}/ad.ad?pag=1&pageSize=5" target="adContent"><i class="fa-solid fa-code-pull-request"></i> 의뢰 관리</a>
-  </div>
+  </div> --%>
   <div class="text-center menu ml-auto mr-auto">
-  	<a href="${ctp}/ad.ad" target="adContent"><i class="fa-solid fa-circle-question"></i> 문의 관리</a>
+  	<a href="${ctp}/adHelpList.ad" target="adContent"><i class="fa-solid fa-circle-question"></i> 문의 관리</a>
   </div>
 </div>
 <p><br/></p>

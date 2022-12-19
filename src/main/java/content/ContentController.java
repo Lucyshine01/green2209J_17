@@ -31,6 +31,11 @@ public class ContentController extends HttpServlet {
 			command.execute(request, response);
 			viewPage += "/CPList.jsp";
 		}
+		else if(cmd.equals("/CPSearch")) {
+			command = new CPSearchCommand();
+			command.execute(request, response);
+			viewPage += "/CPList.jsp";
+		}
 		else if(sMid.equals("")) {
 			request.setAttribute("msg", "noLogin");
 			
@@ -72,6 +77,11 @@ public class ContentController extends HttpServlet {
 			command = new PlusImgFormCommand();
 			command.execute(request, response);
 			viewPage = "/include/message.jsp";
+		}
+		else if(cmd.equals("/imgDel")) {
+			command = new ImgDelCommand();
+			command.execute(request, response);
+			return;
 		}
 		
 		

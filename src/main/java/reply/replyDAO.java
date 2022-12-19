@@ -136,7 +136,6 @@ public class replyDAO {
 			rs = pstmt.executeQuery();
 			rs.next();
 			totRecCnt = rs.getInt("replyCnt");
-			System.out.println(1);
 		} catch (SQLException e) {
 			System.out.println("SQL 오류 : " + e.getMessage());
 		} finally {
@@ -156,7 +155,6 @@ public class replyDAO {
 			pstmt.setInt(2, start);
 			pstmt.setInt(3, ea);
 			rs = pstmt.executeQuery();
-			System.out.println(2);
 			while(rs.next()) {
 				vo = new replyVO();
 				vo.setRidx(rs.getInt("ridx"));;

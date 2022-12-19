@@ -19,7 +19,7 @@
       <!-- <div class="mt-2"><a href="#">의뢰 목록</a></div> -->
       <div class="mt-2"><a href="${ctp}/CPList.co">업체 목록</a></div>
       <div class="mt-2"><a href="#">고객센터</a></div>
-      <div class="mt-2"><a href="#">게시판</a></div>
+      <!-- <div class="mt-2"><a href="#">게시판</a></div> -->
     </div>
   </div>
 </div>

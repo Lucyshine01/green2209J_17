@@ -106,7 +106,7 @@
 			</select>
 		</div>
 		<table class="table table-hover text-center">
-			<thead class="thead-dark"><tr><th colspan="9" class="title">유저 현황</th></tr></thead>
+			<thead class="thead-dark"><tr><th colspan="9" class="title">업체 현황</th></tr></thead>
 			<tr><th colspan="4">총 업체 수</th><td colspan="5">${CPTot}개</td></tr>
 			<thead class="thead-dark"><tr><th colspan="9" class="title">회원 목록</th></tr></thead>
 			<tr>

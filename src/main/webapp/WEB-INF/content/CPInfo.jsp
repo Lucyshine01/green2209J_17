@@ -26,7 +26,6 @@
 	      alert("PNG,JPG파일만 허용합니다!");
 	      return;
 	    }
-	    alert($(me)[0].files[0].size);
 	    let fileSize = $(me)[0].files[0].size;
 	    if(maxSize < fileSize) {
 	    	alert("이미지는 10MB 이하만 업로드 가능합니다!");
@@ -45,6 +44,27 @@
 			
 			plusImgForm.submit();
 		}
+	  function imgDelete() {
+			let ans = confirm("해당 이미지를 삭제하시겠습니까?");
+			if(!ans) return;
+			
+			let img = $("#imgDel").val();
+			
+			$.ajax({
+				type: "post",
+				url : "${ctp}/imgDel.co",
+				data: {imgName:img,mid:'${sMid}'},
+				success: function(res) {
+					if(res == '1') location.reload();
+					else alert("이미지 삭제에 실패하였습니다.");
+				},
+				error: function() {
+					alert("전송 오류");
+				}
+			});
+			
+		}
+	  
   </script>
   <style>
   	.tit {
@@ -190,7 +210,7 @@
 						<option value="${img}">${st.count}. ${img}</option>
 					</c:forEach>
 				</select>
-				<input type="button" value="선택 이미지삭제" class="btn btn-danger m-3"/>
+				<input type="button" value="선택 이미지삭제" onclick="imgDelete();" class="btn btn-danger m-3"/>
 				<input type="button" value="이미지 추가" onclick="inputImg();" class="btn btn-success m-3"/>
 			</c:if>
 			<c:if test="${empty vo.cpIntroImg}">

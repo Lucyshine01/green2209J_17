@@ -9,8 +9,8 @@
           원하는 업체를 찾아보세요!
         </div>
         <div id="mainView_searchBox">
-          <input type="text" id="search2" name="saerch" placeholder="인테리어 업체 찾기" autocomplete='off' spellcheck="false">
-          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="search2" name="search2" class="searchAnythingBox" placeholder="인테리어 업체 찾기" autocomplete='off' spellcheck="false">
+          <i onclick="searchingAnything(2);" class="fa-solid fa-magnifying-glass"></i>
         </div>
         <div class="d-flex">
           <span class="hasTag">#인테리어</span>

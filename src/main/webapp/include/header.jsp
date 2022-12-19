@@ -9,7 +9,7 @@
     </div>
     <div></div>
     <div id="searchBox" class="ml-auto d-flex text-center fCol_center header">
-      <input type="text" id="search" name="search" placeholder="원하는 업체를 검색해 보세요" autocomplete='off' spellcheck="false">
+      <input type="text" id="search1" name="search1" class="searchAnythingBox" placeholder="원하는 업체를 검색해 보세요" autocomplete='off' spellcheck="false">
       <i class="fa-solid fa-magnifying-glass"></i>
       <i class="fa-solid fa-circle-xmark iconHidden" onclick="removeSearch()"></i>
     </div>
@@ -94,10 +94,10 @@
         <a href="${ctp}/help.he" class="nav-link nav-icon d-flex fCol_center">고객센터</a>
         <span id="help3" class="help">관리자와 <b>1대1 문의/답변</b>이 가능합니다.</span>
       </div>
-      <div class="navIconBox">
+      <!-- <div class="navIconBox">
         <a href="#" class="nav-link nav-icon d-flex fCol_center">게시판</a>
         <span id="help4" class="help">업체 및 인테모아의 <b>사용후기를 작성</b>해보세요.</span>
-      </div>
+      </div> -->
       <div style="width: 150px;"></div>
     </nav>
     <!-- <div class="ml-auto d-flex">
@@ -277,4 +277,12 @@
 			}
 		});
 	}
+	
+	// 검색
+	function searchingAnything(idx) {
+		let search = $("#search"+idx).val();
+		if(search.trim() == "") return;
+		location.href = "${ctp}/CPSearch.co?searching="+search+"&searchItem=all"
+	}
+	
 </script>

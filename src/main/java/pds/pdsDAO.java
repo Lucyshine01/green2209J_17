@@ -60,4 +60,17 @@ public class pdsDAO {
 		return vos;
 	}
 	
+	public void fileDel(String fSysName) {
+		try {
+			sql = "delete from pds where fSysName = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, fSysName);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("SQL 오류 : " + e.getMessage());
+		} finally {
+			getConn.pstmtClose();
+		}
+	}
+	
 }

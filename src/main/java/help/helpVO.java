@@ -7,6 +7,9 @@ public class helpVO {
 	private String conf;
 	private String answer;
 	private String mid;
+	private String writeDay;
+	private String answerDay;
+	
 	
 	public int getHidx() {
 		return hidx;
@@ -44,11 +47,23 @@ public class helpVO {
 	public void setMid(String mid) {
 		this.mid = mid;
 	}
-
+	public String getWriteDay() {
+		return writeDay;
+	}
+	public void setWriteDay(String writeDay) {
+		this.writeDay = writeDay;
+	}
+	public String getAnswerDay() {
+		return answerDay;
+	}
+	public void setAnswerDay(String answerDay) {
+		this.answerDay = answerDay;
+	}
+	
 	@Override
 	public String toString() {
-		return "replyVO [hidx=" + hidx + ", title=" + title + ", content=" + content + ", conf=" + conf + ", answer="
-				+ answer + ", mid=" + mid + "]";
+		return "helpVO [hidx=" + hidx + ", title=" + title + ", content=" + content + ", conf=" + conf + ", answer="
+				+ answer + ", mid=" + mid + ", writeDay=" + writeDay + ", answerDay=" + answerDay + "]";
 	}
 	
 }

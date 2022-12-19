@@ -42,6 +42,11 @@ public class helpController extends HttpServlet {
 			command.execute(request, response);
 			viewPage += "/help.jsp";
 		}
+		else if(cmd.equals("/helpInput")) {
+			command = new HelpInputCommand();
+			command.execute(request, response);
+			return;
+		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);

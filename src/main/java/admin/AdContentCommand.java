@@ -7,6 +7,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import help.helpDAO;
+import help.helpVO;
 import pds.pdsDAO;
 import pds.pdsVO;
 import reply.replyDAO;
@@ -21,6 +23,7 @@ public class AdContentCommand implements AdminInterface {
 		pdsDAO pdsDAO = new pdsDAO();
 		UserDAO userDAO = new UserDAO();
 		replyDAO replyDAO = new replyDAO();
+		helpDAO helpDAO = new helpDAO();
 		
 		ArrayList<pdsVO> pdsVOS = pdsDAO.getFileInfo();
 		int totFSize = 0;
@@ -40,6 +43,14 @@ public class AdContentCommand implements AdminInterface {
 		ArrayList<replyVO> replyVOS = replyDAO.getReplyList(0, 5);
 		request.setAttribute("replyTot", replyVOS.size());
 		request.setAttribute("replyVOS", replyVOS);
+		
+		ArrayList<helpVO> helpVOS = helpDAO.getHelpAllList();
+		int helpCnt = 0;
+		for(int i=0; i<helpVOS.size(); i++) {
+			if(helpVOS.get(i).getConf().equals("off")) helpCnt++;
+		}
+		request.setAttribute("helpCnt", helpCnt);
+		request.setAttribute("helpVOS", helpVOS);
 		
 	}
 

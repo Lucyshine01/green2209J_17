@@ -25,6 +25,35 @@
   		$("#helpInputModal").show();
   		$("#helpInputModal").animate({opacity:"1"},200);
   	}
+  	function helpInputCheck() {
+			let title = $("#title").val();
+			let content = $("#content").val();
+			if(title.length > 50){
+				$("#helpModalInfo").html("제목의 길이가 너무 깁니다!<br/>");
+				return;
+			}
+			let query = {
+					title: title,
+					content: content,
+					mid : '${sMid}'
+			}
+			
+			$.ajax({
+				type: "post",
+				url : "${ctp}/helpInput.he",
+				data: query,
+				success: function(res) {
+					if(res == '1') {
+						alert("문의 내용이 정상적으로 전달 되었습니다.");
+						location.reload();
+					}
+					else alert("서버 오류로 인해 문의 작성에 실패했습니다.");
+				},
+				error: function() {
+					alert("전송오류");
+				}
+			});
+		}
   </script>
   <style>
   	.helpBox {
@@ -58,7 +87,7 @@
 		  color: #333;
 		  cursor: pointer;
   	}
-  	.arrowBox {font-size: 1.2em;}
+  	.dateBox {font-size: 1em;}
   	.ansbox {display: none;}
   </style>
 </head>
@@ -69,24 +98,22 @@
 		<div class="modalBack"></div>
 		<div class="width" style="position: relative;">
 			<div class="modalMain d-flex">
-				<div class="d-flex fCol_center" style="width: 50%">
-					<div class="text-center mb-3" style="font-size: 1.8em; font-weight: 500;">비밀번호 변경</div>
+				<div class="d-flex fCol_center ml-auto mr-auto" style="width: 95%">
+					<div class="text-center mb-3" style="font-size: 1.8em; font-weight: 500;">문의</div>
 					<div class="p-4 ml-auto mr-auto" style="font-size: 1.1em; width: 80%;">
 						<form>
-							<div>기존 비밀번호</div>
-							<input type="password" name="oldPwd" id="oldPwd" class="form-control mt-2 mb-3" autocomplete='off'/>
-							<div>새로운 비밀번호</div>
-							<input type="password" name="newPwd" id="newPwd" class="form-control mt-2 mb-1" />
-							<div>비밀번호 재확인</div>
-							<input type="password" name="newPwd2" id="newPwd2" class="form-control mt-2 mb-1" />
-							<div id="pwdChangeInfo" class="mb-2 ml-1" style="color: red;font-size: 0.8em;font-weight: 300;">&nbsp;<br/>&nbsp;</div>
-							<input type="button" value="비밀번호 변경" onclick="pwdChangeCheck();" class="btn btn-success mb-2 form-control"/>
+							<div>문의 제목</div>
+							<input type="text" name="title" id="title" class="form-control mt-2 mb-3" autocomplete='off'/>
+							<div>건의 내용</div>
+							<textarea rows="9" name="content" id="content" class="form-control mt-2 mb-1" autocomplete='off' style="resize: none;"></textarea>
+							<div id="helpModalInfo" class="mb-2 ml-1" style="color: red;font-size: 0.8em;font-weight: 300;">&nbsp;<br/>&nbsp;</div>
+							<input type="button" value="작성 완료" onclick="helpInputCheck();" class="btn btn-success mb-2 form-control"/>
 						</form>
 					</div>
 					<div>
 					</div>
 				</div>
-				<div class="ml-auto" style="width: 45%">
+				<%-- <div class="ml-auto" style="width: 45%">
 					<div class="modalClose" onclick="modalClose();"><i class="fa-solid fa-xmark"></i></div>
 					<div class="d-flex fCol_center" style="height: 400px; border-left: 2px solid #e2e2e2; padding-left: 50px; padding-right: 30px;">
 						<div class="text-left mb-2" style="font-size: 1.8em; font-weight: 500; font-family: 'Spoqa Han Sans Neo', 'sans-serif';">
@@ -94,7 +121,7 @@
 						</div>
 						<img src="${ctp}/images/viewPage/logo-big.png" width="100%">
 					</div>
-				</div>
+				</div> --%>
 			</div>
 		</div>
 	</div>
@@ -116,8 +143,14 @@
 				</div>
 			</div>
 			<div style="border-top: 3px solid #aaa; padding-top: 30px;">
+				<div class="d-flex">
+					<div class="helpBox d-flex fCol_center text-center"></div>
+					<div class="mainBox d-flex fCol_center text-center ml-auto mr-auto" >문의 제목</div>
+					<div class="rightBox d-flex fCol_center text-center">답변 상태</div>
+					<div class="rightBox arrowBox d-flex fCol_center text-center mr-3">작성일</div>
+				</div>
 				<c:if test="${tot == 0}">
-					<div class="text-center">
+					<div class="text-center pb-4" style="padding-top: 60px">
 						문의내용이 없습니다.
 					</div>
 				</c:if>
@@ -128,7 +161,7 @@
 								<div class="helpBox d-flex fCol_center text-center"><i class="fa-solid fa-circle-info"></i></div>
 								<div onclick="ansboxOpen(${st.count})" class="mainBox d-flex fCol_center text-left" style="cursor: pointer;">${vo.title}</div>
 								<div onclick="ansboxOpen(${st.count})" class="rightBox d-flex fCol_center text-center ml-auto">${vo.conf == 'off' ? '답변준비중' : '답변완료' }</div>
-								<div onclick="ansboxOpen(${st.count})" class="rightBox arrowBox d-flex fCol_center text-center mr-3">▼</div>
+								<div onclick="ansboxOpen(${st.count})" class="rightBox d-flex fCol_center text-center mr-3 dateBox">${fn:substring(vo.writeDay,0,10)}<br/>${fn:substring(vo.writeDay,11,16)}</div>
 							</div>
 							<input type="hidden" id="sw${st.count}" value="0"/>
 							<div id="ansbox${st.count}" class="ansbox" style="background-color: rgb(245,245,245);">
@@ -143,6 +176,11 @@
 										<c:if test="${empty vo.answer}"><div class="text-center" style="font-size: 1.1em; color: #333">답변대기중</div></c:if>
 										<c:if test="${!empty vo.answer}">${vo.answer}</c:if>
 									</div>
+									<c:if test="${!empty vo.answer}">
+										<div class="ml-auto mr-3 text-center rightBox dateBox d-flex fCol_center">
+											답변일<br/>${fn:substring(vo.answerDay,0,10)}<br/>${fn:substring(vo.answerDay,11,16)}
+										</div>
+									</c:if>
 								</div>
 							</div>
 						</div>

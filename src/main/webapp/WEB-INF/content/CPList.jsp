@@ -14,11 +14,44 @@
 		let pag = ${pag};
 		let totPage = ${totPage};
 		let pageSize = ${pageSize};
-		if(pag > totPage) {
-			location.href = '${ctp}/CPList.ad?pag='+totPage+'&pageSize='+pageSize+"&categori=${categori}&detail=${detail}";
+		let searching = "${searching}";
+		
+		if(totPage != 0){
+		  	if(pag > totPage || pag <= 0) {
+		  		if(searching != '') location.href = '${ctp}/CPSearch.co?pag='+totPage+'&pageSize='+pageSize+'&searching=${searching}&searchItem=${searchItem}';
+		  		else location.href = '${ctp}/CPList.co?pag='+totPage+'&pageSize='+pageSize+"&categori=${categori}&detail=${detail}";
+		  	}
+	  	}
+		function searchingList() {
+			let searchItem = $("#searchItem").val();
+			let searching = $("#searching").val();
+			if(searching.trim() == '') return;
+			location.href = "${ctp}/CPSearch.co?searching="+searching+"&searchItem="+searchItem+"&pag=${pag}&pageSize=${pageSize}";
 		}
+		
+		$(function() {
+			$("#searching").on('keydown', function(e){
+				if(e.keyCode == 13) searchingList();
+			});
+		});
   </script>
-  <style></style>
+  <style>
+  	.searchItemForm {
+  		outline: none;
+  		border: 1px solid #ccc;
+  		padding: 3px;
+   	}
+   	.searchingForm {
+   		outline: none;
+   		border: 1px solid #ccc;
+   		padding: 5px 8px;
+   		border-radius: 4px;
+   	}
+   	#searchbtn {
+   		padding: 7px 12px 5px 12px;
+   		margin-bottom: 1px;
+   	}
+  </style>
 </head>
 <body ondragstart="return false" onselectstart="return false">
 	<div id="loading_Bar"></div>
@@ -64,7 +97,20 @@
 							</c:if>
 						</c:if>
 					</div>
-					<div class="topTitle">인테모아 업체목록</div>
+					<c:if test="${empty searching}"><div class="topTitle">인테모아 업체목록</div></c:if>
+					<c:if test="${!empty searching}"><div class="topTitle">업체 검색</div></c:if>
+					<div class="d-flex">
+						<div class="ml-auto mr-2 mb-2 d-flex">
+							<select id="searchItem" name="searchItem" class="searchItemForm mr-1">
+								<option ${searchItem == 'all' ? 'selected' : ''} value="all">전체</option>
+								<option ${searchItem == 'cpName' ? 'selected' : ''} value="cpName">회사명</option>
+								<option ${searchItem == 'name' ? 'selected' : ''} value="name">대표명</option>
+								<option ${searchItem == 'cpIntro' ? 'selected' : ''} value="cpIntro">소개</option>
+							</select>
+							<input type="text" value="${searching}" name="searching" id="searching" class="searchingForm mr-1"/>
+							<input type="button" onclick="searchingList();" id="searchbtn" value="검색" class="btn btn-sm btn-secondary mr-2"/>
+						</div>
+					</div>
 					<div style="border-bottom: 2px solid #d0d0d0;"></div>
 				</div>
 				<div class="d-flex" style="flex-wrap: wrap">
@@ -86,7 +132,7 @@
 				<div class="text-center">
 				  <ul class="pagination justify-content-center">
 				  	<c:if test="${empty searching}"><c:set var="CPList" value="${ctp}/CPList.co?pageSize=${pageSize}&categori=${categori}&detail=${detail}"/> </c:if>
-				  	<c:if test="${!empty searching}"><c:set var="CPList" value="${ctp}/CPSearch.co?pageSize=${pageSize}&categori=${categori}&detail=${detail}&searching=${searching}&searchItem=${searchItem}"/></c:if>
+				  	<c:if test="${!empty searching}"><c:set var="CPList" value="${ctp}/CPSearch.co?pageSize=${pageSize}&searching=${searching}&searchItem=${searchItem}"/></c:if>
 				    <c:if test="${pag > 1}">
 				      <li class="page-item"><a class="page-link text-secondary" href="${CPList}&pag=1">
 				      	<i class="fa-solid fa-backward-fast"></i>

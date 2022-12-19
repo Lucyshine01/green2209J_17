@@ -21,4 +21,8 @@ alter table pds add column inDate datetime default now();
 select * from user;
 select * from pds order by inDate desc limit 3,3;
 
+delete from pds where fSysName = '124124.jpg';
+
+
+
 drop table pds;

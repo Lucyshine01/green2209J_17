@@ -196,5 +196,91 @@ public class ContentDAO {
 		return totRecCnt;
 	}
 
+
+	public int getCPSearchCnt(String searching, String searchItem) {
+		int totRecCnt = 0;
+		int forCnt = 0;
+		try {
+			if(searchItem.equals("all")) {
+				sql = "select count(*) as cnt from user u, company c "
+						+ "where u.mid = c.mid and (cpName like ? or name like ? or cpIntro like ? or cpExp like ?) "
+						+ "order by createDayCP desc";
+				forCnt = 4;
+			}
+			else {
+				sql = "select count(*) as cnt from user u, company c "
+						+ "where u.mid = c.mid and "+searchItem+" like ? "
+						+ "order by createDayCP desc";
+				forCnt = 1;
+			}
+			pstmt = conn.prepareStatement(sql);
+			for(int i=1; i<=forCnt; i++) pstmt.setString(i, "%"+searching+"%");
+			rs = pstmt.executeQuery();
+			rs.next();
+			totRecCnt = rs.getInt("cnt");
+		} catch (SQLException e) {
+			System.out.println("SQL 오류 : " + e.getMessage());
+		} finally {
+			getConn.rsClose();
+		}
+		return totRecCnt;
+	}
+
+
+	public ArrayList<UserVO> getCPSearchList(String searching, String searchItem, int stratIndexNo, int pageSize) {
+		ArrayList<UserVO> vos = new ArrayList<>();
+		int forCnt = 0;
+		try {
+			if(searchItem.equals("all")) {
+				sql = "select * from user u, company c "
+						+ "where u.mid = c.mid and (cpName like ? or name like ? or cpIntro like ? or cpExp like ?) "
+						+ "order by createDayCP desc";
+				forCnt = 4;
+			}
+			else {
+				sql = "select * from user u, company c "
+						+ "where u.mid = c.mid and "+searchItem+" like ? "
+						+ "order by createDayCP desc";
+				forCnt = 1;
+			}
+			pstmt = conn.prepareStatement(sql);
+			for(int i=1; i<=forCnt; i++) pstmt.setString(i, "%"+searching+"%");
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				vo = new UserVO();
+				
+				vo.setUidx(rs.getInt("uidx"));
+				vo.setMid(rs.getString("mid"));
+				vo.setPwd(rs.getString("pwd"));
+				vo.setEmail(rs.getString("email"));
+				vo.setBirth(rs.getString("birth"));
+				vo.setTel(rs.getString("tel"));
+				vo.setCreateDay(rs.getString("createDay"));
+				vo.setUserLevel(rs.getString("userLevel"));
+				vo.setPoint(rs.getInt("point"));
+				
+				vo.setCidx(rs.getInt("cidx"));
+				vo.setName(rs.getString("name"));
+				vo.setCpName(rs.getString("cpName"));
+				vo.setCpAddr(rs.getString("cpAddr"));
+				vo.setCpImg(rs.getString("cpImg"));
+				vo.setCpHomePage(rs.getString("cpHomePage"));
+				vo.setCpIntro(rs.getString("cpIntro"));
+				vo.setCpIntroImg(rs.getString("cpIntroImg"));
+				vo.setCpExp(rs.getString("cpExp"));
+				vo.setAct(rs.getString("act"));
+				vo.setImgSize(rs.getInt("imgSize"));
+				vo.setCreateDayCP(rs.getString("createDayCP"));
+				
+				vos.add(vo);
+			}
+		} catch (SQLException e) {
+			System.out.println("SQL 오류 : " + e.getMessage());
+		} finally {
+			getConn.rsClose();
+		}
+		return vos;
+	}
+
 	
 }

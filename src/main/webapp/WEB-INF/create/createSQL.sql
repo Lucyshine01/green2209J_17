@@ -63,7 +63,7 @@ select * from user u, company c where u.mid = c.mid and u.mid = 'JMdFuRdM';
 
 select * from company;
 select * from user u, company c where u.mid = c.mid order by createDayCP desc limit 0,5;
-
+select count(*) as cnt from user u, company c where u.mid = c.mid and cpName like '%디%';
 select * from user u, company c 
 where u.mid = c.mid and cpExp like '%상업 인테리어%' 
 order by createDayCP desc;

@@ -15,11 +15,10 @@ else if(randomSearch == 11) $("#search2").val("3D모델링");
 else if(randomSearch == 12) $("#search2").val("인테리어 컨설팅");
 
 function removeSearch() {
-  $("#search").val("");
+  $("#search1").val("");
   $("#searchBox .fa-circle-xmark").addClass("iconHidden");
   $("#searchBox .fa-magnifying-glass").removeClass("iconHidden");
 }
-
 function loginModalOn() {
 	$("#loginModal").show();
 	$("#loginModal").animate({opacity:"1"},200);
@@ -74,13 +73,20 @@ $(document).ready(function(){
   $("#mainView").css("background-color","#000225");
   $("html, body").animate({ scrollTop: 0 }, 5); 
   
-  $("#search").on('focusin',function(e){
+  $(".searchAnythingBox").on('keydown', function(e){
+		if(e.keyCode == 13) {
+			let idx = $(this).attr("id").replace("search","");
+			searchingAnything(idx);
+		}
+	});
+  
+  $("#search1").on('focusin',function(e){
     $(this).animate({width:"350px"},10);
   });
-  $("#search").on('focusout',function(e){
+  $("#search1").on('focusout',function(e){
     $(this).animate({width:"250px"},10);
   });
-  $("#search").keyup(function(){
+  $("#search1").keyup(function(){
     if($(this).val().length >= 1){
       $("#searchBox .fa-circle-xmark").removeClass("iconHidden");
       $("#searchBox .fa-magnifying-glass").addClass("iconHidden");
@@ -90,6 +96,15 @@ $(document).ready(function(){
       $("#searchBox .fa-magnifying-glass").removeClass("iconHidden");
     }
   });
+  
+  let search2SW = 0;
+  $("#search2").on('focusin',function(e){
+		if(search2SW == 0){
+    	$(this).val("");
+    	search2SW = 1;
+		}
+  });
+  
   
   $(".modalBack").click(function(){modalClose();});
 	
