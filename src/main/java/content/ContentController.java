@@ -70,6 +70,11 @@ public class ContentController extends HttpServlet {
 			command.execute(request, response);
 			return;
 		}
+		else if(cmd.equals("/coReplyReport")){
+			command = new CoReplyReportCommand();
+			command.execute(request, response);
+			return;
+		}
 		// 업체전용
 		else if(!userLevel.equals("업체")) {
 			request.setAttribute("msg", "noCompany");

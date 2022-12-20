@@ -108,6 +108,25 @@
 			<tr><td colspan="4"></td></tr>
 		</table>
 	</div>
+	<div class="mb-4">
+		<table class="table table-hover text-center">
+			<thead class="thead-dark"><tr><th colspan="6" class="title" >신고 현황</th></tr></thead>
+			<tr><th colspan="3">신고 수</th><td colspan="3">${reportTot}개</td></tr>
+			<thead class="thead-dark"><tr><th colspan="6" class="title">최근 신고된 댓글</th></tr></thead>
+			<tr><td>신고 번호</td><td>신고된 아이디</td><td>댓글 내용</td><td>작성일</td><td>신고자</td><td>신고일</td></tr>
+			<c:forEach var="vo" items="${reportVOS}" end="4" >
+				<tr>
+					<td>${vo.replyIdx}</td>
+					<td>${vo.replyMid}</td>
+					<td>${vo.replyContent}</td>
+					<td>${fn:substring(vo.replyWriteDay,0,10)}</td>
+					<td>${vo.reportMid}</td>
+					<td>${fn:substring(vo.reportWriteDay,0,10)}</td>
+				</tr>
+			</c:forEach>
+			<tr><td colspan="6"></td></tr>
+		</table>
+	</div>
 </div>
 <p><br/></p>
 </body>

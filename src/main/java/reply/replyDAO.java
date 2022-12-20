@@ -64,8 +64,6 @@ public class replyDAO {
 		}
 		return res;
 	}
-
-	
 	
 	public int getReplyCnt() {
 		int totRecCnt = 0;
@@ -171,6 +169,30 @@ public class replyDAO {
 			getConn.rsClose();
 		}
 		return vos;
+	}
+
+
+	public replyVO getReplyRidx(int ridx) {
+		vo = new replyVO();
+		try {
+			sql = "select * from reply where ridx = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, ridx);
+			rs = pstmt.executeQuery();
+			rs.next();
+			
+			vo.setRidx(rs.getInt("ridx"));
+			vo.setBoardIdx(rs.getString("boardIdx"));
+			vo.setContent(rs.getString("content"));
+			vo.setRating(rs.getInt("rating"));
+			vo.setWriteDay(rs.getString("writeDay"));
+			vo.setMid(rs.getString("mid"));
+		} catch (SQLException e) {
+			System.out.println("SQL 오류 : " + e.getMessage());
+		} finally {
+			getConn.rsClose();
+		}
+		return vo;
 	}
 	
 	

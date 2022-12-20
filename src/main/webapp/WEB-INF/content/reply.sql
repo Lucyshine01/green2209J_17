@@ -32,6 +32,4 @@ insert into reply values(default,?,?,?,default,?)
 
 
 
-
-
 drop table reply;

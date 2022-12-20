@@ -170,7 +170,7 @@ public class helpDAO {
 		} catch (SQLException e) {
 			System.out.println("SQL 오류 : " + e.getMessage());
 		} finally {
-			getConn.rsClose();
+			getConn.pstmtClose();
 		}
 		return res;
 	}
@@ -199,6 +199,22 @@ public class helpDAO {
 			getConn.rsClose();
 		}
 		return vos;
+	}
+
+	public int getOffHelpCnt() {
+		int helpCnt = 0;
+		try {
+			sql = "select count(*) as 'helpCnt' from help where conf = 'off';";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			rs.next();
+			helpCnt = rs.getInt("helpCnt");
+		} catch (SQLException e) {
+			System.out.println("SQL 오류 : " + e.getMessage());
+		} finally {
+			getConn.rsClose();
+		}
+		return helpCnt;
 	}
 	
 }

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <c:set var="ctp" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html>
@@ -137,11 +138,14 @@
 									${fn:substring(fn:replace(vo.cpIntro,'<br/>',''),0,40)}
 									<c:if test="${fn:length(fn:replace(vo.cpIntro,'<br/>','')) > 40}">...</c:if>
 								</div>
+								<c:if test="${vo.starAvg != 0.0}">
+									<div><img src="${ctp}/data/star/<fmt:formatNumber value="${(vo.starAvg - (vo.starAvg % 0.5))}" pattern="0.0"/>.jpg" width="60px"/> ${vo.starAvg}</div>
+								</c:if>
 							</div>
 						</div>
 					</c:forEach>
 				</div>
-				<div class="text-center">
+				<div class="text-center mt-5">
 				  <ul class="pagination justify-content-center">
 				  	<c:if test="${empty searching}"><c:set var="CPList" value="${ctp}/CPList.co?pageSize=${pageSize}&categori=${categori}&detail=${detail}"/> </c:if>
 				  	<c:if test="${!empty searching}"><c:set var="CPList" value="${ctp}/CPSearch.co?pageSize=${pageSize}&searching=${searching}&searchItem=${searchItem}"/></c:if>

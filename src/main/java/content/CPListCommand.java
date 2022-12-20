@@ -16,7 +16,7 @@ public class CPListCommand implements ContentInterface {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ContentDAO dao = new ContentDAO();
 		UserDAO userDAO = new UserDAO();
-		
+		String division = "new";
 		String categori = request.getParameter("categori")==null ? "no" : request.getParameter("categori");
 		int detail = request.getParameter("detail")==null ? 1111 : Integer.parseInt(request.getParameter("detail"));
 		String subCategori = "";
@@ -71,6 +71,7 @@ public class CPListCommand implements ContentInterface {
 		if(!categori.equals("no")) request.setAttribute("categori", categori);
 		request.setAttribute("subCategori", subCategori);
 		request.setAttribute("detail", detail);
+		request.setAttribute("division", division);
 		
 		request.setAttribute("blockSize", blockSize);
 		request.setAttribute("pageSize", pageSize);

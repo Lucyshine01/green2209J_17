@@ -65,13 +65,13 @@ public class ContentDAO {
 		int totRecCnt = 0;
 		try {
 			if(!subCategori.equals("no")) {
-				sql = "select count(*) as cnt from user u, company c "
-						+ "where u.mid = c.mid and cpExp like '%"+subCategori+"%' "
+				sql = "select count(*) as cnt from company"
+						+ "where cpExp like '%"+subCategori+"%' "
 						+ "order by createDayCP desc";
 			}
 			else {
-				sql = "select count(*) as cnt from user u, company c "
-						+ "where u.mid = c.mid and (";
+				sql = "select count(*) as cnt from company "
+						+ " (";
 				String[] categori = firstCategori.split("/");
 				for(String strCategori : categori) {
 					sql += " cpExp like '%"+strCategori+"%' or ";
@@ -154,24 +154,14 @@ public class ContentDAO {
 	public ArrayList<UserVO> getCpList(int strat, int ea) {
 		ArrayList<UserVO> vos = new ArrayList<>();
 		try {
-			sql = "select * from user u, company c "
-					+ "where u.mid = c.mid order by createDayCP desc limit ?,?";
+			sql = "select * from company c "
+					+ "order by createDayCP desc limit ?,?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, strat);
 			pstmt.setInt(2, ea);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				vo = new UserVO();
-				
-				vo.setUidx(rs.getInt("uidx"));
-				vo.setMid(rs.getString("mid"));
-				vo.setPwd(rs.getString("pwd"));
-				vo.setEmail(rs.getString("email"));
-				vo.setBirth(rs.getString("birth"));
-				vo.setTel(rs.getString("tel"));
-				vo.setCreateDay(rs.getString("createDay"));
-				vo.setUserLevel(rs.getString("userLevel"));
-				vo.setPoint(rs.getInt("point"));
 				
 				vo.setCidx(rs.getInt("cidx"));
 				vo.setName(rs.getString("name"));
@@ -202,13 +192,13 @@ public class ContentDAO {
 		ArrayList<UserVO> vos = new ArrayList<>();
 		try {
 			if(!subCategori.equals("no")) {
-				sql = "select * from user u, company c "
-						+ "where u.mid = c.mid and cpExp like '%"+subCategori+"%' "
+				sql = "select * from company "
+						+ "where cpExp like '%"+subCategori+"%' "
 						+ "order by createDayCP desc limit ?,?";
 			}
 			else {
-				sql = "select * from user u, company c "
-						+ "where u.mid = c.mid and (";
+				sql = "select * from company "
+						+ "where (";
 				String[] categori = firstCategori.split("/");
 				for(String strCategori : categori) {
 					sql += " cpExp like '%"+strCategori+"%' or ";
@@ -222,16 +212,6 @@ public class ContentDAO {
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				vo = new UserVO();
-				
-				vo.setUidx(rs.getInt("uidx"));
-				vo.setMid(rs.getString("mid"));
-				vo.setPwd(rs.getString("pwd"));
-				vo.setEmail(rs.getString("email"));
-				vo.setBirth(rs.getString("birth"));
-				vo.setTel(rs.getString("tel"));
-				vo.setCreateDay(rs.getString("createDay"));
-				vo.setUserLevel(rs.getString("userLevel"));
-				vo.setPoint(rs.getInt("point"));
 				
 				vo.setCidx(rs.getInt("cidx"));
 				vo.setName(rs.getString("name"));
@@ -363,24 +343,26 @@ public class ContentDAO {
 	}
 	
 
-	public ArrayList<UserVO> getCPSearchList(String searching, String searchItem, int stratIndexNo, int pageSize) {
+	public ArrayList<UserVO> getCPSearchList(String searching, String searchItem, int strat, int ea) {
 		ArrayList<UserVO> vos = new ArrayList<>();
 		int forCnt = 0;
 		try {
 			if(searchItem.equals("all")) {
 				sql = "select * from user u, company c "
 						+ "where u.mid = c.mid and (cpName like ? or name like ? or cpIntro like ? or cpExp like ?) "
-						+ "order by createDayCP desc";
+						+ "order by createDayCP desc limit ?,?";
 				forCnt = 4;
 			}
 			else {
 				sql = "select * from user u, company c "
 						+ "where u.mid = c.mid and "+searchItem+" like ? "
-						+ "order by createDayCP desc";
+						+ "order by createDayCP desc limit ?,?";
 				forCnt = 1;
 			}
 			pstmt = conn.prepareStatement(sql);
 			for(int i=1; i<=forCnt; i++) pstmt.setString(i, "%"+searching+"%");
+			pstmt.setInt(forCnt+1, strat);
+			pstmt.setInt(forCnt+2, ea);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				vo = new UserVO();

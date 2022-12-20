@@ -13,6 +13,8 @@ import pds.pdsDAO;
 import pds.pdsVO;
 import reply.replyDAO;
 import reply.replyVO;
+import report.reportDAO;
+import report.reportVO;
 import user.UserDAO;
 import user.UserVO;
 
@@ -24,6 +26,7 @@ public class AdContentCommand implements AdminInterface {
 		UserDAO userDAO = new UserDAO();
 		replyDAO replyDAO = new replyDAO();
 		helpDAO helpDAO = new helpDAO();
+		reportDAO reportDAO = new reportDAO();
 		
 		ArrayList<pdsVO> pdsVOS = pdsDAO.getFileInfo();
 		int totFSize = 0;
@@ -45,12 +48,13 @@ public class AdContentCommand implements AdminInterface {
 		request.setAttribute("replyVOS", replyVOS);
 		
 		ArrayList<helpVO> helpVOS = helpDAO.getHelpAllList();
-		int helpCnt = 0;
-		for(int i=0; i<helpVOS.size(); i++) {
-			if(helpVOS.get(i).getConf().equals("off")) helpCnt++;
-		}
+		int helpCnt = helpDAO.getOffHelpCnt();
 		request.setAttribute("helpCnt", helpCnt);
 		request.setAttribute("helpVOS", helpVOS);
+		
+		ArrayList<reportVO> reportVOS = reportDAO.getreportList(0,5);
+		request.setAttribute("reportTot", reportVOS.size());
+		request.setAttribute("reportVOS", reportVOS);
 		
 	}
 

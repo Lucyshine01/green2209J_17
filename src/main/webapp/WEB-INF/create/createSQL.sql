@@ -81,6 +81,13 @@ select *,avg(r.rating) from company c, reply r
 				 order by avg(r.rating) desc;
 
 
+select c.cpName,count(r.ridx) from company c,(select * from reply where rating > 0) as r 
+where r.boardIdx = CONCAT('c',c.cidx) 
+group by c.cpName;
+						
+				 
+				 
+				 
 select count(*) as 'CPCnt' from company where cpName like '%벤%';
 
 select count(r.ridx) as CPcnt from (select * from reply group by boardidx) as r;

@@ -68,6 +68,24 @@
 				}
 			});
 		}
+	  function replyReport(idx) {
+			let ans = confirm("신고하시겠습니까?");
+			if(!ans) return;
+			
+			$.ajax({
+				type: "post",
+				url : "${ctp}/coReplyReport.co",
+				data: {ridx:idx},
+				success: function(res) {
+					if(res == '1') {
+						alert("신고가 접수되었습니다.");
+						location.reload();
+					}
+					else if(res == '0') alert("이미 신고하신 댓글입니다.");
+					else alert("서버오류"); 
+				}
+			});
+		}
   </script>
   <style>
   	.tit {
@@ -232,6 +250,9 @@
 										</c:if>
 									</div>
 									<div class="ml-auto p-2" style="font-size: 1.05em; font-weight: 300;">${fn:substring(replyVO.writeDay,0,16)}</div>
+									<c:if test="${replyVO.mid != sMid}">
+										<div onclick="replyReport(${replyVO.ridx})" class="p-2 ml-1" style="font-size: 0.95em;cursor: pointer;">신고</div>
+									</c:if>
 									<c:if test="${replyVO.mid == sMid}">
 										<div onclick="replyDelete(${replyVO.ridx})" class="p-2 ml-1" style="font-size: 0.95em;cursor: pointer;">삭제</div>
 									</c:if>
