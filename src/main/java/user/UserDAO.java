@@ -46,7 +46,7 @@ public class UserDAO {
 	public String createCompany(UserVO vo) {
 		String res = "0";
 		try {
-			sql = "insert into company values(default,?,?,?,?,?,?,'',?,default,?,?,default)";
+			sql = "insert into company values(default,?,?,?,?,?,?,'',?,default,?,?,default,default)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, vo.getName());
 			pstmt.setString(2, vo.getCpName());
@@ -131,6 +131,7 @@ public class UserDAO {
 				vo.setAct(rs.getString("act"));
 				vo.setImgSize(rs.getInt("imgSize"));
 				vo.setCreateDayCP(rs.getString("createDayCP"));
+				vo.setViewCP(rs.getInt("viewCP"));
 			}
 		} catch (SQLException e) {
 			System.out.println("SQL 오류 : " + e.getMessage());
@@ -193,6 +194,7 @@ public class UserDAO {
 				vo.setImgSize(rs.getInt("imgSize"));
 				vo.setMid(rs.getString("mid"));
 				vo.setCreateDayCP(rs.getString("createDayCP"));
+				vo.setViewCP(rs.getInt("viewCP"));
 				vos.add(vo);
 			}
 		} catch (SQLException e) {
@@ -223,6 +225,23 @@ public class UserDAO {
 		int totRecCnt = 0;
 		try {
 			sql = "select count(*) as 'CPCnt' from company";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			rs.next();
+			totRecCnt = rs.getInt("CPCnt");
+		} catch (SQLException e) {
+			System.out.println("SQL 오류 : " + e.getMessage());
+		} finally {
+			getConn.rsClose();
+		}
+		return totRecCnt;
+	}
+	
+	public int getCPCnt_rating() {
+		int totRecCnt = 0;
+		try {
+			sql = "select count(r.ridx) as CPcnt "
+					+ "from (select * from reply group by boardidx) as r;";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			rs.next();
@@ -345,6 +364,7 @@ public class UserDAO {
 				vo.setImgSize(rs.getInt("imgSize"));
 				vo.setMid(rs.getString("mid"));
 				vo.setCreateDayCP(rs.getString("createDayCP"));
+				vo.setViewCP(rs.getInt("viewCP"));
 				vos.add(vo);
 			}
 		} catch (SQLException e) {

@@ -53,6 +53,21 @@
 			$("#star").attr("src","${ctp}/data/star/"+val+".jpg");
 			$("#rating").val(val);
 		}
+	  
+	  function replyDelete(idx) {
+			let ans = confirm("정말 삭제하시겠습니까?");
+			if(!ans) return;
+			
+			$.ajax({
+				type: "post",
+				url : "${ctp}/coReplyDel.co",
+				data: {ridx:idx},
+				success: function(res) {
+					if(res == '1') location.reload();
+					else alert("삭제실패");
+				}
+			});
+		}
   </script>
   <style>
   	.tit {
@@ -96,7 +111,7 @@
 		</div>
 		<div class="d-flex ml-3 mb-3">
 			<img src="${ctp}/data/logo/${vo.cpImg}" width="200px" height="auto" />
-			<div class="m-2 d-flex fCol_center cont" style="font-size: 1.3em; font-weight: 500;">${vo.cpName}</div>
+			<div class="m-2 d-flex fCol_center cont" style="font-size: 1.3em; font-weight: 500;">${vo.cpName}&nbsp;&nbsp;[view : ${vo.viewCP}]</div>
 		</div>
 		<div style="border-bottom: 2px solid #d0d0d0;"></div>
 		<div class="mt-2 ml-2 mb-1" style="font-size: 1.8em; font-weight: 400; color: #333">
@@ -174,7 +189,7 @@
 	        	<div class="carousel-inner" style="height: 500px;">
 	        		<c:forEach var="img" items="${imgs}" varStatus="st">
 								<div class="carousel-item <c:if test="${st.index == 0}">active</c:if>" >
-									<img src="${ctp}/data/picture/${img}" width="600px" /> 
+									<div style="height: 440px;"><img src="${ctp}/data/picture/${img}" style="object-fit: contain" /></div> 
 								</div>
 							</c:forEach>
 		        </div>
@@ -186,29 +201,6 @@
 		          <i style="color: #000;" class="fa-solid fa-chevron-right"></i>
 		        </a>
 		      </div>
-					<%-- <div id="demo" class="carousel slide ml-auto mr-auto" data-ride="carousel" style="width: 600px">
-						  <!-- Indicators -->
-						  <ul class="carousel-indicators">
-						  	<c:forEach var="img" items="${imgs}" varStatus="st">
-						    	<li data-target="#demo" data-slide-to="${st.index}"></li>
-						    </c:forEach>
-						  </ul>
-						  <!-- The slideshow -->
-						  <div class="carousel-inner" style="height: 500px;">
-						  	<c:forEach var="img" items="${imgs}" varStatus="st">
-									<div class="carousel-item <c:if test="${st.index == 0}">active</c:if>" >
-										<img src="${ctp}/data/picture/${img}" width="600px" /> 
-									</div>
-								</c:forEach>
-						  </div>
-						  <!-- Left and right controls -->
-						  <a class="carousel-control-prev" href="#demo" data-slide="prev">
-						    <span class="carousel-control-prev-icon"></span>
-						  </a>
-						  <a class="carousel-control-next" href="#demo" data-slide="next">
-						    <span class="carousel-control-next-icon"></span>
-						  </a>
-					</div> --%>
 				</c:if>
 			</div>
 		</div>
@@ -240,6 +232,9 @@
 										</c:if>
 									</div>
 									<div class="ml-auto p-2" style="font-size: 1.05em; font-weight: 300;">${fn:substring(replyVO.writeDay,0,16)}</div>
+									<c:if test="${replyVO.mid == sMid}">
+										<div onclick="replyDelete(${replyVO.ridx})" class="p-2 ml-1" style="font-size: 0.95em;cursor: pointer;">삭제</div>
+									</c:if>
 								</div>
 								<div class="d-flex">
 									<div class="ml-4 p-2">${replyVO.content}</div>

@@ -13,7 +13,7 @@
   <link href="include/viewPage.css" rel="stylesheet" type="text/css">
   <script>
 	  'use strict';
-	  let maxSize= 1024 * 1024 * 10;
+	  let maxSize= 1024 * 1024 * 20;
 	  let cnt = 0;
 	  function inputFile(me) {
 	    $(me).next(".filebox").click();
@@ -29,6 +29,7 @@
 	    let fileSize = $(me)[0].files[0].size;
 	    if(maxSize < fileSize) {
 	    	alert("이미지는 10MB 이하만 업로드 가능합니다!");
+	    	$(me).val("");
 	    	return;
 	    }
 	    $(me).prev(".fIcon").hide();
@@ -39,6 +40,8 @@
 	    $("#fileBoxs").append(next);
 	  }
 	  function inputImg() {
+		  let file0 = $("#files0").val()
+			if(file0.trim() == "") return;
 			let ans = confirm("이미지를 추가하시겠습니까?");
 			if(!ans) return;
 			
@@ -47,6 +50,7 @@
 	  function imgDelete() {
 			let ans = confirm("해당 이미지를 삭제하시겠습니까?");
 			if(!ans) return;
+			
 			
 			let img = $("#imgDel").val();
 			
@@ -101,7 +105,7 @@
 		</div>
 		<div class="d-flex ml-3 mb-3">
 			<img src="${ctp}/data/logo/${vo.cpImg}" width="200px" height="auto"/>
-			<div class="m-2 d-flex fCol_center cont" style="font-size: 1.3em; font-weight: 500;">${vo.cpName}</div>
+			<div class="m-2 d-flex fCol_center cont" style="font-size: 1.3em; font-weight: 500;">${vo.cpName}&nbsp;&nbsp;[view : ${vo.viewCP}]</div>
 		</div>
 		<div style="border-bottom: 2px solid #d0d0d0;"></div>
 		<div class="mt-2 ml-2 mb-1" style="font-size: 1.8em; font-weight: 400; color: #333">
@@ -178,7 +182,7 @@
 	        	<div class="carousel-inner" style="height: 500px;">
 	        		<c:forEach var="img" items="${imgs}" varStatus="st">
 								<div class="carousel-item <c:if test="${st.index == 0}">active</c:if>" >
-									<img src="${ctp}/data/picture/${img}" width="600px" /> 
+									<div style="height: 440px;"><img src="${ctp}/data/picture/${img}" style="object-fit: contain"/></div>
 								</div>
 							</c:forEach>
 		        </div>

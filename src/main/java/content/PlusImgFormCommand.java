@@ -24,7 +24,7 @@ public class PlusImgFormCommand implements ContentInterface {
 		pdsVO pdsVO = null;
 		HttpSession session = request.getSession();
 		String realPath = request.getServletContext().getRealPath("/data/picture");
-		int maxSize = 1024 * 1024 * 10;	// 서버에 저장할 최대용량을 10MByte로 한다.(1회 저장)
+		int maxSize = 1024 * 1024 * 200;	// 한번에 저장 가능한 용량 200MB 제한
 		String encoding = "UTF-8";
 
 		MultipartRequest multipartRequest = new MultipartRequest(request, realPath, maxSize, encoding, new DefaultFileRenamePolicy());

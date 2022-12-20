@@ -67,11 +67,13 @@ public class UserController extends HttpServlet {
 			command.execute(request, response);
 			viewPage = "/include/message.jsp";
 		}
+		// 로그인
 		else if(cmd.equals("/loginCheck")){
 			command = new LoginCheckCommand();
 			command.execute(request, response);
 			return;
 		}
+		// 로그인 후
 		else if(sMid.equals("")) {
 			request.setAttribute("msg", "noSession");
 			request.setAttribute("url", request.getContextPath()+"/");

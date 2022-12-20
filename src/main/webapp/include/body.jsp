@@ -13,10 +13,10 @@
           <i onclick="searchingAnything(2);" class="fa-solid fa-magnifying-glass"></i>
         </div>
         <div class="d-flex">
-          <span class="hasTag">#인테리어</span>
-          <span class="hasTag">#유명업체</span>
-          <span class="hasTag">#프리랜서</span>
-          <span class="hasTag">#후기</span>
+          <span onclick="location.href='${ctp}/CPSearch.co?searching=인테리어&searchItem=all'" class="hasTag">#인테리어</span>
+          <span onclick="location.href='${ctp}/CPSearch.co?searching=디자인&searchItem=all'" class="hasTag">#디자인</span>
+          <span onclick="location.href='${ctp}/CPSearch.co?searching=생활&searchItem=all'" class="hasTag">#생활</span>
+          <span onclick="location.href='${ctp}/CPSearch.co?searching=공간&searchItem=all'" class="hasTag">#공간</span>
         </div>
       </div>
       <div id="slideImg" class="carousel slide ml-auto" data-ride="carousel">

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import admin.AdReplyDelCommand;
 import user.MyInfoCommand;
 
 @WebServlet("*.co")
@@ -49,6 +50,11 @@ public class ContentController extends HttpServlet {
 			return;
 		}
 		// 로그인후 접근 가능
+		else if(cmd.equals("/CPdivisionList")) {
+			command = new CPdivisionListCommand();
+			command.execute(request, response);
+			viewPage += "/CPList.jsp";
+		}
 		else if(cmd.equals("/CPContentView")) {
 			command = new CPContentViewCommand();
 			command.execute(request, response);
@@ -56,6 +62,11 @@ public class ContentController extends HttpServlet {
 		}
 		else if(cmd.equals("/submitReply")) {
 			command = new SubmitReplyCommand();
+			command.execute(request, response);
+			return;
+		}
+		else if(cmd.equals("/coReplyDel")){
+			command = new CoReplyDelCommand();
 			command.execute(request, response);
 			return;
 		}

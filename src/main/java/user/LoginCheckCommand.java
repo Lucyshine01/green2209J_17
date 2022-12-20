@@ -25,7 +25,12 @@ public class LoginCheckCommand implements UserInterface {
 		
 		if(vo.getPwd() == null) response.getWriter().write("0");
 		else if(vo.getPwd().equals(pwd)) {
-			response.getWriter().write("1");
+			if(request.getHeader("referer") != null) {
+				response.getWriter().write("1" + request.getHeader("referer"));
+			}
+			else {
+				response.getWriter().write("1" + request.getContextPath() + "/");
+			}
 			HttpSession session = request.getSession();
 			session.setAttribute("sMid", vo.getMid());
 			session.setAttribute("sUserLevel", vo.getUserLevel());

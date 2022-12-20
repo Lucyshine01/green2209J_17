@@ -39,6 +39,7 @@ create table company (
 	imgSize int not null,
 	mid varchar(20) not null,
 	createDayCP datetime default now(),
+	viewCP int not null default 0,
 	primary key(cidx),
 	unique key(cpName),
 	FOREIGN KEY(mid) REFERENCES user(mid) 
@@ -47,17 +48,42 @@ create table company (
 
 alter table company add column mid varchar(20) not null;
 alter table company add foreign key(mid) REFERENCES user(mid) ON UPDATE CASCADE;
+alter table company add column viewCP int not null default 0;
 
 alter table company add column createDayCP datetime default now();
 
 select * from company;
 
+update company set viewCP =  viewCP + 1 where mid = 'epXEqnKZ';
+
 desc company;
 
+select c.cidx,c.cpName,avg(r.rating) as '별점'
+		from company c, reply r 
+		where r.boardIdx = CONCAT('c',c.cidx) 
+		group by c.cidx 
+		order by avg(r.rating) desc;
+
+		
+select c.*,avg(r.rating) from company c, reply r where r.boardIdx = CONCAT('c',c.cidx) group by c.cidx order by avg(r.rating) desc;
+select c.*,avg(r.rating) from company c, reply r where r.boardIdx = CONCAT('c',c.cidx)  group by c.cidx;
+select * from company order by viewCP desc;
+select * from company order by createDayCP;
+
+select c.*,avg(r.rating) as 'star' from company c, reply r
+				 where r.boardIdx = CONCAT('c',c.cidx) and c.cpExp like '%홈 인테리어%'
+				 group by c.cidx 
+				 order by avg(r.rating) desc limit 0,5;
+
+select *,avg(r.rating) from company c, reply r
+				 where r.boardIdx = CONCAT('c',c.cidx) and c.cpExp like '%홈 인테리어%'
+				 group by c.cidx 
+				 order by avg(r.rating) desc;
 
 
 select count(*) as 'CPCnt' from company where cpName like '%벤%';
 
+select count(r.ridx) as CPcnt from (select * from reply group by boardidx) as r;
 
 select * from user u, company c where u.mid = c.mid and u.mid = 'JMdFuRdM';
 

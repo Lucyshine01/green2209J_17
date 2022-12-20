@@ -260,7 +260,9 @@
 			url : "${ctp}/loginCheck.us",
 			data: {mid:mid,pwd:pwd},
 			success: function(res){
-				if (res == '1') location.href = "${ctp}/";
+				let res1 = res.substring(0, 1);
+				let res2 = res.substring(1);
+				if (res1 == '1') location.href = res2;
 				else $("#loginInfo").html("아이디 혹은 비밀번호가 불일치합니다.");
 			},
 			error: function(){
@@ -273,7 +275,7 @@
 		$.ajax({
 			url : "${ctp}/logoutCheck.us",
 			success: function(){
-				location.href = "${ctp}/";
+				location.href = '${ctp}/';
 			}
 		});
 	}

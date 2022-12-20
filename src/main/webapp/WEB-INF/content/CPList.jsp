@@ -17,16 +17,20 @@
 		let searching = "${searching}";
 		
 		if(totPage != 0){
-		  	if(pag > totPage || pag <= 0) {
-		  		if(searching != '') location.href = '${ctp}/CPSearch.co?pag='+totPage+'&pageSize='+pageSize+'&searching=${searching}&searchItem=${searchItem}';
-		  		else location.href = '${ctp}/CPList.co?pag='+totPage+'&pageSize='+pageSize+"&categori=${categori}&detail=${detail}";
-		  	}
+	  	if(pag > totPage || pag <= 0) {
+	  		if(searching != '') location.href = '${ctp}/CPSearch.co?pag='+totPage+'&pageSize='+pageSize+'&searching=${searching}&searchItem=${searchItem}';
+	  		else location.href = '${ctp}/CPList.co?pag='+totPage+'&pageSize='+pageSize+"&categori=${categori}&detail=${detail}";
 	  	}
+  	}
 		function searchingList() {
 			let searchItem = $("#searchItem").val();
 			let searching = $("#searching").val();
 			if(searching.trim() == '') return;
 			location.href = "${ctp}/CPSearch.co?searching="+searching+"&searchItem="+searchItem+"&pag=${pag}&pageSize=${pageSize}";
+		}
+		function divisionChange() {
+			let division = $("#division").val();
+			location.href = "${ctp}/CPdivisionList.co?division="+division+'&pageSize='+pageSize+"&categori=${categori}&detail=${detail}";
 		}
 		
 		$(function() {
@@ -108,7 +112,15 @@
 								<option ${searchItem == 'cpIntro' ? 'selected' : ''} value="cpIntro">소개</option>
 							</select>
 							<input type="text" value="${searching}" name="searching" id="searching" class="searchingForm mr-1"/>
-							<input type="button" onclick="searchingList();" id="searchbtn" value="검색" class="btn btn-sm btn-secondary mr-2"/>
+							<input type="button" onclick="searchingList();" id="searchbtn" value="검색" class="btn btn-sm btn-secondary mr-1"/>
+						</div>
+						<div class="mr-2">
+							<select id="division" onchange="divisionChange();" class="searchItemForm">
+								<option ${division == 'new' ? 'selected' : '' } value="new">최신 순</option>
+								<option ${division == 'rating' ? 'selected' : '' } value="rating">별점 순</option>
+								<option ${division == 'viewCnt' ? 'selected' : '' } value="viewCnt">조회수 순</option>
+								<option ${division == 'old' ? 'selected' : '' } value="old">오래된 순</option>
+							</select>
 						</div>
 					</div>
 					<div style="border-bottom: 2px solid #d0d0d0;"></div>
@@ -116,7 +128,7 @@
 				<div class="d-flex" style="flex-wrap: wrap">
 					<c:forEach var="vo" items="${vos}">
 						<div onclick="location.href='${ctp}/CPContentView.co?mid=${vo.mid}'" class="d-flex" style="width: 33%; height: 300px; flex-direction: column;">
-							<div class="d-flex justify-content-center cpItemBox" style="height: 200px">
+							<div class="d-flex justify-content-center cpItemBox" style="height: 222px">
 								<img src="${ctp}/data/logo/${vo.cpImg}" width="80%" height="auto" style="object-fit: contain">
 							</div>
 							<div class="text-center">
@@ -133,6 +145,7 @@
 				  <ul class="pagination justify-content-center">
 				  	<c:if test="${empty searching}"><c:set var="CPList" value="${ctp}/CPList.co?pageSize=${pageSize}&categori=${categori}&detail=${detail}"/> </c:if>
 				  	<c:if test="${!empty searching}"><c:set var="CPList" value="${ctp}/CPSearch.co?pageSize=${pageSize}&searching=${searching}&searchItem=${searchItem}"/></c:if>
+				  	<c:if test="${!empty division}"><c:set var="CPList" value="${ctp}/CPdivisionList.co?division=${division}&pageSize=${pageSize}&categori=${categori}&detail=${detail}"/></c:if>
 				    <c:if test="${pag > 1}">
 				      <li class="page-item"><a class="page-link text-secondary" href="${CPList}&pag=1">
 				      	<i class="fa-solid fa-backward-fast"></i>
