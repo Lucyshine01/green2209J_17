@@ -258,7 +258,7 @@ public class UserDAO {
 	public String setUserDel(int uidx) {
 		String res = "0";
 		try {
-			sql = "delete from user where uidx = ?";
+			sql = "update user set pwd = '', userLevel = '삭제' where uidx = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, uidx);
 			pstmt.executeUpdate();

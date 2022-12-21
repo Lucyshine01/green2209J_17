@@ -115,7 +115,8 @@
 						${vo.userLevel}
 					</td>
 					<td>
-						<input type="button" onclick="userDelete(${vo.uidx})" value="삭제" class="btn btn-sm btn-danger"/>
+						<c:if test="${vo.userLevel != '삭제'}"><input type="button" onclick="userDelete(${vo.uidx})" value="삭제" class="btn btn-sm btn-danger"/></c:if>
+						<c:if test="${vo.userLevel == '삭제'}">삭제됨</c:if>
 					</td>
 				</tr>
 			</c:forEach>

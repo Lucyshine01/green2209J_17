@@ -125,9 +125,14 @@
 				<div class="p-4 ml-auto mr-auto" style="font-size: 1.1em; width: 80%;">
 					<form>
 						<div>로그인</div>
-						<input type="text" name="loginMid" id="loginMid" class="form-control mt-2 mb-3" autocomplete='off'/>
+						<input type="text" value="${cookie.cookieMid.value}" name="loginMid" id="loginMid" class="form-control mt-2 mb-3" autocomplete='off'/>
 						<div>비밀번호</div>
 						<input type="password" name="loginPwd" id="loginPwd" class="form-control mt-2 mb-1" />
+						<div class="mb-2 d-flex" style="font-size: 0.9em; font-weight: 400;">
+							<div class="ml-auto mr-2 mt-2">
+						 		아이디 저장 <input type="checkbox" name="rememId" id="rememId" value="on"/>
+						 	</div>
+						 </div>
 						<div id="loginInfo" class="mb-2 ml-1" style="color: red;font-size: 0.8em;font-weight: 300;">&nbsp;</div>
 						<input type="button" value="로그인" onclick="loginCheck();" class="btn btn-success mb-2 form-control"/>
 						<input type="button" value="회원가입" onclick="location.href='${ctp}/create.us'" class="btn btn-primary mb-2 form-control" />
@@ -185,6 +190,14 @@
 </div>
 
 <script>
+	'use strict';
+	
+	$(function() {
+		if($("#loginMid").val() != ""){
+			$("#rememId").attr("checked","checked");
+		}
+	});
+	
 	function pwdChangeCheck() {
 		let sMid = "${sMid}";
 		let oldPwd = $("#oldPwd").val();
@@ -250,15 +263,21 @@
 		let mid = $("#loginMid").val();
 		let pwd = $("#loginPwd").val();
 		
+		let rememId = document.getElementById("rememId");
+		
 		if(mid.trim() == "" || pwd.trim() == ""){
 			$("#loginInfo").html("아이디와 비밀번호를 입력후 로그인해주세요.");
 			return;
 		}
 		
+		let query;
+		if(rememId.checked) query = {mid:mid,pwd:pwd,rememId:rememId.value};
+		else query = {mid:mid,pwd:pwd};
+		
 		$.ajax({
 			type: "post",
 			url : "${ctp}/loginCheck.us",
-			data: {mid:mid,pwd:pwd},
+			data: query,
 			success: function(res){
 				let res1 = res.substring(0, 1);
 				let res2 = res.substring(1);

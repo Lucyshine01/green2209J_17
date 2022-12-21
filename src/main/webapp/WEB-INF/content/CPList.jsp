@@ -139,7 +139,7 @@
 									<c:if test="${fn:length(fn:replace(vo.cpIntro,'<br/>','')) > 40}">...</c:if>
 								</div>
 								<c:if test="${vo.starAvg != 0.0}">
-									<div><img src="${ctp}/data/star/<fmt:formatNumber value="${(vo.starAvg - (vo.starAvg % 0.5))}" pattern="0.0"/>.jpg" width="60px"/> ${vo.starAvg}</div>
+									<div><img src="${ctp}/data/star/<fmt:formatNumber value="${(vo.starAvg - (vo.starAvg % 0.5))}" pattern="0.0"/>.jpg" width="60px"/><fmt:formatNumber value="${vo.starAvg}" pattern="0.0" /></div>
 								</c:if>
 							</div>
 						</div>

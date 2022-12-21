@@ -65,8 +65,8 @@ public class ContentDAO {
 		int totRecCnt = 0;
 		try {
 			if(!subCategori.equals("no")) {
-				sql = "select count(*) as cnt from company"
-						+ "where cpExp like '%"+subCategori+"%' "
+				sql = "select count(*) as cnt from company "
+						+ "where cpExp like '%"+subCategori+"%' and act != 'off' "
 						+ "order by createDayCP desc";
 			}
 			else {
@@ -77,7 +77,7 @@ public class ContentDAO {
 					sql += " cpExp like '%"+strCategori+"%' or ";
 				}
 				sql = sql.substring(0,sql.lastIndexOf("or"));
-				sql += ") order by createDayCP desc";
+				sql += ") and act != 'off' order by createDayCP desc";
 			}
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
@@ -96,18 +96,18 @@ public class ContentDAO {
 		try {
 			if(!subCategori.equals("no")) {
 				sql = "select count(*) as cnt from company c, reply r "
-						+ "where r.boardIdx = CONCAT('c',c.cidx) and cpExp like '%"+subCategori+"%' "
+						+ "where r.boardIdx = CONCAT('c',c.cidx) and c.cpExp like '%"+subCategori+"%' and c.act != 'off'  "
 						+ "group by c.cidx order by avg(r.rating) desc";
 			}
 			else {
-				sql = "select count(*) as cnt from user u, company c "
-						+ "where u.mid = c.mid and (";
+				sql = "select count(*) as cnt from company c, reply r "
+						+ "where r.boardIdx = CONCAT('c',c.cidx) and (";
 				String[] categori = firstCategori.split("/");
 				for(String strCategori : categori) {
-					sql += " cpExp like '%"+strCategori+"%' or ";
+					sql += " c.cpExp like '%"+strCategori+"%' or ";
 				}
 				sql = sql.substring(0,sql.lastIndexOf("or"));
-				sql += ") order by createDayCP desc";
+				sql += ") and c.act != 'off'   order by createDayCP desc";
 			}
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
@@ -128,13 +128,13 @@ public class ContentDAO {
 		try {
 			if(searchItem.equals("all")) {
 				sql = "select count(*) as cnt from user u, company c "
-						+ "where u.mid = c.mid and (cpName like ? or name like ? or cpIntro like ? or cpExp like ?) "
+						+ "where u.mid = c.mid and (cpName like ? or name like ? or cpIntro like ? or cpExp like ?) and c.act != 'off' "
 						+ "order by createDayCP desc";
 				forCnt = 4;
 			}
 			else {
 				sql = "select count(*) as cnt from user u, company c "
-						+ "where u.mid = c.mid and "+searchItem+" like ? "
+						+ "where u.mid = c.mid and "+searchItem+" like ? and c.act != 'off' "
 						+ "order by createDayCP desc";
 				forCnt = 1;
 			}
@@ -154,7 +154,7 @@ public class ContentDAO {
 	public ArrayList<UserVO> getCpList(int strat, int ea) {
 		ArrayList<UserVO> vos = new ArrayList<>();
 		try {
-			sql = "select * from company c "
+			sql = "select * from company where act != 'off' "
 					+ "order by createDayCP desc limit ?,?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, strat);
@@ -162,6 +162,8 @@ public class ContentDAO {
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				vo = new UserVO();
+				
+				vo.setMid(rs.getString("mid"));
 				
 				vo.setCidx(rs.getInt("cidx"));
 				vo.setName(rs.getString("name"));
@@ -192,7 +194,7 @@ public class ContentDAO {
 		ArrayList<UserVO> vos = new ArrayList<>();
 		try {
 			if(!subCategori.equals("no")) {
-				sql = "select * from company "
+				sql = "select * from company where act != 'off' "
 						+ "where cpExp like '%"+subCategori+"%' "
 						+ "order by createDayCP desc limit ?,?";
 			}
@@ -204,7 +206,7 @@ public class ContentDAO {
 					sql += " cpExp like '%"+strCategori+"%' or ";
 				}
 				sql = sql.substring(0,sql.lastIndexOf("or"));
-				sql += ") order by createDayCP desc limit ?,?";
+				sql += ") and act != 'off'  order by createDayCP desc limit ?,?";
 			}
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, strat);
@@ -212,6 +214,8 @@ public class ContentDAO {
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				vo = new UserVO();
+				
+				vo.setMid(rs.getString("mid"));
 				
 				vo.setCidx(rs.getInt("cidx"));
 				vo.setName(rs.getString("name"));
@@ -241,7 +245,7 @@ public class ContentDAO {
 		ArrayList<UserVO> vos = new ArrayList<>();
 		try {
 			sql = "select * from user u, company c "
-					+ "where u.mid = c.mid order by createDayCP limit ?,?";
+					+ "where u.mid = c.mid and c.act != 'off'  order by createDayCP limit ?,?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, strat);
 			pstmt.setInt(2, ea);
@@ -288,7 +292,7 @@ public class ContentDAO {
 		try {
 			if(!subCategori.equals("no")) {
 				sql = "select * from user u, company c "
-						+ "where u.mid = c.mid and cpExp like '%"+subCategori+"%' "
+						+ "where u.mid = c.mid and c.cpExp like '%"+subCategori+"%' and c.act != 'off'  "
 						+ "order by createDayCP limit ?,?";
 			}
 			else {
@@ -296,10 +300,10 @@ public class ContentDAO {
 						+ "where u.mid = c.mid and (";
 				String[] categori = firstCategori.split("/");
 				for(String strCategori : categori) {
-					sql += " cpExp like '%"+strCategori+"%' or ";
+					sql += " c.cpExp like '%"+strCategori+"%' or ";
 				}
 				sql = sql.substring(0,sql.lastIndexOf("or"));
-				sql += ") order by createDayCP limit ?,?";
+				sql += ") and c.act != 'off'  order by createDayCP limit ?,?";
 			}
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, strat);
@@ -349,13 +353,13 @@ public class ContentDAO {
 		try {
 			if(searchItem.equals("all")) {
 				sql = "select * from user u, company c "
-						+ "where u.mid = c.mid and (cpName like ? or name like ? or cpIntro like ? or cpExp like ?) "
+						+ "where u.mid = c.mid and (cpName like ? or name like ? or cpIntro like ? or cpExp like ?) and c.act != 'off' "
 						+ "order by createDayCP desc limit ?,?";
 				forCnt = 4;
 			}
 			else {
 				sql = "select * from user u, company c "
-						+ "where u.mid = c.mid and "+searchItem+" like ? "
+						+ "where u.mid = c.mid and "+searchItem+" like ? and c.act != 'off'"
 						+ "order by createDayCP desc limit ?,?";
 				forCnt = 1;
 			}
@@ -419,7 +423,7 @@ public class ContentDAO {
 		ArrayList<UserVO> vos = new ArrayList<>();
 		try {
 			sql = "select c.*,avg(r.rating) as 'starAvg' from company c, reply r "
-					+ "where r.boardIdx = CONCAT('c',c.cidx) "
+					+ "where r.boardIdx = CONCAT('c',c.cidx) and c.act != 'off' "
 					+ "group by c.cidx "
 					+ "order by avg(r.rating) desc limit ?, ?;";
 			pstmt = conn.prepareStatement(sql);
@@ -462,7 +466,7 @@ public class ContentDAO {
 		try {
 			if(!subCategori.equals("no")) {
 				sql = "select c.*,avg(r.rating) as 'starAvg' from company c, reply r "
-						+ "where r.boardIdx = CONCAT('c',c.cidx) and c.cpExp like '%"+subCategori+"%'"
+						+ "where r.boardIdx = CONCAT('c',c.cidx) and c.cpExp like '%"+subCategori+"%' and c.act != 'off' "
 						+ "group by c.cidx "
 						+ "order by avg(r.rating) desc limit ?,?";
 			}
@@ -474,7 +478,7 @@ public class ContentDAO {
 					sql += " cpExp like '%"+strCategori+"%' or ";
 				}
 				sql = sql.substring(0,sql.lastIndexOf("or"));
-				sql += ") group by c.cidx order by avg(r.rating) desc limit ?,?";
+				sql += ") and c.act != 'off' group by c.cidx order by avg(r.rating) desc limit ?,?";
 			}
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, strat);
@@ -515,7 +519,7 @@ public class ContentDAO {
 	public ArrayList<UserVO> getCpList_viewCnt(int strat, int ea) {
 		ArrayList<UserVO> vos = new ArrayList<>();
 		try {
-			sql = "select * from company "
+			sql = "select * from company where act != 'off' "
 					+ "group by cidx "
 					+ "order by viewCP desc limit ?, ?";
 			pstmt = conn.prepareStatement(sql);
@@ -557,19 +561,19 @@ public class ContentDAO {
 		try {
 			if(!subCategori.equals("no")) {
 				sql = "select * from company "
-						+ "where cpExp like '%"+subCategori+"%'"
+						+ "where cpExp like '%"+subCategori+"%' and act != 'off' "
 						+ "group by cidx "
 						+ "order by viewCP desc limit ?, ?";
 			}
 			else {
 				sql = "select * from company "
-						+ "where ";
+						+ "where (";
 				String[] categori = firstCategori.split("/");
 				for(String strCategori : categori) {
 					sql += " cpExp like '%"+strCategori+"%' or ";
 				}
 				sql = sql.substring(0,sql.lastIndexOf("or"));
-				sql += " group by cidx order by viewCP desc limit ?, ?";
+				sql += ") and act != 'off' group by cidx order by viewCP desc limit ?, ?";
 			}
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, strat);

@@ -33,7 +33,7 @@
 				url : "${ctp}/adReplyDel.ad",
 				data: {ridx:idx},
 				success: function(res) {
-					if(res == '1') location.reload();
+					if(res == '1') alert("삭제되었습니다.");
 					else alert("삭제실패");
 				}
 			});

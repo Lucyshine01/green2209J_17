@@ -47,7 +47,7 @@
   	<a href="${ctp}/adHelpList.ad" target="adContent"><i class="fa-solid fa-circle-question"></i> 문의 관리</a>
   </div>
   <div class="text-center menu ml-auto mr-auto">
-  	<a href="${ctp}/adReportList.ad?pag=1&pageSize=5" target="adContent"><i class="fa-solid fa-comment-dots"></i> 신고 관리</a>
+  	<a href="${ctp}/adReportList.ad?pag=1&pageSize=5" target="adContent"><i class="fa-solid fa-ban"></i> 신고 관리</a>
   </div>
 </div>
 <p><br/></p>

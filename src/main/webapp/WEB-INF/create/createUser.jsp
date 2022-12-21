@@ -130,7 +130,6 @@
 			let exp = cpImg.substring(cpImg.lastIndexOf('.')).toUpperCase();
 			cpImg = cpImg.substring(0,cpImg.lastIndexOf('.'));
 			
-			
 			let strExp = "";
 			for(let i=0; i<cpExp.length; i++){
 				if(cpExp[i].checked){
@@ -515,8 +514,8 @@
               </div>
             </div>
             <input type="hidden" name="strExp" id="strExp"/>
-            <input type="hidden" name="sw" id="sw" />
-            <input type="hidden" name="imgSize" id="imgSize"/>
+		        <input type="hidden" name="sw" id="sw" />
+		        <input type="hidden" name="imgSize" id="imgSize"/>
           </form>
         </div>
       </div>

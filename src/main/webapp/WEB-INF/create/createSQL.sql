@@ -23,6 +23,7 @@ where userLevel != '관리자' and mid like '%a%'
 order by createDay desc limit 0,5;
 
 
+
 ALTER TABLE user ADD COLUMN point int default 10000;
 
 create table company (

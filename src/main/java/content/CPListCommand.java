@@ -16,8 +16,8 @@ public class CPListCommand implements ContentInterface {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ContentDAO dao = new ContentDAO();
 		UserDAO userDAO = new UserDAO();
-		String division = "new";
-		String categori = request.getParameter("categori")==null ? "no" : request.getParameter("categori");
+		
+		String categori = request.getParameter("categori")==null ? "" : request.getParameter("categori");
 		int detail = request.getParameter("detail")==null ? 1111 : Integer.parseInt(request.getParameter("detail"));
 		String subCategori = "";
 		if(detail == 1) subCategori = "홈 인테리어";
@@ -49,7 +49,7 @@ public class CPListCommand implements ContentInterface {
 		int pageSize = request.getParameter("pageSize")==null? 9 : Integer.parseInt(request.getParameter("pageSize"));
 		int totRecCnt = 0;
 		
-		if(categori.equals("no")) totRecCnt = userDAO.getCPCnt();
+		if(categori.equals("")) totRecCnt = userDAO.getCPCnt();
 		else totRecCnt = dao.getCPCntCategori(firstCategori,subCategori);
 		
 		int totPage = (totRecCnt % pageSize)==0 ? totRecCnt / pageSize : (totRecCnt / pageSize)+1;
@@ -63,15 +63,14 @@ public class CPListCommand implements ContentInterface {
 		
 		ArrayList<UserVO> vos = null;
 		
-		if(categori.equals("no")) vos = dao.getCpList(stratIndexNo, pageSize);
+		if(categori.equals("")) vos = dao.getCpList(stratIndexNo, pageSize);
 		else vos = dao.getCpListCategori(firstCategori, subCategori, stratIndexNo, pageSize);
 		
 		request.setAttribute("vos", vos);
 		request.setAttribute("CPTot", totRecCnt);
-		if(!categori.equals("no")) request.setAttribute("categori", categori);
+		if(!categori.equals("")) request.setAttribute("categori", categori);
 		request.setAttribute("subCategori", subCategori);
 		request.setAttribute("detail", detail);
-		request.setAttribute("division", division);
 		
 		request.setAttribute("blockSize", blockSize);
 		request.setAttribute("pageSize", pageSize);

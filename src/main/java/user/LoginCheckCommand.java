@@ -3,6 +3,7 @@ package user;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -15,6 +16,18 @@ public class LoginCheckCommand implements UserInterface {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String mid = request.getParameter("mid")==null ? "" : request.getParameter("mid");
 		String pwd = request.getParameter("pwd")==null ? "" : request.getParameter("pwd");
+		String rememId = request.getParameter("rememId")==null ? "" : request.getParameter("rememId");
+		
+		Cookie cookieMid;
+		if(rememId.equals("on")) {
+			cookieMid = new Cookie("cookieMid", mid);
+			cookieMid.setMaxAge(60*60*24*7);
+		}
+		else {
+			cookieMid = new Cookie("cookieMid", null);
+			cookieMid.setMaxAge(0);
+		}
+		response.addCookie(cookieMid);
 		
 		UserDAO dao = new UserDAO();
 		

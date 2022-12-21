@@ -23,7 +23,6 @@ public class CompanyFormCommand implements UserInterface {
 		int maxSize = 1024 * 1024 * 10;	// 최대용량 10MByte
 		String encoding = "UTF-8";
 		MultipartRequest multipartRequest = new MultipartRequest(request, realPath, maxSize, encoding, new DefaultFileRenamePolicy());
-		String sw = multipartRequest.getParameter("sw")==null ? "" : multipartRequest.getParameter("sw");
 		
 		UserVO vo = new UserVO();
 		UserDAO dao = new UserDAO();

@@ -97,6 +97,7 @@ public class CreateUserOkCommand implements UserInterface {
 			String filesystemName = multipartRequest.getFilesystemName("cpImg");
 			cpIntro = cpIntro.replaceAll("\n", "<br/>");
 			int imgSize = multipartRequest.getParameter("imgSize")==null ? 0 : Integer.parseInt(multipartRequest.getParameter("imgSize"));
+			if(filesystemName == null) filesystemName = "noLogo.png";
 			vo.setName(name);
 			vo.setCpName(cpName);
 			vo.setCpAddr(cpAddr);

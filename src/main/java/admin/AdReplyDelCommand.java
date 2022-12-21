@@ -15,6 +15,7 @@ public class AdReplyDelCommand implements AdminInterface {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		replyDAO dao = new replyDAO();
 		int ridx = request.getParameter("ridx")==null? null : Integer.parseInt(request.getParameter("ridx"));
+		
 		String res = dao.setReplyDel(ridx);
 		response.getWriter().write(res);
 	}
