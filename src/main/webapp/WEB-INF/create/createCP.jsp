@@ -51,6 +51,7 @@
 	      return false;
 			}
 			
+			let maxSize = 1024 * 1024 * 10;
 			let imgSize = 0;
 			
 			if(cpImg == "")imgSize = 0;
@@ -61,6 +62,10 @@
 		      return false;
 				}
 				imgSize = document.getElementById("cpImg").files[0].size;
+				if(imgSize > maxSize) {
+					alert("파일 사이즈는 10MB까지 허용합니다!");
+					return;
+				}
 			}
 			
 			$("#imgSize").val(imgSize);

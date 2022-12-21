@@ -194,8 +194,8 @@ public class ContentDAO {
 		ArrayList<UserVO> vos = new ArrayList<>();
 		try {
 			if(!subCategori.equals("no")) {
-				sql = "select * from company where act != 'off' "
-						+ "where cpExp like '%"+subCategori+"%' "
+				sql = "select * from company "
+						+ "where cpExp like '%"+subCategori+"%' and act != 'off' "
 						+ "order by createDayCP desc limit ?,?";
 			}
 			else {

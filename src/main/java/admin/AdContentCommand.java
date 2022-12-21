@@ -36,15 +36,18 @@ public class AdContentCommand implements AdminInterface {
 		request.setAttribute("pdsVOS", pdsVOS);
 		
 		ArrayList<UserVO> userVOS = userDAO.getUserList(0,5);
-		request.setAttribute("userTot", userVOS.size());
+		int userTot = userDAO.getUserCnt();
+		request.setAttribute("userTot", userTot);
 		request.setAttribute("userVOS", userVOS);
 		
 		ArrayList<UserVO> companyVOS = userDAO.getCPList(0,5);
-		request.setAttribute("companyTot", companyVOS.size());
+		int companyTot = userDAO.getCPCnt();
+		request.setAttribute("companyTot", companyTot);
 		request.setAttribute("companyVOS", companyVOS);
 		
 		ArrayList<replyVO> replyVOS = replyDAO.getReplyList(0, 5);
-		request.setAttribute("replyTot", replyVOS.size());
+		int replyTot = replyDAO.getReplyCnt();
+		request.setAttribute("replyTot", replyTot);
 		request.setAttribute("replyVOS", replyVOS);
 		
 		ArrayList<helpVO> helpVOS = helpDAO.getHelpAllList();
@@ -53,7 +56,8 @@ public class AdContentCommand implements AdminInterface {
 		request.setAttribute("helpVOS", helpVOS);
 		
 		ArrayList<reportVO> reportVOS = reportDAO.getreportList(0,5);
-		request.setAttribute("reportTot", reportVOS.size());
+		int reportTot = reportDAO.getreportCnt();
+		request.setAttribute("reportTot", reportTot);
 		request.setAttribute("reportVOS", reportVOS);
 		
 	}
