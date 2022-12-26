@@ -86,8 +86,21 @@ select c.cpName,count(r.ridx) from company c,(select * from reply where rating >
 where r.boardIdx = CONCAT('c',c.cidx) 
 group by c.cpName;
 						
-				 
-				 
+-- 조인 연습
+
+SELECT c.*,avg(r.rating) AS rat 
+	FROM company c LEFT OUTER JOIN reply r 
+    ON CONCAT('c',c.cidx) = r.boardIdx 
+    GROUP BY c.cidx 
+    ORDER BY rat desc;
+
+SELECT c.*,avg(r.rating) AS rat 
+	FROM company c LEFT OUTER JOIN reply r 
+    ON CONCAT('c',c.cidx) = r.boardIdx
+    GROUP BY c.cidx 
+    HAVING rat <= 4.5 AND rat >= 3.5
+    ORDER BY rat desc;
+
 				 
 select count(*) as 'CPCnt' from company where cpName like '%벤%';
 
